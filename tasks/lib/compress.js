@@ -21,13 +21,12 @@ module.exports = function(grunt) {
 
         // Getting the paths we need
         files.forEach(function(file) {
-            var isExpandedPair = file.orig.expand || false;
             var src = file.src.filter(function(f) {
                 return grunt.file.isFile(f);
             });
 
             src.forEach(function(srcFile) {
-                var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+                var internalFileName = path.normalize(exports.unixifyPath(srcFile));
                 // We need to make sure that the package.json is in the root
                 if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
                     package_path = path.normalize(internalFileName.split('package.json')[0]);
