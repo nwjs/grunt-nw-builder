@@ -1,0 +1,52 @@
+{
+  "name": "grunt-node-webkit-builder",
+  "description": "Let's you build your node webkit apps with grunt",
+  "version": "0.1.0",
+  "homepage": "https://github.com/steffen/grunt-node-webkit-builder",
+  "author": {
+    "name": "Steffen Müller",
+    "email": "steffen@mllrsohn.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/steffen/grunt-node-webkit-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/steffen/grunt-node-webkit-builder/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/steffen/grunt-node-webkit-builder/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "dependencies": {
+    "q": "~0.9.6",
+    "request": "~2.22.0",
+    "unzip": "~0.1.8",
+    "async": "~0.2.9",
+    "tar": "~0.1.18",
+    "lazystream": "~0.1.0",
+    "archiver": "~0.4.6",
+    "zip": "https://github.com/steffenmllr/zip/tarball/1e339ae714a73861ad90356ec9b6361b1f024146"
+  }
+}
