@@ -1,23 +1,23 @@
 {
   "name": "grunt-node-webkit-builder",
   "description": "Let's you build your node webkit apps with grunt",
-  "version": "0.1.1",
-  "homepage": "https://github.com/steffen/grunt-node-webkit-builder",
+  "version": "0.1.2",
+  "homepage": "https://github.com/mllrsohn/grunt-node-webkit-builder",
   "author": {
     "name": "Steffen Müller",
     "email": "steffen@mllrsohn.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/steffen/grunt-node-webkit-builder.git"
+    "url": "git@github.com:mllrsohn/grunt-node-webkit-builder.git"
   },
   "bugs": {
-    "url": "https://github.com/steffen/grunt-node-webkit-builder/issues"
+    "url": "https://github.com/mllrsohn/grunt-node-webkit-builder/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/steffen/grunt-node-webkit-builder/blob/master/LICENSE-MIT"
+      "url": "https://github.com/mllrsohn/grunt-node-webkit-builder/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
