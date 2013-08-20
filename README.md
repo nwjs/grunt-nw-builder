@@ -24,7 +24,7 @@ grunt.loadNpmTasks('grunt-node-webkit-builder');
 
 #### options.version
 Type: `String`
-Default value: `'0.7.0'`
+Default value: `'0.7.1'`
 
 The version of node-webkit you want to use. [Here is a list](https://github.com/rogerwang/node-webkit/wiki/Downloads-of-old-versions) of all available releases
 
@@ -99,4 +99,5 @@ This is the first relase so there might be bugs. One known issue is that the dow
 
 
 ## Release History
+- 2013-08-20   fix for the unzip lib
 - 2013-08-13   initial release

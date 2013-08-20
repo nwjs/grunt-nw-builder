@@ -105,6 +105,7 @@ module.exports = function(grunt) {
                     }
                 });
             } else {
+                grunt.file.mkdir(path.dirname(fileName));
                 fs.writeFileSync(fileName, entry.getData());
                 if (mode) {
                     fs.chmodSync(fileName, mode);

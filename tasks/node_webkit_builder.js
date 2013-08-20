@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('nodewebkit', 'Your task description goes here.', function() {
     var compress = require('./lib/compress')(grunt),
-      download = require('./lib/download')(grunt);
+        download = require('./lib/download')(grunt);
 
     var self = this,
       done = this.async(), // This is async so make sure we initalize done
@@ -49,11 +49,11 @@ module.exports = function(grunt) {
         'app': 'app'
       }],
       options = this.options({
-        version: '0.7.0',
+        version: '0.7.1',
         webkit_src: false, // Path where
         force: false,
-        win: true,
-        mac: false,
+        win: false,
+        mac: true,
         linux32: false,
         linux64: false,
         download_url: 'https://s3.amazonaws.com/node-webkit/'
