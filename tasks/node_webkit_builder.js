@@ -17,37 +17,12 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('nodewebkit', 'Your task description goes here.', function() {
     var compress = require('./lib/compress')(grunt),
-        download = require('./lib/download')(grunt);
+      download = require('./lib/download')(grunt);
 
     var self = this,
       done = this.async(), // This is async so make sure we initalize done
       package_path = false,
       downloadDone = [],
-      webkitFiles = [{
-        'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
-        'type': 'win',
-        'files': ['ffmpegsumo.dll', 'icudt.dll', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
-        'nwpath': 'nw.exe',
-        'app': 'app.exe'
-      }, {
-        'url': "v%VERSION%/node-webkit-v%VERSION%-osx-ia32.zip",
-        'type': 'mac',
-        'files': ['node-webkit.app'],
-        'nwpath': 'node-webkit.app/Contents/Resources',
-        'app': 'app.nw'
-      }, {
-        'url': "v%VERSION%/node-webkit-v%VERSION%-linux-ia32.tar.gz",
-        'type': 'linux32',
-        'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
-        'nwpath': 'nw',
-        'app': 'app'
-      }, {
-        'url': "v%VERSION%/node-webkit-v%VERSION%-linux-x64.tar.gz",
-        'type': 'linux64',
-        'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
-        'nwpath': 'nw',
-        'app': 'app'
-      }],
       options = this.options({
         version: '0.7.1',
         webkit_src: false, // Path where
@@ -56,14 +31,41 @@ module.exports = function(grunt) {
         mac: true,
         linux32: false,
         linux64: false,
-        download_url: 'https://s3.amazonaws.com/node-webkit/'
-      });
+        download_url: 'https://s3.amazonaws.com/node-webkit/',
+        appName: 'app',
+        appVersion: Math.round(Date.now() / 1000).toString()
+      }),
+      webkitFiles = [{
+        'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
+        'type': 'win',
+        'files': ['ffmpegsumo.dll', 'icudt.dll', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
+        'nwpath': 'nw.exe',
+        'app': options.appName + '.exe'
+      }, {
+        'url': "v%VERSION%/node-webkit-v%VERSION%-osx-ia32.zip",
+        'type': 'mac',
+        'files': ['node-webkit.app'],
+        'nwpath': 'node-webkit.app/Contents/Resources',
+        'app': options.appName + '.nw'
+      }, {
+        'url': "v%VERSION%/node-webkit-v%VERSION%-linux-ia32.tar.gz",
+        'type': 'linux32',
+        'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
+        'nwpath': 'nw',
+        'app': options.appName
+      }, {
+        'url': "v%VERSION%/node-webkit-v%VERSION%-linux-x64.tar.gz",
+        'type': 'linux64',
+        'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
+        'nwpath': 'nw',
+        'app': options.appName
+      }];
 
-    var release_path = path.resolve(options.webkit_src, options.version, 'releases', Math.round(Date.now() / 1000).toString());
+    var release_path = path.resolve(options.webkit_src, options.version, 'releases', options.appVersion);
     grunt.file.mkdir(release_path);
 
     // Compress the project into the release path
-    downloadDone.push(compress.generateZip(this.files, path.resolve(release_path, 'app.nw')));
+    downloadDone.push(compress.generateZip(this.files, path.resolve(release_path, options.appName + '.nw')));
 
     // Download and unzip / untar the needed files
     webkitFiles.forEach(function(plattform) {
@@ -86,7 +88,7 @@ module.exports = function(grunt) {
     // Download and zip creation done, let copy
     // the files and stream the zip into the files/folders
     Q.all(downloadDone).done(function(plattforms) {
-      var zipFile = path.resolve(release_path, 'app.nw'),
+      var zipFile = path.resolve(release_path, options.appName + '.nw'),
         generateDone = [];
 
       plattforms.forEach(function(plattform) {
