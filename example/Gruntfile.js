@@ -1,7 +1,6 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-
     nodewebkit: {
       options: {
         webkit_src: './webkitbuilds', // Where the build version of my node-webkit app is saved

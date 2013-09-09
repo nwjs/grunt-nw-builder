@@ -70,8 +70,9 @@ module.exports = function(grunt) {
     exports.cleanUpRelease = function(nwPath,plattform) {
         // remove the cached .nw archive
         // TODO: Make an option to keep the unpacked nw archive
-        if(grunt.file.exists(nwPath))
+        if(grunt.file.exists(nwPath)) {
           grunt.file.delete(nwPath);
+        }
     };
 
     exports.generateRelease = function(relaseFile, zipPath, type, nwpath) {

@@ -185,11 +185,13 @@ module.exports = function(grunt) {
         // If plattform is mac, we just copy node-webkit.app
         // Otherwise we copy everything that is on the plattform.files array
         grunt.file.recurse(plattform.dest, function(abspath, rootdir, subdir, filename) {
-          if (plattform.exclude.indexOf(filename)>=0) return;
+          if (plattform.exclude.indexOf(filename)>=0) {
+            return;
+          }
           if (plattform.type === 'mac') {
             if(filename !== plattform.filename) {
               // Name the .app bundle on OS X correctly
-              if (subdir) subdir = subdir.replace(/^node-webkit/,appName);
+              subdir = subdir ? subdir.replace(/^node-webkit/,appName) : subdir;
               var stats = fs.lstatSync(abspath);
               subdir = (subdir ? subdir : '');
               grunt.file.copy(abspath, path.join(releaseFolder, subdir, filename));
@@ -198,8 +200,9 @@ module.exports = function(grunt) {
             }
           } else if (plattform.files.indexOf(filename) >= 0) {
             // Omit the nw executable on other platforms
-            if(path.extname(filename) !== 'pak' && path.basename(filename) !== 'nw')
+            if(path.extname(filename) !== 'pak' && path.basename(filename) !== 'nw') {
               grunt.file.copy(abspath, path.join(releaseFolder, filename));
+            }
           }
         });
 

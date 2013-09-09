@@ -13,10 +13,12 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+
     jshint: {
       all: [
         'Gruntfile.js',
-        'tasks/*.js',
+        'tasks/**/*.js',
         '<%= nodeunit.tests %>',
       ],
       options: {
@@ -33,9 +35,9 @@ module.exports = function(grunt) {
       options: {
         webkit_src: './example/webkitbuilds'
       },
-      testing: {
+      // testing: {
         src: ['./example/public/**/*']
-      }
+      // }
     },
 
     // Unit tests.
