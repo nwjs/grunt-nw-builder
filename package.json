@@ -7,6 +7,13 @@
     "name": "Steffen Müller",
     "email": "steffen@mllrsohn.com"
   },
+  "contributors": [
+    {
+      "name": "jens alexander ewald",
+      "email": "jens@lea.io",
+      "url": "http://lea.io"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:mllrsohn/grunt-node-webkit-builder.git"
