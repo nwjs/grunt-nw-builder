@@ -146,7 +146,7 @@ module.exports = function(grunt) {
         );
 
         // If force is true we delete the path
-        if (grunt.file.isDir(plattform.dest) && options.force) {
+        if (grunt.file.isDir(plattform.dest) && options.force_download) {
           grunt.file.delete(plattform.dest, {
             force: true
           });
