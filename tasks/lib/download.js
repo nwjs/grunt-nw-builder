@@ -29,6 +29,23 @@ module.exports = function(grunt) {
           return downloadAndUnpackDone.promise;
         }
 
+        // We should also check, if the zip archive already exists
+        exists = grunt.file.exists(path.resolve(plattform.dest, plattform.filename));
+
+        if(exists) {
+          // TODO: Refactor the extract method!
+          var removeFromPath = false, ext = 'zip';
+          if(ext === 'zip') {
+              removeFromPath = (plattform.type === 'win' ? plattform.filename.replace('.zip', '') : false);
+              extractDone = exports.unzipFile(path.resolve(plattform.dest, plattform.filename), plattform.dest, removeFromPath);
+          } else {
+              extractDone = exports.untarFile(path.resolve(plattform.dest, plattform.filename), plattform.dest);
+          }
+          downloadAndUnpackDone.resolve(plattform);
+          return downloadAndUnpackDone.promise;
+        }
+
+
         // Files do not exists, so we download them
         var downloadDone = exports.download(plattform.url, plattform.dest);
         downloadDone.done(function(data) {
