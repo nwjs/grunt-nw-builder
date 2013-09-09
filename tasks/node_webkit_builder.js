@@ -3,6 +3,7 @@
  * https://github.com/mllrsohn/grunt-node-webkit-builder
  *
  * Copyright (c) 2013 Steffen Müller
+ * Copyright (c) 2013 Jens Alexander Ewald
  * Licensed under the MIT license.
  */
 
