@@ -12,10 +12,61 @@ var Q = require('q'),
   path = require('path'),
   async = require('async');
 
+var defaults = {
+  src: "./app/**/*",
+  options: {
+    version: '0.7.1',
+    build_dir: false, // Path where
+    force_download: false,
+    win: false,
+    mac: true,
+    linux32: false,
+    linux64: false,
+    download_url: 'https://s3.amazonaws.com/node-webkit/',
+    timestamped_builds: false
+  }
+};
 
 module.exports = function(grunt) {
 
-  grunt.registerMultiTask('nodewebkit', 'Your task description goes here.', function() {
+  // ***************************************************************************
+  // Verifying/merging required configurations
+  var config = grunt.config.get();
+
+  if(!config.hasOwnProperty('nodewebkit')) {
+    grunt.config('nodewebkit',defaults);
+    // re-fetch the config
+    config = grunt.config.get();
+  }
+
+  // ***************************************************************************
+  // Merge build options from package.json, if loaded in grunt
+  if(config.hasOwnProperty('pkg')){
+    var pkg = grunt.config('pkg');
+    if (pkg.hasOwnProperty('nodewebkit')) {
+      grunt.config(
+        'nodewebkit',
+        grunt.util._.merge(config.nodewebkit,pkg.nodewebkit)
+      );
+    }
+  }
+
+  // ***************************************************************************
+  // assert we have everything we need:
+  grunt.config.requires("nodewebkit");
+  grunt.config.requires("nodewebkit.src");
+  grunt.config.requires("nodewebkit.options");
+  grunt.config.requires("pkg.name");
+  grunt.config.requires("pkg.version");
+
+
+  // ***************************************************************************
+  // Configure the task:
+  grunt.registerMultiTask(
+    'nodewebkit',
+    'Packaging the current app as a node-webkit application',
+    function() {
+
     var compress = require('./lib/compress')(grunt),
         download = require('./lib/download')(grunt);
 
@@ -48,16 +99,7 @@ module.exports = function(grunt) {
         'nwpath': 'nw',
         'app': 'app'
       }],
-      options = this.options({
-        version: '0.7.1',
-        webkit_src: false, // Path where
-        force: false,
-        win: false,
-        mac: true,
-        linux32: false,
-        linux64: false,
-        download_url: 'https://s3.amazonaws.com/node-webkit/'
-      });
+      options = this.options(defaults.options);
 
     var release_path = path.resolve(options.webkit_src, options.version, 'releases', Math.round(Date.now() / 1000).toString());
     grunt.file.mkdir(release_path);
