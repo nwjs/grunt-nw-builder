@@ -70,6 +70,8 @@ module.exports = function(grunt) {
     var compress = require('./lib/compress')(grunt),
         download = require('./lib/download')(grunt);
 
+    var appName = grunt.config('pkg.name');
+
     var self = this,
       done = this.async(), // This is async so make sure we initalize done
       package_path = false,
@@ -79,39 +81,69 @@ module.exports = function(grunt) {
         'type': 'win',
         'files': ['ffmpegsumo.dll', 'icudt.dll', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
         'nwpath': 'nw.exe',
-        'app': 'app.exe'
+        'app': appName+'.exe',
+        'exclude': ['nwsnapshot.exe']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-osx-ia32.zip",
         'type': 'mac',
         'files': ['node-webkit.app'],
-        'nwpath': 'node-webkit.app/Contents/Resources',
-        'app': 'app.nw'
+        'nwpath': appName+'.app/Contents/Resources',
+        'app': 'app.nw', // We have to keep the name as "app.nw" on OS X!
+        'exclude': ['nwsnapshot']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-linux-ia32.tar.gz",
         'type': 'linux32',
         'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
         'nwpath': 'nw',
-        'app': 'app'
+        'app': appName,
+        'exclude': ['nwsnapshot']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-linux-x64.tar.gz",
         'type': 'linux64',
         'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
         'nwpath': 'nw',
-        'app': 'app'
+        'app': appName,
+        'exclude': ['nwsnapshot']
       }],
       options = this.options(defaults.options);
 
-    var release_path = path.resolve(options.webkit_src, options.version, 'releases', Math.round(Date.now() / 1000).toString());
+    // Check the target plattforms
+    if (!grunt.util._.any(grunt.util._.pick(options,"win","mac","linux32","linux64")))
+    {
+      grunt.log.warn("No platforms to build!");
+      return done();
+    }
+
+    var release_path = path.resolve(
+        options.build_dir
+      , 'releases'
+      , appName + ' - ' + (options.timestamped_builds
+                  ? Math.round(Date.now() / 1000).toString()
+                  : grunt.config('pkg.version')
+        )
+    );
+
+    var releaseFile = path.resolve(
+        release_path
+      , appName+'.nw'
+    );
+
+    // Make the release_path itself
     grunt.file.mkdir(release_path);
 
     // Compress the project into the release path
-    downloadDone.push(compress.generateZip(this.files, path.resolve(release_path, 'app.nw')));
+    downloadDone.push(compress.generateZip(this.files, releaseFile));
 
     // Download and unzip / untar the needed files
     webkitFiles.forEach(function(plattform) {
       if (options[plattform.type]) {
         plattform.url = options.download_url + plattform.url.split('%VERSION%').join(options.version);
-        plattform.dest = path.resolve(options.webkit_src, options.version, 'src', plattform.type);
+        plattform.dest = path.resolve(
+            options.build_dir
+          , 'cache'
+          , plattform.type
+          , options.version
+        );
 
         // If force is true we delete the path
         if (grunt.file.isDir(plattform.dest) && options.force) {
@@ -128,7 +160,7 @@ module.exports = function(grunt) {
     // Download and zip creation done, let copy
     // the files and stream the zip into the files/folders
     Q.all(downloadDone).done(function(plattforms) {
-      var zipFile = path.resolve(release_path, 'app.nw'),
+      var zipFile = releaseFile,
         generateDone = [];
 
       plattforms.forEach(function(plattform) {
@@ -140,8 +172,14 @@ module.exports = function(grunt) {
         }
 
         // Set the release folder
-        releaseFolder = path.resolve(release_path, plattform.type);
-        releasePathApp = path.resolve(release_path, plattform.type, (plattform.type === 'mac' ? plattform.nwpath : ''), plattform.app);
+        releaseFolder  = path.resolve(
+          release_path, plattform.type, (plattform.type !== 'mac' ? appName : '')
+        );
+        releasePathApp = path.resolve(
+          releaseFolder,
+          (plattform.type === 'mac' ? plattform.nwpath : ''),
+          plattform.app
+        );
 
         // If plattform is mac, we just copy node-webkit.app
         // Otherwise we copy everything that is on the plattform.files array
