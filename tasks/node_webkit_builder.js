@@ -24,7 +24,8 @@ var defaults = {
     linux32: false,
     linux64: false,
     download_url: 'https://s3.amazonaws.com/node-webkit/',
-    timestamped_builds: false
+    timestamped_builds: false,
+    keep_nw: true
   }
 };
 

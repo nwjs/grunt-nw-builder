@@ -2,6 +2,6 @@
   "name": "grunt-node-webkit-builder-example",
   "description": "A sample app to demonstrate the use of grunt node webkit builder",
   "dependencies": {
-    "grunt-node-webkit-builder": "0.1.0"
+    "grunt-node-webkit-builder": "0.1.4"
   }
 }
