@@ -33,34 +33,46 @@ module.exports = function(grunt) {
 
   // ***************************************************************************
   // Verifying/merging required configurations
-  var config = grunt.config.get();
+
+  var config = grunt.config.get(); // get the global config
 
   if(!config.hasOwnProperty('nodewebkit')) {
+    console.log("nodewebkit config not found! using defaults");
     grunt.config('nodewebkit',defaults);
     // re-fetch the config
     config = grunt.config.get();
   }
 
+  // // Strip out any globbing from src path
+  var src = grunt.config('nodewebkit.src').replace(/\*.*$/,''),
+      appPkg = grunt.file.readJSON(path.resolve(src,'package.json'));
+
+  if (undefined === config.nodewebkit.options.app) {
+    config.nodewebkit.options.app = {};
+  }
+
+  var nodewebkit_cfg = grunt.util._.merge(config.nodewebkit.options.app,appPkg);
+  grunt.config('nodewebkit.options.app',nodewebkit_cfg);
+
   // ***************************************************************************
   // Merge build options from package.json, if loaded in grunt
-  if(config.hasOwnProperty('pkg')){
-    var pkg = grunt.config('pkg');
-    if (pkg.hasOwnProperty('nodewebkit')) {
-      grunt.config(
-        'nodewebkit',
-        grunt.util._.merge(config.nodewebkit,pkg.nodewebkit)
-      );
-    }
-  }
+  // if(config.hasOwnProperty('pkg')){
+  //   grunt.config(
+  //     'nodewebkit.options.app',
+  //     grunt.util._.extend(grunt.config('nodewebkit.options.app'),grunt.config('pkg'))
+  //   );
+  // }
 
   // ***************************************************************************
   // assert we have everything we need:
   grunt.config.requires("nodewebkit");
   grunt.config.requires("nodewebkit.src");
   grunt.config.requires("nodewebkit.options");
-  grunt.config.requires("pkg.name");
-  grunt.config.requires("pkg.version");
+  grunt.config.requires("nodewebkit.options.app.name");
+  grunt.config.requires("nodewebkit.options.app.version");
 
+  // console.log(grunt.config.get());
+  // console.log(grunt.config('nodewebkit'));
 
   // ***************************************************************************
   // Configure the task:
@@ -72,7 +84,8 @@ module.exports = function(grunt) {
     var compress = require('./lib/compress')(grunt),
         download = require('./lib/download')(grunt);
 
-    var appName = grunt.config('pkg.name');
+
+    var appName = grunt.config('nodewebkit.options.app.name');
 
     var self = this,
       done = this.async(), // This is async so make sure we initalize done
@@ -119,9 +132,10 @@ module.exports = function(grunt) {
     var release_path = path.resolve(
         options.build_dir
       , 'releases'
-      , appName + ' - ' + (options.timestamped_builds
-                  ? Math.round(Date.now() / 1000).toString()
-                  : grunt.config('pkg.version')
+      , appName + ' - ' + options.app.version + (
+        options.timestamped_builds
+                  ?  ' - ' + Math.round(Date.now() / 1000).toString()
+                  : ''
         )
     );
 
