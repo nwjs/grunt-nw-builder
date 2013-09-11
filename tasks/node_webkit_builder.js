@@ -11,6 +11,7 @@ var Q = require('q'),
   path = require('path'),
   fs = require('fs'),
   path = require('path'),
+  plist = require('plist'),
   async = require('async');
 
 var defaults = {
@@ -206,11 +207,42 @@ module.exports = function(grunt) {
           if (plattform.type === 'mac') {
             if(filename !== plattform.filename) {
               // Name the .app bundle on OS X correctly
-              subdir = subdir ? subdir.replace(/^node-webkit/,appName) : subdir;
-              var stats = fs.lstatSync(abspath);
+              subdir = (subdir ? subdir.replace(/^node-webkit/,appName) : subdir);
               subdir = (subdir ? subdir : '');
-              grunt.file.copy(abspath, path.join(releaseFolder, subdir, filename));
-              fs.chmodSync(path.join(releaseFolder, subdir, filename), stats.mode);
+              var stats = fs.lstatSync(abspath);
+              var target_filename = path.join(releaseFolder, subdir, filename);
+              grunt.file.copy(abspath, target_filename);
+
+              if (target_filename.match(appName+'.app/Contents/Info.plist$')) {
+                // Handle the INfo.plist file
+                var info = plist.parseFileSync(target_filename);
+
+                info.CFBundleDisplayName = appName;
+                info.CFBundleName = appName;
+
+                info.CFBundleDocumentTypes = []; // zero out any document binding
+                info.UTExportedTypeDeclarations = [];
+
+                info.CFBundleVersion = grunt.config('nodewebkit.options.app.version'); // TODO: if git, get commit hash!
+                info.CFBundleShortVersionString = 'Version ' + grunt.config('nodewebkit.options.app.version');
+
+                if(grunt.config('nodewebkit.options.app.copyright')) {
+                  info.NSHumanReadableCopyright = grunt.config('nodewebkit.options.app.copyright');
+                }
+
+                grunt.file.write(
+                  target_filename,
+                  plist.build(info)
+                );
+
+                // Copy the Credits.html
+                var credits = path.resolve(grunt.config('nodewebkit.src').replace(/\*.*/,''),'Credits.html');
+                if (grunt.file.exists(credits)){
+                  grunt.file.copy(credits, path.resolve(path.dirname(target_filename),'Resources','Credits.html'));
+                }
+              }
+
+              fs.chmodSync(target_filename, stats.mode);
               // TODO: edit the plist file according to config
             }
           } else if (plattform.files.indexOf(filename) >= 0) {
