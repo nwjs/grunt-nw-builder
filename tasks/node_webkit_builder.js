@@ -247,7 +247,7 @@ module.exports = function(grunt) {
             }
           } else if (plattform.files.indexOf(filename) >= 0) {
             // Omit the nw executable on other platforms
-            if(path.extname(filename) !== 'pak' && path.basename(filename) !== 'nw') {
+            if(filename !== 'nw.exe' && filename !== 'nw') {
               grunt.file.copy(abspath, path.join(releaseFolder, filename));
             }
           }
