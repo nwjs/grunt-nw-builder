@@ -11,13 +11,12 @@ var Q = require('q'),
   path = require('path'),
   fs = require('fs'),
   path = require('path'),
-  plist = require('plist'),
   async = require('async');
 
 var defaults = {
   src: "./app/**/*",
   options: {
-    version: '0.7.1',
+    version: '0.7.3',
     build_dir: false, // Path where
     force_download: false,
     win: false,
@@ -25,7 +24,8 @@ var defaults = {
     linux32: false,
     linux64: false,
     download_url: 'https://s3.amazonaws.com/node-webkit/',
-    timestamped_builds: false,
+    timestamped_builds: true,
+    credits: false,
     keep_nw: true
   }
 };
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
   var config = grunt.config.get(); // get the global config
 
   if(!config.hasOwnProperty('nodewebkit')) {
-    console.log("nodewebkit config not found! using defaults");
+    grunt.log.verbose("nodewebkit config not found! using defaults");
     grunt.config('nodewebkit',defaults);
     // re-fetch the config
     config = grunt.config.get();
@@ -83,8 +83,8 @@ module.exports = function(grunt) {
     function() {
 
     var compress = require('./lib/compress')(grunt),
-        download = require('./lib/download')(grunt);
-
+        download = require('./lib/download')(grunt),
+        utils = require('./lib/utils')(grunt);
 
     var appName = grunt.config('nodewebkit.options.app.name');
 
@@ -192,6 +192,7 @@ module.exports = function(grunt) {
         releaseFolder  = path.resolve(
           release_path, plattform.type, (plattform.type !== 'mac' ? appName : '')
         );
+
         releasePathApp = path.resolve(
           releaseFolder,
           (plattform.type === 'mac' ? plattform.nwpath : ''),
@@ -206,6 +207,7 @@ module.exports = function(grunt) {
           }
           if (plattform.type === 'mac') {
             if(filename !== plattform.filename) {
+
               // Name the .app bundle on OS X correctly
               subdir = (subdir ? subdir.replace(/^node-webkit/,appName) : subdir);
               subdir = (subdir ? subdir : '');
@@ -214,31 +216,17 @@ module.exports = function(grunt) {
               grunt.file.copy(abspath, target_filename);
 
               if (target_filename.match(appName+'.app/Contents/Info.plist$')) {
-                // Handle the INfo.plist file
-                var info = plist.parseFileSync(target_filename);
 
-                info.CFBundleDisplayName = appName;
-                info.CFBundleName = appName;
+                // Generate Info.plist$
+                utils.generatePlist(target_filename, appName);
 
-                info.CFBundleDocumentTypes = []; // zero out any document binding
-                info.UTExportedTypeDeclarations = [];
-
-                info.CFBundleVersion = grunt.config('nodewebkit.options.app.version'); // TODO: if git, get commit hash!
-                info.CFBundleShortVersionString = 'Version ' + grunt.config('nodewebkit.options.app.version');
-
-                if(grunt.config('nodewebkit.options.app.copyright')) {
-                  info.NSHumanReadableCopyright = grunt.config('nodewebkit.options.app.copyright');
-                }
-
-                grunt.file.write(
-                  target_filename,
-                  plist.build(info)
-                );
-
-                // Copy the Credits.html
-                var credits = path.resolve(grunt.config('nodewebkit.src').replace(/\*.*/,''),'Credits.html');
-                if (grunt.file.exists(credits)){
-                  grunt.file.copy(credits, path.resolve(path.dirname(target_filename),'Resources','Credits.html'));
+                // Generate credits.html
+                if(options.credits) {
+                  if(!grunt.file.exists(options.credits)) {
+                    grunt.log.warn("Your credits.html file does not exists in: ", options.credits);
+                  } else {
+                    grunt.file.copy(options.credits, path.resolve(path.dirname(target_filename),'Resources','Credits.html'));
+                  }
                 }
               }
 

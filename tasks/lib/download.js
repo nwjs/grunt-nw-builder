@@ -28,7 +28,7 @@ module.exports = function(grunt) {
           downloadAndUnpackDone.resolve(plattform);
           return downloadAndUnpackDone.promise;
         }
-
+/*
         // We should also check, if the zip archive already exists
         exists = grunt.file.exists(path.resolve(plattform.dest, plattform.filename));
 
@@ -46,11 +46,11 @@ module.exports = function(grunt) {
           return downloadAndUnpackDone.promise;
         }
 
-
+*/
         // Files do not exists, so we download them
         var downloadDone = exports.download(plattform.url, plattform.dest);
         downloadDone.done(function(data) {
-            var removeFromPath = false;
+            var extractDone, removeFromPath = false;
             // @TODO: We are using the very slow zip module because it
             // was very easy to patch in the unzip module to support
             // file permission for mac

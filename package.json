@@ -54,7 +54,7 @@
     "tar": "~0.1.18",
     "lazystream": "~0.1.0",
     "archiver": "~0.4.6",
-    "zip": "https://github.com/steffenmllr/zip/tarball/1e339ae714a73861ad90356ec9b6361b1f024146",
+    "zip": "~1.1.1",
     "plist": "~0.4.3"
   }
 }

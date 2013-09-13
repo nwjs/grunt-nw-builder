@@ -14,7 +14,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    
+
     jshint: {
       all: [
         'Gruntfile.js',
@@ -33,7 +33,10 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     nodewebkit: {
       options: {
-        build_dir: './example/webkitbuilds'
+        build_dir: './example/webkitbuilds',
+        credits: './example/public/credits.html',
+        win: true,
+        mac: true
       },
       src: './example/public/**/*'
     },
@@ -45,8 +48,9 @@ module.exports = function(grunt) {
 
   });
 
-  // Actually load this plugin's task(s).
-  // grunt.loadTasks('tasks');
+  // Actually load this plugin's task(s)1
+
+  grunt.loadTasks('tasks');
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
