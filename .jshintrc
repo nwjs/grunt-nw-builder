@@ -1,5 +1,7 @@
 {
   "curly": true,
+  "laxcomma": true,
+  "laxbreak":true,
   "eqeqeq": true,
   "immed": true,
   "latedef": true,
@@ -10,5 +12,5 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-  "es5": true
+  "es5": false
 }

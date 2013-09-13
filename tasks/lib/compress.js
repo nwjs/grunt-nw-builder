@@ -67,8 +67,12 @@ module.exports = function(grunt) {
         return zipDone.promise;
     };
 
-    exports.cleanUpRelease = function(relaseFile, nwpath) {
-        grunt.file.delete(nwpath);
+    exports.cleanUpRelease = function(nwPath,plattform) {
+        // remove the cached .nw archive
+        // TODO: Make an option to keep the unpacked nw archive
+        if(grunt.file.exists(nwPath)) {
+          grunt.file.delete(nwPath);
+        }
     };
 
     exports.generateRelease = function(relaseFile, zipPath, type, nwpath) {
@@ -81,25 +85,27 @@ module.exports = function(grunt) {
             grunt.fail.fatal(err);
         });
 
+        ws.on('close', function() {
+            exports.cleanUpRelease(zipPath,type);
+            releaseDone.resolve(type);
+        });
+
         if(type === 'mac') {
-            ws.on('close', function() { releaseDone.resolve(type); });
+            // On osx just copy to the target location
             zipStream.pipe(ws);
         } else {
+            // on windows and linux cat the node-webkit with the nw archive
             nwpath_rs = fs.createReadStream(nwpath);
+
             nwpath_rs.on('error', function(err) {
                 grunt.fail.fatal(err);
             });
 
             nwpath_rs.on('end', function(){
-                ws.on('close', function() {
-                    exports.cleanUpRelease(relaseFile, nwpath);
-                    releaseDone.resolve(type);
-                });
                 zipStream.pipe(ws);
             });
 
             nwpath_rs.pipe(ws, { end: false });
-
         }
 
         return releaseDone.promise;

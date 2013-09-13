@@ -13,10 +13,12 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    
     jshint: {
       all: [
         'Gruntfile.js',
-        'tasks/*.js',
+        'tasks/**/*.js',
         '<%= nodeunit.tests %>',
       ],
       options: {
@@ -31,11 +33,9 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     nodewebkit: {
       options: {
-        webkit_src: './example/webkitbuilds'
+        build_dir: './example/webkitbuilds'
       },
-      testing: {
-        src: ['./example/public/**/*']
-      }
+      src: './example/public/**/*'
     },
 
     // Unit tests.
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
   });
 
   // Actually load this plugin's task(s).
-  grunt.loadTasks('tasks');
+  // grunt.loadTasks('tasks');
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'nodewebkit', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

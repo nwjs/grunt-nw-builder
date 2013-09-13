@@ -35,11 +35,17 @@ Default value: `false`
 
 This is where the prebuilt binaries and the releases are saved.
 
-#### options.force
+#### options.force_download
 Type: `Boolean`
 Default value: `false`
 
 This will delete everything in your `webkit_src` directory, including the cached downloaded prebuilt binaries
+
+#### options.timestamped_builds
+Type: `Boolean`
+Default Value: `false`
+
+Enables the creation of release directories named with a timestamp instead of the version number (set in package.json).
 
 #### options.win
 Type: `Boolean`
@@ -75,7 +81,6 @@ The URL where the prebuilt binaries are. Only change this if you know what you a
 
 ### Usage Examples
 
-
 ```js
 grunt.initConfig({
   nodewebkit: {
@@ -91,6 +96,30 @@ grunt.initConfig({
 })
 ```
 
+Or use the `package.json`
+
+```js
+{
+  "name": "grunt-playground",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-node-webkit-builder": "~0.1.4"
+  },
+  "nodewebkit": {
+    "src": ["./example/public/**/*"],
+    "options": {
+      "build_dir": "webkitbuilds",
+      "mac": true,
+      "win": false
+    }
+  }
+}
+```
+
 ## To Do:
 - Test building on Windows and Linux machines
 
@@ -99,5 +128,6 @@ This is the first relase so there might be bugs. One known issue is that the dow
 
 
 ## Release History
-- 2013-08-20   fix for the unzip lib
-- 2013-08-13   initial release
+- 2013-09-09    fixed accidential deletion of nw.exe on windows builds, adding several improvements, opt in for timestamped builds, using version and name from package.json to name the build product and build dir, renamed download directory to `cache`, added merge from package.json options for nodewebkit (no need to add configuration to Gruntfile, but stays optional)
+- 2013-08-20    fix for the unzip lib
+- 2013-08-13    initial release
