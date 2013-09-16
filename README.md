@@ -29,7 +29,7 @@ Default value: `'0.7.3'`
 The version of node-webkit you want to use. [Here is a list](https://github.com/rogerwang/node-webkit/wiki/Downloads-of-old-versions) of all available releases
 
 
-#### options.webkit_src
+#### options.build_dir
 Type: `String`
 Default value: `false`
 
@@ -39,7 +39,7 @@ This is where the prebuilt binaries and the releases are saved.
 Type: `Boolean`
 Default value: `false`
 
-This will delete everything in your `webkit_src` directory, including the cached downloaded prebuilt binaries
+This will delete everything in your `build_dir` directory, including the cached downloaded prebuilt binaries
 
 #### options.timestamped_builds
 Type: `Boolean`
@@ -90,7 +90,7 @@ The URL where the prebuilt binaries are. Only change this if you know what you a
 grunt.initConfig({
   nodewebkit: {
     options: {
-        webkit_src: './webkitbuilds', // Where the build version of my node-webkit app is saved
+        build_dir: './webkitbuilds', // Where the build version of my node-webkit app is saved
         mac: true, // We want to build it for mac
         win: true, // We want to build it for win
         linux32: false, // We don't need linux32
