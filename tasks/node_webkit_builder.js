@@ -214,7 +214,7 @@ module.exports = function(grunt) {
               if (target_filename.match(appName+'.app/Contents/Info.plist$')) {
 
                 // Generate Info.plist$
-                utils.generatePlist(target_filename, appName);
+                utils.generatePlist(target_filename, nodewebkit_cfg);
 
                 // Generate credits.html
                 if(options.credits) {
