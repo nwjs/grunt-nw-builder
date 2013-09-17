@@ -32,15 +32,15 @@ The version of node-webkit you want to use. [Here is a list](https://github.com/
 Type: `String`
 Default value: `null`
 
-The Name of your node-webkit app. NOTE: If this value is set to null,
-it will autodetect the `name` form your projects package.json
+The Name of your node-webkit app. 
+If this value is set to null, it will autodetect the `name` form your projects package.json. This will be used to generate a plist file for mac.
 
 #### options.app_version
 Type: `String`
 Default value: `null`
 
-The version of your node-webkit app. NOTE: If this value is set to null,
-it will autodetect the `version` form your projects package.json
+The version of your node-webkit app.
+  If this value is set to null, it will autodetect the `version` form your projects package.json. This will be used to generate a plist file for mac.
 
 #### options.build_dir
 Type: `String`
@@ -58,7 +58,7 @@ This will delete everything in your `build_dir` directory, including the cached 
 Type: `Boolean`
 Default Value: `false`
 
-Enables the creation of release directories named with a timestamp instead of the version number (set in package.json).
+Enables the creation of release directories named with a timestamp instead of the app_version.
 
 #### options.win
 Type: `Boolean`
@@ -114,29 +114,6 @@ grunt.initConfig({
 })
 ```
 
-Or use the `package.json`
-
-```js
-{
-  "name": "grunt-playground",
-  "version": "0.1.0",
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.3",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-node-webkit-builder": "~0.1.4"
-  },
-  "nodewebkit": {
-    "src": ["./example/public/**/*"],
-    "options": {
-      "build_dir": "webkitbuilds",
-      "mac": true,
-      "win": false
-    }
-  }
-}
-```
 
 ## To Do:
 - Test building on Windows and Linux machines
