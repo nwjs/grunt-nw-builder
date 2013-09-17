@@ -9,6 +9,7 @@ var fs = require('fs'),
 // Download and unzip/untar the node wekit files from aws
 // Mostly copied from grunt-contrib-compress
 module.exports = function(grunt) {
+    var utils = require('./utils')(grunt);
 
     // Generate a Zip file from a directory and a destination path
     // and returns back a read stream
@@ -26,7 +27,7 @@ module.exports = function(grunt) {
             });
 
             src.forEach(function(srcFile) {
-                var internalFileName = path.normalize(exports.unixifyPath(srcFile));
+                var internalFileName = path.normalize(utils.unixifyPath(srcFile));
                 // We need to make sure that the package.json is in the root
                 if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
                     package_path = path.normalize(internalFileName.split('package.json')[0]);
@@ -109,15 +110,6 @@ module.exports = function(grunt) {
         }
 
         return releaseDone.promise;
-    };
-
-
-    exports.unixifyPath = function(filepath) {
-        if (process.platform === 'win32') {
-            return filepath.replace(/\\/g, '/');
-        } else {
-            return filepath;
-        }
     };
 
     return exports;

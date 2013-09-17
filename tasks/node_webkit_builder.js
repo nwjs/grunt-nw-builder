@@ -13,23 +13,6 @@ var Q = require('q'),
   path = require('path'),
   async = require('async');
 
-var defaults = {
-  src: "./app/**/*",
-  options: {
-    version: '0.7.3',
-    build_dir: false, // Path where
-    force_download: false,
-    win: false,
-    mac: true,
-    linux32: false,
-    linux64: false,
-    download_url: 'https://s3.amazonaws.com/node-webkit/',
-    timestamped_builds: true,
-    credits: false,
-    keep_nw: true
-  }
-};
-
 module.exports = function(grunt) {
   // ***************************************************************************
   // Configure the task:
@@ -38,68 +21,42 @@ module.exports = function(grunt) {
     'Packaging the current app as a node-webkit application',
     function() {
 
-    // ***************************************************************************
-    // Verifying/merging required configurations
-
-    var config = grunt.config.get(); // get the global config
-
-    if(!config.hasOwnProperty('nodewebkit')) {
-      grunt.log.verbose.write("nodewebkit config not found! using defaults");
-      grunt.config('nodewebkit',defaults);
-      // re-fetch the config
-      config = grunt.config.get();
-    }
-
-    // // Strip out any globbing from src path
-    var src = grunt.config('nodewebkit.src').replace(/\*.*$/,''),
-        appPkg = grunt.file.readJSON(path.resolve(src,'package.json'));
-
-    if (undefined === config.nodewebkit.options.app) {
-      config.nodewebkit.options.app = {};
-    }
-
-    var nodewebkit_cfg = grunt.util._.merge(config.nodewebkit.options.app,appPkg);
-
-    // ***************************************************************************
-    // Merge build options from package.json, if loaded in grunt
-    // if(config.hasOwnProperty('pkg')){
-    //   grunt.config(
-    //     'nodewebkit.options.app',
-    //     grunt.util._.extend(grunt.config('nodewebkit.options.app'),grunt.config('pkg'))
-    //   );
-    // }
-
-    // ***************************************************************************
-    // assert we have everything we need:
-    grunt.config.requires("nodewebkit");
-    grunt.config.requires("nodewebkit.src");
-    grunt.config.requires("nodewebkit.options");
-
-    // console.log(grunt.config.get());
-    // console.log(grunt.config('nodewebkit'));
-
     var compress = require('./lib/compress')(grunt),
         download = require('./lib/download')(grunt),
         utils = require('./lib/utils')(grunt);
 
-    var appName = nodewebkit_cfg.name;
-
     var self = this,
       done = this.async(), // This is async so make sure we initalize done
+      _ = grunt.util._,
       package_path = false,
       downloadDone = [],
+      options = this.options({
+          version: '0.7.3',
+          app_name: null,
+          app_version: null,
+          build_dir: false, // Path where
+          force_download: false,
+          win: false,
+          mac: true,
+          linux32: false,
+          linux64: false,
+          download_url: 'https://s3.amazonaws.com/node-webkit/',
+          timestamped_builds: true,
+          credits: false,
+          keep_nw: true
+      }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
         'type': 'win',
         'files': ['ffmpegsumo.dll', 'icudt.dll', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
         'nwpath': 'nw.exe',
-        'app': appName+'.exe',
+        'app': '%APPNAME%.exe',
         'exclude': ['nwsnapshot.exe']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-osx-ia32.zip",
         'type': 'mac',
         'files': ['node-webkit.app'],
-        'nwpath': appName+'.app/Contents/Resources',
+        'nwpath': '%APPNAME%.app/Contents/Resources',
         'app': 'app.nw', // We have to keep the name as "app.nw" on OS X!
         'exclude': ['nwsnapshot']
       }, {
@@ -107,38 +64,45 @@ module.exports = function(grunt) {
         'type': 'linux32',
         'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
         'nwpath': 'nw',
-        'app': appName,
+        'app': '%APPNAME%',
         'exclude': ['nwsnapshot']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-linux-x64.tar.gz",
         'type': 'linux64',
         'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
         'nwpath': 'nw',
-        'app': appName,
+        'app': '%APPNAME%',
         'exclude': ['nwsnapshot']
-      }],
-      options = this.options(defaults.options);
+      }];
+
+    // ***************************************************************************
+    // Verifying if we have all needed Config Options
+    // And generate the release path and files
 
     // Check the target plattforms
-    if (!grunt.util._.any(grunt.util._.pick(options,"win","mac","linux32","linux64")))
-    {
+    if (!_.any(_.pick(options,"win","mac","linux32","linux64"))) {
       grunt.log.warn("No platforms to build!");
       return done();
     }
 
+    // Check if we need to get the AppName and AppVersion from the json or from the config
+    var packageInfo = utils.getPackageInfo(this.files);
+    if(!options.app_name || !options.app_version) {
+      options.app_name = options.app_name || packageInfo.name;
+      options.app_version = options.app_version || packageInfo.version;
+    }
+
+    // Generate the release path
     var release_path = path.resolve(
-        options.build_dir
-      , 'releases'
-      , appName + ' - ' + nodewebkit_cfg.version + (
-        options.timestamped_builds
-                  ?  ' - ' + Math.round(Date.now() / 1000).toString()
-                  : ''
-        )
+      options.build_dir,
+      'releases',
+      options.app_name + (options.timestamped_builds ?  ' - ' + Math.round(Date.now() / 1000).toString() : '')
     );
 
+    // Get the Path for the releaseFile
     var releaseFile = path.resolve(
-        release_path
-      , appName+'.nw'
+      release_path,
+      options.app_name + '.nw'
     );
 
     // Make the release_path itself
@@ -151,11 +115,13 @@ module.exports = function(grunt) {
     webkitFiles.forEach(function(plattform) {
       if (options[plattform.type]) {
         plattform.url = options.download_url + plattform.url.split('%VERSION%').join(options.version);
+        plattform.app = plattform.app.split('%APPNAME%').join(options.app_name);
+        plattform.nwpath = plattform.nwpath.split('%APPNAME%').join(options.app_name);
         plattform.dest = path.resolve(
-            options.build_dir
-          , 'cache'
-          , plattform.type
-          , options.version
+          options.build_dir,
+          'cache',
+          plattform.type,
+          options.version
         );
 
         // If force is true we delete the path
@@ -186,7 +152,9 @@ module.exports = function(grunt) {
 
         // Set the release folder
         releaseFolder  = path.resolve(
-          release_path, plattform.type, (plattform.type !== 'mac' ? appName : '')
+          release_path,
+          plattform.type,
+          (plattform.type !== 'mac' ? options.app_name : '')
         );
 
         releasePathApp = path.resolve(
@@ -205,16 +173,16 @@ module.exports = function(grunt) {
             if(filename !== plattform.filename) {
 
               // Name the .app bundle on OS X correctly
-              subdir = (subdir ? subdir.replace(/^node-webkit/,appName) : subdir);
+              subdir = (subdir ? subdir.replace(/^node-webkit/,options.app_name) : subdir);
               subdir = (subdir ? subdir : '');
               var stats = fs.lstatSync(abspath);
               var target_filename = path.join(releaseFolder, subdir, filename);
               grunt.file.copy(abspath, target_filename);
 
-              if (target_filename.match(appName+'.app/Contents/Info.plist$')) {
+              if (target_filename.match(options.app_name+'.app/Contents/Info.plist$')) {
 
                 // Generate Info.plist$
-                utils.generatePlist(target_filename, nodewebkit_cfg);
+                utils.generatePlist(target_filename, options, packageInfo);
 
                 // Generate credits.html
                 if(options.credits) {

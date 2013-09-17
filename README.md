@@ -28,6 +28,19 @@ Default value: `'0.7.3'`
 
 The version of node-webkit you want to use. [Here is a list](https://github.com/rogerwang/node-webkit/wiki/Downloads-of-old-versions) of all available releases
 
+#### options.app_name
+Type: `String`
+Default value: `null`
+
+The Name of your node-webkit app. NOTE: If this value is set to null,
+it will autodetect the `name` form your projects package.json
+
+#### options.app_version
+Type: `String`
+Default value: `null`
+
+The version of your node-webkit app. NOTE: If this value is set to null,
+it will autodetect the `version` form your projects package.json
 
 #### options.build_dir
 Type: `String`
