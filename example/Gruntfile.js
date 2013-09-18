@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     pkg: {name:"name override demo", version: '1.2.3'},
     nodewebkit: {
       options: {
-        build_dir: './webkitbuilds', // Where the build version of my node-webkit app is saved
+        build_dir: './build', // Where the build version of my node-webkit app is saved
         credits: './public/credits.html',
         mac: true, // We want to build it for mac
         win: false, // We want to build it for win

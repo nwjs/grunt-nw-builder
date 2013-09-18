@@ -41,9 +41,8 @@ module.exports = function(grunt) {
           linux32: false,
           linux64: false,
           download_url: 'https://s3.amazonaws.com/node-webkit/',
-          timestamped_builds: true,
-          credits: false,
-          keep_nw: true
+          timestamped_builds: false,
+          credits: false
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
