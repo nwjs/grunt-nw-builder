@@ -68,11 +68,12 @@ module.exports = function(grunt) {
         return zipDone.promise;
     };
 
-    exports.cleanUpRelease = function(nwPath,plattform) {
-        // remove the cached .nw archive
-        // TODO: Make an option to keep the unpacked nw archive
+    exports.cleanUpRelease = function(nwPath) {
+
         if(grunt.file.exists(nwPath)) {
-          grunt.file.delete(nwPath);
+            grunt.file.delete(nwPath, {
+              force: true
+            });
         }
     };
 
@@ -87,7 +88,6 @@ module.exports = function(grunt) {
         });
 
         ws.on('close', function() {
-            exports.cleanUpRelease(zipPath,type);
             releaseDone.resolve(type);
         });
 

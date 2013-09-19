@@ -1,7 +1,6 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-    pkg: {name:"name override demo", version: '1.2.3'},
     nodewebkit: {
       options: {
         build_dir: './build', // Where the build version of my node-webkit app is saved

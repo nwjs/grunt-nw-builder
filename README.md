@@ -32,7 +32,7 @@ The version of node-webkit you want to use. [Here is a list](https://github.com/
 Type: `String`
 Default value: `null`
 
-The Name of your node-webkit app. 
+The Name of your node-webkit app.
 If this value is set to null, it will autodetect the `name` form your projects package.json. This will be used to generate a plist file for mac.
 
 #### options.app_version
@@ -74,13 +74,13 @@ Do you want to download and build a mac version
 
 #### options.linux32
 Type: `Boolean`
-Default value: `true`
+Default value: `false`
 
 Do you want to download and build a linux32 version
 
 #### options.linux64
 Type: `Boolean`
-Default value: `true`
+Default value: `false`
 
 Do you want to download and build a linux64 version
 
@@ -89,6 +89,12 @@ Type: `String`
 Default value: `false`
 
 MAC ONLY: The path to your credits.html file.
+
+#### options.keep_nw
+Type: `Boolean`
+Default value: `false`
+
+This will keep the zipped .nw file in the releases folder
 
 #### options.download_url
 Type: `String`

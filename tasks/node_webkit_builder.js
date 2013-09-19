@@ -36,13 +36,14 @@ module.exports = function(grunt) {
           app_version: null,
           build_dir: false, // Path where
           force_download: false,
-          win: false,
+          win: true,
           mac: true,
           linux32: false,
           linux64: false,
           download_url: 'https://s3.amazonaws.com/node-webkit/',
           timestamped_builds: false,
-          credits: false
+          credits: false,
+          keep_nw: false,
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
@@ -216,6 +217,9 @@ module.exports = function(grunt) {
       });
 
       Q.all(generateDone).done(function(plattforms) {
+        if(!options.keep_nw) {
+          compress.cleanUpRelease(zipFile);
+        }
         grunt.log.oklns('Created a new release with node-webkit ('+options.version+') for '+plattforms.join(', '));
         grunt.log.ok('@ ' + release_path);
         done();
