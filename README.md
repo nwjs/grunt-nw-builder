@@ -44,7 +44,7 @@ The version of your node-webkit app.
 
 #### options.build_dir
 Type: `String`
-Default value: `false`
+Default value: `null`
 
 This is where the prebuilt binaries and the releases are saved.
 

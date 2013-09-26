@@ -31,19 +31,19 @@ module.exports = function(grunt) {
       package_path = false,
       downloadDone = [],
       options = this.options({
-          version: '0.7.3',
+          version: '0.7.5',
           app_name: null,
           app_version: null,
-          build_dir: false, // Path where
+          build_dir: null, // Path where
           force_download: false,
-          win: true,
-          mac: true,
+          win: false,
+          mac: false,
           linux32: false,
           linux64: false,
           download_url: 'https://s3.amazonaws.com/node-webkit/',
           timestamped_builds: false,
           credits: false,
-          keep_nw: false,
+          keep_nw: false
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
