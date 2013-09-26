@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         linux32: false, // We don't need linux32
         linux64: false, // We don't need linux64
       },
-      src: './public/**/*' // Your node-wekit app
+      src: './public/**/*' // Your node-webkit app
     },
   });
 
