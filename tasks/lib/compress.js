@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 
                     // We need to make sure that the package.json is in the root
                     if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
-                        package_path = path.normalize(internalFileName.split('package.json')[0]);
+                        package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
                     }
                 }
 
