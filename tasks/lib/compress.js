@@ -14,36 +14,10 @@ module.exports = function(grunt) {
     // Generate a Zip file from a directory and a destination path
     // and returns back a read stream
     exports.generateZip = function(files, dest) {
-        var package_path = null,
-            zipDone = Q.defer(),
+        var zipDone = Q.defer(),
             destFiles = [],
             archive = archiver('zip'),
             destStream = fs.createWriteStream(dest);
-
-        // Getting the paths we need
-        files.forEach(function(file) {
-            var src = file.src.filter(function(f) {
-                return grunt.file.isFile(f);
-            });
-
-            src.forEach(function(srcFile) {
-                var internalFileName = path.normalize(utils.unixifyPath(srcFile));
-
-                if ( !package_path ) {
-
-                    // We need to make sure that the package.json is in the root
-                    if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
-                        package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
-                    }
-                }
-
-                destFiles.push(internalFileName);
-            });
-        });
-
-        if(!package_path) {
-            grunt.fail.warn('Could not find a package.json in your src folder');
-        }
 
         // Resolve on close
         destStream.on('close', zipDone.resolve);
@@ -58,13 +32,12 @@ module.exports = function(grunt) {
         archive.pipe(destStream);
 
         // Push the files into the zip stream
-        destFiles.forEach(function(srcFile) {
-            var internalFileName = srcFile.replace(package_path, '');
+        files.forEach(function(srcFile) {
             var srcStream = new Readable(function() {
-              return fs.createReadStream(srcFile);
+              return fs.createReadStream(srcFile.src);
             });
-            archive.append(srcStream, { name: internalFileName }, function(err) {
-              grunt.verbose.writeln('Archiving ' + srcFile + ' -> ' + '/' + internalFileName.cyan);
+            archive.append(srcStream, { name: srcFile.dest }, function(err) {
+              grunt.verbose.writeln('Archiving ' + srcFile.src + ' -> ' + '/' + srcFile.dest.cyan);
             });
         });
 

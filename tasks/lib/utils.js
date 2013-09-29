@@ -23,27 +23,45 @@ module.exports = function(grunt) {
         grunt.file.write(target_filename, plist.build(info));
     };
 
-    exports.getPackageInfo = function(files) {
-        var jsonfile = null;
-        grunt.verbose.writeln("Trying to get the app_name and/or app_version from your project's json file.");
 
-        // Getting the paths we need
+    exports.getFileList = function(files) {
+        var package_path = null, destFiles = [], srcFiles = [], jsonfile = null;
+
         files.forEach(function(file) {
-            var src = file.src.filter(function(f) {
-                return grunt.file.isFile(f);
-            });
 
-            src.forEach(function(srcFile) {
+            file.src.filter(function(f) {
+                return grunt.file.isFile(f);
+
+            }).forEach(function(srcFile) {
                 var internalFileName = path.normalize(exports.unixifyPath(srcFile));
-                if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
-                    jsonfile = internalFileName;
+                if ( !package_path ) {
+                    // We need to make sure that the package.json is in the root
+                    if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
+                        jsonfile = internalFileName;
+                        package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
+                    }
                 }
+                srcFiles.push(internalFileName);
             });
         });
 
+        // Fail if there is no valid json file
         if(!jsonfile) {
             grunt.fail.warn('Could not find a package.json in your src folder');
         }
+
+        // Make it easy for copy to understand the destination mapping
+        srcFiles.forEach(function(file) {
+            destFiles.push({src:file, dest: file.replace(package_path, '')});
+        });
+
+        // We return it as an array
+        return [destFiles, jsonfile];
+    };
+
+    exports.getPackageInfo = function(jsonfile) {
+
+        grunt.verbose.writeln("Trying to get the app_name and/or app_version from your project's json file.");
 
         // Read JSON File
         var appPkg = grunt.file.readJSON(jsonfile);

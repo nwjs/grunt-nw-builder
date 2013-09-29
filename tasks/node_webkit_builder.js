@@ -36,8 +36,8 @@ module.exports = function(grunt) {
           app_version: null,
           build_dir: null, // Path where
           force_download: false,
-          win: false,
-          mac: false,
+          win: true,
+          mac: true,
           linux32: false,
           linux64: false,
           download_url: 'https://s3.amazonaws.com/node-webkit/',
@@ -85,8 +85,13 @@ module.exports = function(grunt) {
       return done();
     }
 
+    // Process the files array
+    var filesInfo = utils.getFileList(this.files),
+        buildFiles = filesInfo[0];
+
     // Check if we need to get the AppName and AppVersion from the json or from the config
-    var packageInfo = utils.getPackageInfo(this.files);
+    var packageInfo = utils.getPackageInfo(filesInfo[1]);
+
     if(!options.app_name || !options.app_version) {
       options.app_name = options.app_name || packageInfo.name;
       options.app_version = options.app_version || packageInfo.version;
@@ -109,7 +114,7 @@ module.exports = function(grunt) {
     grunt.file.mkdir(release_path);
 
     // Compress the project into the release path
-    downloadDone.push(compress.generateZip(this.files, releaseFile));
+    downloadDone.push(compress.generateZip(buildFiles, releaseFile));
 
     // Download and unzip / untar the needed files
     webkitFiles.forEach(function(plattform) {
