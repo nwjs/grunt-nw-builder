@@ -34,12 +34,10 @@ module.exports = function(grunt) {
 
             }).forEach(function(srcFile) {
                 var internalFileName = path.normalize(exports.unixifyPath(srcFile));
-                if ( !package_path ) {
-                    // We need to make sure that the package.json is in the root
-                    if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
-                        jsonfile = internalFileName;
-                        package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
-                    }
+                // We need to make sure that the package.json is in the root
+                if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
+                    jsonfile = internalFileName;
+                    package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
                 }
                 srcFiles.push(internalFileName);
             });
