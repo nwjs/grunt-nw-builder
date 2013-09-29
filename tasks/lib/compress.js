@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     // Generate a Zip file from a directory and a destination path
     // and returns back a read stream
     exports.generateZip = function(files, dest) {
-        var package_path = false,
+        var package_path = null,
             zipDone = Q.defer(),
             destFiles = [],
             archive = archiver('zip'),
@@ -28,10 +28,15 @@ module.exports = function(grunt) {
 
             src.forEach(function(srcFile) {
                 var internalFileName = path.normalize(utils.unixifyPath(srcFile));
-                // We need to make sure that the package.json is in the root
-                if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
-                    package_path = path.normalize(internalFileName.split('package.json')[0]);
+
+                if ( !package_path ) {
+
+                    // We need to make sure that the package.json is in the root
+                    if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
+                        package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
+                    }
                 }
+
                 destFiles.push(internalFileName);
             });
         });
