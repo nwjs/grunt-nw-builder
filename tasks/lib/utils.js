@@ -1,12 +1,12 @@
 var plist = require('plist'),
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 module.exports = function(grunt) {
-    exports.generatePlist = function(target_filename, options, appOptions) {
+    exports.generatePlist = function(abspath, target_filename, options, appOptions) {
 
         // Handle the INfo.plist file
-        var info = plist.parseFileSync(target_filename);
-
+        var info = plist.parseFileSync(abspath);
         info.CFBundleDisplayName = options.app_name;
         info.CFBundleName = options.app_name;
 

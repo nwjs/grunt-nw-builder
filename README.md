@@ -88,7 +88,7 @@ Do you want to download and build a linux64 version
 Type: `String`
 Default value: `false`
 
-MAC ONLY: The path to your credits.html file.
+MAC ONLY: The path to your credits.html file. If your don't provide your own it will use the one provided by node-webkit
 
 #### options.keep_nw
 Type: `Boolean`

@@ -34,9 +34,9 @@ module.exports = function(grunt) {
     nodewebkit: {
       options: {
         build_dir: './example/build',
-        credits: './example/public/credits.html',
-        win: true,
-        mac: true
+        credits: './example/public/Credits.html',
+        win: false,
+        mac: true,
       },
       src: './example/public/**/*'
     },

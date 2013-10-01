@@ -131,9 +131,7 @@ module.exports = function(grunt) {
 
         // If force is true we delete the path
         if (grunt.file.isDir(plattform.dest) && options.force_download) {
-          grunt.file.delete(plattform.dest, {
-            force: true
-          });
+          grunt.file.delete(plattform.dest, { force: true });
         }
 
         // Download files
@@ -168,6 +166,11 @@ module.exports = function(grunt) {
           plattform.app
         );
 
+        // Delete the folder if it exists, we like to start fresh
+        if (grunt.file.isDir(releaseFolder)) {
+          grunt.file.delete(releaseFolder, { force: true });
+        }
+
         // If plattform is mac, we just copy node-webkit.app
         // Otherwise we copy everything that is on the plattform.files array
         grunt.file.recurse(plattform.dest, function(abspath, rootdir, subdir, filename) {
@@ -182,26 +185,26 @@ module.exports = function(grunt) {
               subdir = (subdir ? subdir : '');
               var stats = fs.lstatSync(abspath);
               var target_filename = path.join(releaseFolder, subdir, filename);
-              grunt.file.copy(abspath, target_filename);
 
+              // Handle plist
               if (target_filename.match(options.app_name+'.app/Contents/Info.plist$')) {
-
                 // Generate Info.plist$
-                utils.generatePlist(target_filename, options, packageInfo);
-
-                // Generate credits.html
-                if(options.credits) {
-                  if(!grunt.file.exists(options.credits)) {
-                    grunt.log.warn("Your credits.html file does not exists in: ", options.credits);
-                  } else {
-                    grunt.file.copy(options.credits, path.resolve(path.dirname(target_filename),'Resources','Credits.html'));
-                  }
-                }
+                utils.generatePlist(abspath, target_filename, options, packageInfo);
+                return;
               }
 
+              // Handle Credits
+              if (target_filename.match('credits.html')) {
+                var creditsFile = (options.credits && grunt.file.exists(options.credits) ? options.credits : abspath);
+                grunt.file.copy(creditsFile, path.join(releaseFolder, options.app_name+'.app', 'Contents', 'Resources', 'Credits.html'));
+                return;
+              }
+
+              // Copy and chmod file
+              grunt.file.copy(abspath, target_filename);
               fs.chmodSync(target_filename, stats.mode);
-              // TODO: edit the plist file according to config
             }
+
           } else if (plattform.files.indexOf(filename) >= 0) {
             // Omit the nw executable on other platforms
             if(filename !== 'nw.exe' && filename !== 'nw') {
