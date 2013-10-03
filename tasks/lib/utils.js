@@ -2,6 +2,10 @@ var plist = require('plist'),
     path = require('path'),
     fs = require('fs');
 
+var pathDept = function(absolutePath) {
+    return absolutePath.split(path.sep).length;
+};
+
 module.exports = function(grunt) {
     exports.generatePlist = function(abspath, target_filename, options, appOptions) {
 
@@ -27,6 +31,11 @@ module.exports = function(grunt) {
     exports.getFileList = function(files) {
         var package_path = null, destFiles = [], srcFiles = [], jsonfile = null;
 
+        var setJsonFile = function(jsonPath) {
+            jsonfile = jsonPath;
+            package_path = path.normalize(jsonPath.split('package.json')[0] || './' );
+        };
+
         files.forEach(function(file) {
 
             file.src.filter(function(f) {
@@ -34,11 +43,18 @@ module.exports = function(grunt) {
 
             }).forEach(function(srcFile) {
                 var internalFileName = path.normalize(exports.unixifyPath(srcFile));
-                // We need to make sure that the package.json is in the root
-                if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
-                    jsonfile = internalFileName;
-                    package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
+
+                if (internalFileName.match('package.json')) {
+                    if (jsonfile) {
+                      var currentDepth = pathDept(jsonfile);
+                      var newDepth = pathDept(internalFileName);
+
+                      if (newDepth < currentDepth) setJsonFile(internalFileName);
+                    } else {
+                      setJsonFile(internalFileName);
+                    }
                 }
+
                 srcFiles.push(internalFileName);
             });
         });
