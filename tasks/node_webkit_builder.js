@@ -43,7 +43,8 @@ module.exports = function(grunt) {
           download_url: 'https://s3.amazonaws.com/node-webkit/',
           timestamped_builds: false,
           credits: false,
-          keep_nw: false
+          keep_nw: false,
+          single_executable: true
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
@@ -101,7 +102,7 @@ module.exports = function(grunt) {
     var release_path = path.resolve(
       options.build_dir,
       'releases',
-      options.app_name + (options.timestamped_builds ?  ' - ' + Math.round(Date.now() / 1000).toString() : '')
+      options.app_version + (options.timestamped_builds ?  ' - ' + Math.round(Date.now() / 1000).toString() : '')
     );
 
     // Get the Path for the releaseFile
@@ -156,8 +157,7 @@ module.exports = function(grunt) {
         // Set the release folder
         releaseFolder  = path.resolve(
           release_path,
-          plattform.type,
-          (plattform.type !== 'mac' ? options.app_name : '')
+          plattform.type
         );
 
         releasePathApp = path.resolve(
@@ -214,14 +214,26 @@ module.exports = function(grunt) {
         });
 
         // Let's create the release
-        generateDone.push(
-          compress.generateRelease(
-            releasePathApp,
-            zipFile,
-            plattform.type,
-            (plattform.type !== 'mac' ? path.resolve(plattform.dest, plattform.nwpath) : null)
-          )
-        );
+        if (plattform.type !== 'win' || options.single_executable) {
+          generateDone.push(
+            compress.generateSingleExecutableRelease(
+              releasePathApp,
+              zipFile,
+              plattform.type,
+              (plattform.type !== 'mac' ? path.resolve(plattform.dest, plattform.nwpath) : null)
+            )
+          );
+        } else {
+          generateDone.push(
+            compress.generateReleaseWithNwExecutable(
+                releasePathApp,
+                zipFile,
+                plattform.type,
+                (plattform.type !== 'mac' ? path.resolve(plattform.dest, plattform.nwpath) : null)
+            )
+          );
+        }
+
       });
 
       Q.all(generateDone).done(function(plattforms) {
