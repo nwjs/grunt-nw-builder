@@ -200,6 +200,13 @@ module.exports = function(grunt) {
                 return;
               }
 
+              // Handle ICNS
+              if (target_filename.match('nw.icns') && options.mac_icns) {
+                var icnsFile = (grunt.file.exists(options.mac_icns) ? options.mac_icns : abspath);
+                grunt.file.copy(icnsFile, path.join(releaseFolder, options.app_name+'.app', 'Contents', 'Resources', 'nw.icns'));
+                return;
+              }
+
               // Copy and chmod file
               grunt.file.copy(abspath, target_filename);
               fs.chmodSync(target_filename, stats.mode);
