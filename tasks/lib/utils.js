@@ -2,8 +2,17 @@ var plist = require('plist'),
     path = require('path'),
     fs = require('fs');
 
-var pathDept = function(absolutePath) {
+var pathDepth = module.exports.pathDepth = function(absolutePath) {
     return absolutePath.split(path.sep).length;
+};
+
+var closerPathDepth = module.exports.closerPathDepth = function(path1, path2) {
+    if (!path2) return path1;
+
+    var d1 = pathDepth(path1),
+        d2 = pathDepth(path2);
+
+    return d1 < d2 ? path1 : path2;
 };
 
 module.exports = function(grunt) {
@@ -31,11 +40,6 @@ module.exports = function(grunt) {
     exports.getFileList = function(files) {
         var package_path = null, destFiles = [], srcFiles = [], jsonfile = null;
 
-        var setJsonFile = function(jsonPath) {
-            jsonfile = jsonPath;
-            package_path = path.normalize(jsonPath.split('package.json')[0] || './' );
-        };
-
         files.forEach(function(file) {
 
             file.src.filter(function(f) {
@@ -45,14 +49,8 @@ module.exports = function(grunt) {
                 var internalFileName = path.normalize(exports.unixifyPath(srcFile));
 
                 if (internalFileName.match('package.json')) {
-                    if (jsonfile) {
-                      var currentDepth = pathDept(jsonfile);
-                      var newDepth = pathDept(internalFileName);
-
-                      if (newDepth < currentDepth) setJsonFile(internalFileName);
-                    } else {
-                      setJsonFile(internalFileName);
-                    }
+                    jsonfile = closerPathDepth(internalFileName, jsonfile);
+                    package_path = path.normalize(jsonfile.split('package.json')[0] || './' );
                 }
 
                 srcFiles.push(internalFileName);
