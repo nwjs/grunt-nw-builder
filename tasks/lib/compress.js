@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         }
     };
 
-    exports.generateRelease = function(relaseFile, zipPath, type, nwpath) {
+    exports.generateSingleExecutableRelease = function(relaseFile, zipPath, type, nwpath) {
         var releaseDone = Q.defer(),
             ws = fs.createWriteStream(relaseFile),
             zipStream = fs.createReadStream(zipPath),
@@ -86,6 +86,50 @@ module.exports = function(grunt) {
 
             nwpath_rs.pipe(ws, { end: false });
         }
+
+        return releaseDone.promise;
+    };
+
+    exports.generateReleaseWithNwExecutable = function(relaseFile, zipPath, type, nwpath) {
+        var releaseDone = Q.defer(),
+            executableWriteStream = fs.createWriteStream(relaseFile),
+            zipStream = fs.createReadStream(zipPath),
+            packagePath = path.join(path.dirname(relaseFile), 'package.nw'),
+            packageWriteStream = fs.createWriteStream(packagePath),
+            nwpath_rs,
+            executableCopyDone = Q.defer(),
+            packageCopyDone = Q.defer(),
+            copyPromises = [executableCopyDone.promise, packageCopyDone.promise];
+
+        Q.all(copyPromises).done(function() {
+            releaseDone.resolve(type);
+        });
+
+        executableWriteStream.on('error', function(err) {
+            grunt.fail.fatal(err);
+        });
+
+        executableWriteStream.on('close', function() {
+            executableCopyDone.resolve(type);
+        });
+
+        packageWriteStream.on('error', function(err) {
+            grunt.fail.fatal(err);
+        });
+
+        packageWriteStream.on('close', function() {
+            packageCopyDone.resolve(type);
+        });
+
+        nwpath_rs = fs.createReadStream(nwpath);
+
+        nwpath_rs.on('error', function(err) {
+            grunt.fail.fatal(err);
+        });
+
+        zipStream.pipe(packageWriteStream);
+
+        nwpath_rs.pipe(executableWriteStream);
 
         return releaseDone.promise;
     };
