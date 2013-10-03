@@ -2,6 +2,19 @@ var plist = require('plist'),
     path = require('path'),
     fs = require('fs');
 
+var pathDepth = module.exports.pathDepth = function(absolutePath) {
+    return absolutePath.split(path.sep).length;
+};
+
+var closerPathDepth = module.exports.closerPathDepth = function(path1, path2) {
+    if (!path2) return path1;
+
+    var d1 = pathDepth(path1),
+        d2 = pathDepth(path2);
+
+    return d1 < d2 ? path1 : path2;
+};
+
 module.exports = function(grunt) {
     exports.generatePlist = function(abspath, target_filename, options, appOptions) {
 
@@ -34,11 +47,12 @@ module.exports = function(grunt) {
 
             }).forEach(function(srcFile) {
                 var internalFileName = path.normalize(exports.unixifyPath(srcFile));
-                // We need to make sure that the package.json is in the root
-                if (internalFileName.match('package.json') && !internalFileName.match('node_modules')) {
-                    jsonfile = internalFileName;
-                    package_path = path.normalize(internalFileName.split('package.json')[0] || './' );
+
+                if (internalFileName.match('package.json')) {
+                    jsonfile = closerPathDepth(internalFileName, jsonfile);
+                    package_path = path.normalize(jsonfile.split('package.json')[0] || './' );
                 }
+
                 srcFiles.push(internalFileName);
             });
         });
