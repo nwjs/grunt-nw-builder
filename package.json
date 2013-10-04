@@ -38,7 +38,8 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-nodeunit": "*",
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "grunt-release": "~0.6.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"

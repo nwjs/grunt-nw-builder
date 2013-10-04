@@ -2,20 +2,9 @@ var plist = require('plist'),
     path = require('path'),
     fs = require('fs');
 
-var pathDepth = module.exports.pathDepth = function(absolutePath) {
-    return absolutePath.split(path.sep).length;
-};
-
-var closerPathDepth = module.exports.closerPathDepth = function(path1, path2) {
-    if (!path2) return path1;
-
-    var d1 = pathDepth(path1),
-        d2 = pathDepth(path2);
-
-    return d1 < d2 ? path1 : path2;
-};
 
 module.exports = function(grunt) {
+
     exports.generatePlist = function(abspath, target_filename, options, appOptions) {
 
         // Handle the INfo.plist file
@@ -36,7 +25,6 @@ module.exports = function(grunt) {
         grunt.file.write(target_filename, plist.build(info));
     };
 
-
     exports.getFileList = function(files) {
         var package_path = null, destFiles = [], srcFiles = [], jsonfile = null;
 
@@ -48,8 +36,9 @@ module.exports = function(grunt) {
             }).forEach(function(srcFile) {
                 var internalFileName = path.normalize(exports.unixifyPath(srcFile));
 
+                // Get Package JSON
                 if (internalFileName.match('package.json')) {
-                    jsonfile = closerPathDepth(internalFileName, jsonfile);
+                    jsonfile = exports.closerPathDepth(internalFileName, jsonfile);
                     package_path = path.normalize(jsonfile.split('package.json')[0] || './' );
                 }
 
@@ -84,14 +73,25 @@ module.exports = function(grunt) {
         return appPkg;
     };
 
-
-
     exports.unixifyPath = function(filepath) {
         if (process.platform === 'win32') {
             return filepath.replace(/\\/g, '/');
         } else {
             return filepath;
         }
+    };
+
+    exports.closerPathDepth = function(path1, path2) {
+        if (!path2) { return path1; }
+
+        var d1 = exports.pathDepth(path1),
+            d2 = exports.pathDepth(path2);
+
+        return d1 < d2 ? path1 : path2;
+    };
+
+    exports.pathDepth = function(absolutePath) {
+        return absolutePath.split(path.sep).length;
     };
 
     return exports;
