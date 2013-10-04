@@ -10,7 +10,6 @@
 var Q = require('q'),
   path = require('path'),
   fs = require('fs'),
-  path = require('path'),
   async = require('async');
 
 module.exports = function(grunt) {
