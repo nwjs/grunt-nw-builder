@@ -36,7 +36,7 @@ exports.util = {
   getFileList: {
     setUp: function(callback) {
       this.isFile = grunt.file.isFile;
-      grunt.file.isFile = function(f) { return !f.match(/missing$/); };
+      grunt.file.isFile = function(f) { return f !== "dist/img" && !f.match(/missing$/); };
       this.normalize = path.normalize;
       path.normalize = function(f) { return f; };
       callback();
@@ -53,6 +53,7 @@ exports.util = {
           "dist/package.json",
           "dist/main from root.js",
           "dist/missing",
+          "dist/img",
           "dist/img/logo from subdir.png",
           "dist/node_modules/some module/package.json",
           "other/not from dist.js"
@@ -108,6 +109,12 @@ exports.util = {
           "src": ["dist/main from root.js"],
           "orig": distOrig,
           "dest": "main from root.js"
+        },
+        {
+          "dot": true,
+          "src": ["dist/img"],
+          "orig": distOrig,
+          "dest": "img"
         },
         {
           "dot": true,

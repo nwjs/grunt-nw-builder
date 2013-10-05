@@ -67,9 +67,11 @@ module.exports = function(grunt) {
             if (file.src.length !== 1) {
                 grunt.fail.warn('Multiple source files with single destination: ' + file.src);
             }
-            destFiles.push({src: file.src[0], dest: file.dest});
-            if (file.dest === 'package.json') {
-                jsonfile = file.src[0];
+            if (file.src.length > 0 && grunt.file.isFile(file.src[0])) {
+                destFiles.push({src: file.src[0], dest: file.dest});
+                if (file.dest === 'package.json') {
+                    jsonfile = file.src[0];
+                }
             }
         });
 
