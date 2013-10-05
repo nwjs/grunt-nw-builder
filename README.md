@@ -121,7 +121,14 @@ grunt.initConfig({
         linux32: false, // We don't need linux32
         linux64: false // We don't need linux64
     },
-    src: ['./example/public/**/*'] // Your node-wekit app
+    src: {
+      files: [{
+        expand: true,
+        dot: true,
+        cwd: './example/public/',
+        src: ['**/*'] // Your node-wekit app
+      }]
+    }
   },
 })
 ```

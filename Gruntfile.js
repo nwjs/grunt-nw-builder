@@ -38,7 +38,14 @@ module.exports = function(grunt) {
         win: false,
         mac: true,
       },
-      src: './example/public/**/*'
+      src: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: './example/public/',
+          src: ['**/*']
+        }]
+      }
     },
 
     // Unit tests.

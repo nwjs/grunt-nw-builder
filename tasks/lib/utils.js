@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         grunt.file.write(target_filename, plist.build(info));
     };
 
-    exports.getFileList = function(files) {
+    function getFileListOriginal(files) {
         var package_path = null, destFiles = [], srcFiles = [], jsonfile = null;
 
         files.forEach(function(file) {
@@ -58,6 +58,37 @@ module.exports = function(grunt) {
 
         // We return it as an array
         return [destFiles, jsonfile];
+    }
+
+    function getFileListGruntStandard(files) {
+        var destFiles = [], jsonfile = null;
+
+        files.forEach(function(file) {
+            if (file.src.length !== 1) {
+                grunt.fail.warn('Multiple source files with single destination: ' + file.src);
+            }
+            if (file.src.length > 0 && grunt.file.isFile(file.src[0])) {
+                destFiles.push({src: file.src[0], dest: file.dest});
+                if (file.dest === 'package.json') {
+                    jsonfile = file.src[0];
+                }
+            }
+        });
+
+        // Fail if there is no valid json file
+        if(!jsonfile) {
+            grunt.fail.warn('Could not find a package.json in your src folder');
+        }
+
+        // We return it as an array
+        return [destFiles, jsonfile];
+    }
+
+    exports.getFileList = function(files) {
+        if (files.length === 1 && files[0].src.length > 1 && files[0].orig.cwd === undefined) {
+            return getFileListOriginal(files);
+        }
+        return getFileListGruntStandard(files);
     };
 
     exports.getPackageInfo = function(jsonfile) {
