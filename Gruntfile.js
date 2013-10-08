@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       options: {
         build_dir: './example/build',
         credits: './example/public/Credits.html',
-        win: false,
+        win: true,
         mac: true,
       },
       src: './example/public/**/*'
