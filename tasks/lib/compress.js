@@ -4,7 +4,9 @@ var fs = require('fs'),
     Q = require('q'),
     path = require('path'),
     archiver = require('archiver'),
-    Readable = require('lazystream').Readable;
+    Readable = require('lazystream').Readable,
+    Writable = require('lazystream').Writable;
+
 
 // Download and unzip/untar the node wekit files from aws
 // Mostly copied from grunt-contrib-compress
@@ -17,10 +19,12 @@ module.exports = function(grunt) {
         var zipDone = Q.defer(),
             destFiles = [],
             archive = archiver('zip'),
-            destStream = fs.createWriteStream(dest);
+            destStream = new Writable(function() {
+                return fs.createWriteStream(dest);
+            });
 
         // Resolve on close
-        destStream.on('close', zipDone.resolve);
+        destStream.on('finish', zipDone.resolve);
 
         // Report Error
         archive.on('error', function(err) {
@@ -57,15 +61,19 @@ module.exports = function(grunt) {
 
     exports.generateRelease = function(relaseFile, zipPath, type, nwpath) {
         var releaseDone = Q.defer(),
-            ws = fs.createWriteStream(relaseFile),
-            zipStream = fs.createReadStream(zipPath),
+            ws = new Writable(function() {
+                return fs.createWriteStream(relaseFile);
+            }),
+            zipStream = new Readable(function() {
+                return fs.createReadStream(zipPath);
+            }),
             nwpath_rs;
 
         ws.on('error', function(err) {
             grunt.fail.fatal(err);
         });
 
-        ws.on('close', function() {
+        ws.on('finish', function() {
             releaseDone.resolve(type);
         });
 

@@ -71,6 +71,28 @@ exports.util = {
     actual = util.getFileList(files);
     test.notDeepEqual(actual, expected, 'should normalize the grunt files array.');
 
+    // files = grunt.task.normalizeMultiTaskFiles({
+    //   src: {
+    //     files: [{
+    //       expand: true,
+    //       dot: true,
+    //       cwd: 'test/fixtures/get_file_list/multiple/dist',
+    //       src: [
+    //         'index.html',
+    //         '*/**/*',
+    //         '!bower_components/**/*'
+    //       ]
+    //     },
+    //     {
+    //       expand: true,
+    //       dot: true,
+    //       cwd: '<%= yeoman.app %>',
+    //       src: ['package.json']
+    //     }]
+    //   }
+    // });
+
+
 
     test.done();
   }
