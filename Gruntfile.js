@@ -1,4 +1,3 @@
-
 /*
  * grunt-node-webkit-builder
  * https://github.com/steffen/grunt-node-webkit-builder
@@ -34,10 +33,7 @@ module.exports = function(grunt) {
     nodewebkit: {
       options: {
         build_dir: './example/build',
-        credits: './example/public/Credits.html',
-        win: true,
-        mac: false,
-        force_download: true
+        credits: './example/public/Credits.html'
       },
       src: './example/public/**/*'
     },
@@ -56,6 +52,7 @@ module.exports = function(grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-release');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
