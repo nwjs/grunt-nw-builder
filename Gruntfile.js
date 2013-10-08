@@ -36,7 +36,8 @@ module.exports = function(grunt) {
         build_dir: './example/build',
         credits: './example/public/Credits.html',
         win: true,
-        mac: true,
+        mac: false,
+        force_download: true
       },
       src: './example/public/**/*'
     },

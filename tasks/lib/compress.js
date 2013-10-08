@@ -74,6 +74,9 @@ module.exports = function(grunt) {
         });
 
         ws.on('finish', function() {
+            if(type.indexOf('linux') !== -1) {
+                fs.chmodSync(relaseFile, '0755');
+            }
             releaseDone.resolve(type);
         });
 

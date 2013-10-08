@@ -62,9 +62,7 @@ module.exports = function(grunt) {
                 extractDone = exports.untarFile(data.dest, plattform.dest);
             }
 
-            extractDone.done(function() {
-                downloadAndUnpackDone.resolve(plattform);
-            });
+            extractDone.done(downloadAndUnpackDone.resolve.bind(plattform));
 
         });
 
@@ -139,26 +137,23 @@ module.exports = function(grunt) {
     };
 
     exports.untarFile = function(file, dest) {
-        var tarParser = tar.Parse(),
-            untarDone = Q.defer(),
-            tarFile = fs.createReadStream(file);
+        var untarDone = Q.defer();
 
-        grunt.log.writeln('Untaring: ' + file);
+        fs.createReadStream(file)
+            .pipe(zlib.createGunzip())
+            .pipe(tar.Extract({
+                path: dest,
+                strip: 1
+            }))
+            .on('error', function(error) {
+                grunt.log.error('There was an error untaring the file', error);
+            })
+            .on('end', untarDone.resolve)
+            .on("entry", function(entry) {
+                var filename = entry.path.split('/').reverse()[0];
+                grunt.verbose.writeln('Unpacking ' + filename + ' --> ' + path.resolve(dest, filename));
+            });
 
-        tarFile.pipe(zlib.createGunzip()).pipe(tarParser).on('entry', function(entry) {
-            var filename = entry.path.split('/').reverse()[0];
-
-            // Log unpacking
-            grunt.verbose.writeln('Unpacking ' + filename + ' --> ' + path.resolve(dest, filename));
-
-            // We skip the folder
-            if (entry.size !== 0) {
-                entry.pipe(fs.createWriteStream(path.resolve(dest, filename)));
-            }
-        });
-
-        // Resolve when done
-        tarParser.on('end', untarDone.resolve);
         return untarDone.promise;
     };
 
