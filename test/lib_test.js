@@ -1,99 +1,72 @@
 'use strict';
 
-var grunt = require('grunt');
-var util = require('../tasks/lib/utils')(grunt);
+// Test Setup
+var assert = require('chai').assert,
+    tmp = require('tmp'),
+    sinon = require('sinon'),
+    grunt = require('grunt'),
+    util = require('../tasks/lib/utils')(grunt);
+
+describe('The utility library', function() {
 
 
-/*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
+    it('getFileList: should generate a valid fileList for default', function() {
+      var files = grunt.task.normalizeMultiTaskFiles({
+        src: ['test/fixtures/utils/get_file_list/default/**/**']
+      }), expected = [
+        [{
+          src: 'test/fixtures/utils/get_file_list/default/images/imagefile', dest: 'images/imagefile'
+        }, {
+          src: 'test/fixtures/utils/get_file_list/default/javascript/bower_packages/simple/package.json', dest: 'javascript/bower_packages/simple/package.json'
+        }, {
+          src: 'test/fixtures/utils/get_file_list/default/javascript/jsfile', dest: 'javascript/jsfile'
+        }, {
+          src: 'test/fixtures/utils/get_file_list/default/node_modules/package/package.json', dest: 'node_modules/package/package.json'
+        }, {
+          src: 'test/fixtures/utils/get_file_list/default/package.json', dest: 'package.json'
+        }],
+        'test/fixtures/utils/get_file_list/default/package.json'
+      ], actual = util.getFileList(files);
 
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
+      assert.deepEqual(expected, actual);
 
-exports.util = {
-  getFileList: function(test) {
-    test.expect(2);
-
-    var files, actual, expected;
-
-    // Test Default setup
-    files = grunt.task.normalizeMultiTaskFiles({
-      src: ['test/fixtures/get_file_list/default/**/**']
     });
 
-    expected = [
-      [{
-        src: 'test/fixtures/get_file_list/default/images/imagefile',
-        dest: 'images/imagefile'
-      }, {
-        src: 'test/fixtures/get_file_list/default/javascript/bower_packages/simple/package.json',
-        dest: 'javascript/bower_packages/simple/package.json'
-      }, {
-        src: 'test/fixtures/get_file_list/default/javascript/jsfile',
-        dest: 'javascript/jsfile'
-      }, {
-        src: 'test/fixtures/get_file_list/default/node_modules/package/package.json',
-        dest: 'node_modules/package/package.json'
-      }, {
-        src: 'test/fixtures/get_file_list/default/package.json',
-        dest: 'package.json'
-      }],
-      'test/fixtures/get_file_list/default/package.json'
-    ];
 
-    actual = util.getFileList(files);
-    test.deepEqual(actual, expected, 'should normalize the grunt files.');
-
-    // Test multiple src values
-    files = grunt.task.normalizeMultiTaskFiles({
-      src: [
-      'test/fixtures/get_file_list/default/package.json',
-      'test/fixtures/get_file_list/default/javascript/**',
-      'test/fixtures/get_file_list/default/images/**',
-      'test/fixtures/get_file_list/default/node_modules/**'
-      ]
+    it('getPackageInfo: should fail if there is no valid json', function() {
+      var warn = grunt.fail.warn;
+      grunt.fail.warn = sinon.spy();
+      var pkg = util.getPackageInfo('test/fixtures/utils/invalid_package.json');
+      assert.ok(grunt.fail.warn.called);
+      grunt.fail.warn = warn;
     });
 
-    actual = util.getFileList(files);
-    test.notDeepEqual(actual, expected, 'should normalize the grunt files array.');
 
-    // files = grunt.task.normalizeMultiTaskFiles({
-    //   src: {
-    //     files: [{
-    //       expand: true,
-    //       dot: true,
-    //       cwd: 'test/fixtures/get_file_list/multiple/dist',
-    //       src: [
-    //         'index.html',
-    //         '*/**/*',
-    //         '!bower_components/**/*'
-    //       ]
-    //     },
-    //     {
-    //       expand: true,
-    //       dot: true,
-    //       cwd: '<%= yeoman.app %>',
-    //       src: ['package.json']
-    //     }]
-    //   }
-    // });
+    it('closerPathDepth: should give back the shortest path', function() {
+      var path1 = 'this/is/a/path/',
+          path2 = 'this/is/a/longer/path/';
+
+      assert.equal(path1, util.closerPathDepth(path1, path2));
+    });
+
+    it('pathDepth: should return the length of a path', function() {
+      assert.equal(6, util.pathDepth('this/is/a/longer/path/'));
+    });
 
 
+    it('generatePlist: should generate a valid Plist file', function(done) {
+      var options = {
+        app_version: '1.0',
+        app_name: 'test',
+        copyright: '2013'
+      };
 
-    test.done();
-  }
-};
+      tmp.file(function(err, target_filename) {
+        util.generatePlist('test/fixtures/utils/plist.pls', target_filename, options);
+        assert.equal(grunt.file.read(target_filename), grunt.file.read('test/expected/utils/plist_edited.pls'));
+        done();
+      });
+
+    });
+
+});

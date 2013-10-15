@@ -85,13 +85,14 @@ module.exports = function(grunt) {
             zipStream.pipe(ws);
         } else {
             // on windows and linux cat the node-webkit with the nw archive
-            nwpath_rs = fs.createReadStream(nwpath);
-
+            nwpath_rs = new Readable(function() {
+              return fs.createReadStream(nwpath);
+            });
             nwpath_rs.on('error', function(err) {
                 grunt.fail.fatal(err);
             });
 
-            nwpath_rs.on('end', function(){
+            nwpath_rs.on('finish', function(){
                 zipStream.pipe(ws);
             });
 

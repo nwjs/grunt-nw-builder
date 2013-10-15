@@ -1,7 +1,7 @@
 {
   "curly": true,
   "laxcomma": true,
-  "laxbreak":true,
+  "laxbreak": true,
   "eqeqeq": true,
   "immed": true,
   "latedef": true,
@@ -12,5 +12,12 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-  "es5": false
+  "es5": false,
+  "globals": {
+    "describe": true,
+    "it":true,
+    "expect":true,
+    "before":true,
+    "after":true
+  }
 }

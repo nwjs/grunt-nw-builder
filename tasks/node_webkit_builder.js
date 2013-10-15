@@ -10,7 +10,9 @@
 var Q = require('q'),
   path = require('path'),
   fs = require('fs'),
-  async = require('async');
+  async = require('async'),
+  multimeter = require('multimeter');
+
 
 module.exports = function(grunt) {
   // ***************************************************************************
@@ -114,6 +116,7 @@ module.exports = function(grunt) {
 
     // Compress the project into the release path
     downloadDone.push(compress.generateZip(buildFiles, releaseFile));
+    var multi = multimeter(process);
 
     // Download and unzip / untar the needed files
     webkitFiles.forEach(function(plattform) {
@@ -133,8 +136,23 @@ module.exports = function(grunt) {
           grunt.file.delete(plattform.dest, { force: true });
         }
 
+        var downloaded = download.downloadAndUnpack(plattform);
+
+        if(!downloaded.isFulfilled()) {
+          multi.write('Downloading and unpacking ' + plattform.type + ': ');
+          multi.drop(function (bar) {
+            downloaded.progress(function(progress) {
+              bar.percent(progress.percent);
+            }).done(function() {
+              bar.percent(100, 'Done');
+            });
+          });
+
+          multi.write('\n');
+        }
+
         // Download files
-        downloadDone.push(download.downloadAndUnpack(plattform));
+        downloadDone.push(downloaded);
       }
     });
 
@@ -188,7 +206,8 @@ module.exports = function(grunt) {
               // Handle plist
               if (target_filename.match(options.app_name+'.app/Contents/Info.plist$')) {
                 // Generate Info.plist$
-                utils.generatePlist(abspath, target_filename, options, packageInfo);
+                options.copyright = packageInfo.copyright;
+                utils.generatePlist(abspath, target_filename, options);
                 return;
               }
 

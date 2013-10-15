@@ -4,7 +4,10 @@ var fs = require('fs'),
     zlib = require('zlib'),
     path = require('path'),
     request = require('request'),
-    ZIP = require('zip');
+    ZIP = require('zip'),
+    progress = require('request-progress'),
+    Readable = require('lazystream').Readable,
+    Writable = require('lazystream').Writable;
 
 
 // Download and unzip/untar the node wekit files from aws
@@ -28,80 +31,50 @@ module.exports = function(grunt) {
           downloadAndUnpackDone.resolve(plattform);
           return downloadAndUnpackDone.promise;
         }
-/*
-        // We should also check, if the zip archive already exists
-        exists = grunt.file.exists(path.resolve(plattform.dest, plattform.filename));
 
-        var extractDone;
-        if(exists) {
-          // TODO: Refactor the extract method!
-          var removeFromPath = false, ext = 'zip';
-          if(ext === 'zip') {
-              removeFromPath = (plattform.type === 'win' ? plattform.filename.replace('.zip', '') : false);
-              extractDone = exports.unzipFile(path.resolve(plattform.dest, plattform.filename), plattform.dest, removeFromPath);
-          } else {
-              extractDone = exports.untarFile(path.resolve(plattform.dest, plattform.filename), plattform.dest);
-          }
-          downloadAndUnpackDone.resolve(plattform);
-          return downloadAndUnpackDone.promise;
-        }
-
-*/
         // Files do not exists, so we download them
-        var downloadDone = exports.download(plattform.url, plattform.dest);
-        downloadDone.done(function(data) {
-            var extractDone, removeFromPath = false;
-            // @TODO: We are using the very slow zip module because it
-            // was very easy to patch in the unzip module to support
-            // file permission for mac
-
-            if(data.ext === 'zip') {
-                removeFromPath = (plattform.type === 'win' ? plattform.filename.replace('.zip', '') : false);
-                extractDone = exports.unzipFile(data.dest, plattform.dest, removeFromPath);
-            } else {
-                extractDone = exports.untarFile(data.dest, plattform.dest);
-            }
-
-            extractDone.done(downloadAndUnpackDone.resolve.bind(plattform));
-
-        });
-
-        return downloadAndUnpackDone.promise;
-    };
-
-    exports.download = function(url, dest) {
-        var downloadDone = Q.defer(),
-            extention = (url.split('.')).slice(-1)[0],
-            downloadPath = path.resolve(dest, (url.split('/')).slice(-1)[0]),
+        var extention = (plattform.url.split('.')).slice(-1)[0],
+            downloadPath = path.resolve(plattform.dest, (plattform.url.split('/')).slice(-1)[0]),
             destStream = fs.createWriteStream(downloadPath),
-            downloadRequest = request(url);
+            downloadRequest = progress(request(plattform.url));
 
-        grunt.log.writeln('Downloading: ' + url);
 
-        destStream.on('close', function() {
-            downloadDone.resolve({dest: downloadPath, ext: extention});
-        });
-
-        destStream.on('error', function(error) {
-            grunt.log.error(error);
-            grunt.fail.warn('Download write failed.');
-        });
-
-        downloadRequest.on('error', function(error) {
-            grunt.log.error(error);
+        // Make it nice and pretty
+        downloadRequest.on('progress', downloadAndUnpackDone.notify).on('error', function(err) {
+            grunt.log.error(err);
             grunt.fail.warn('There was an error while downloading.');
         });
 
+        // Pipe or wait
+        switch(extention) {
+            case 'zip':
+                destStream.on('en', function() {
+                    var removeFromPath = (plattform.type === 'win' ? plattform.filename.replace('.zip', '') : false);
+                    exports.unzipFile(downloadPath, plattform.dest, removeFromPath).then(function() {
+                        downloadAndUnpackDone.resolve(plattform);
+                    });
+                });
+            break;
+
+            case 'gz':
+                exports.untarFile(downloadRequest, plattform).then(function() {
+                    downloadAndUnpackDone.resolve(plattform);
+                });
+            break;
+        }
+
+        // Save to Disk
         downloadRequest.pipe(destStream);
 
-        return downloadDone.promise;
+        return downloadAndUnpackDone.promise;
+
     };
 
     exports.unzipFile = function(file, dest, removeFromPath) {
         var _zipReader = ZIP.Reader(fs.readFileSync(file)),
             unzipDone = Q.defer();
 
-        grunt.log.writeln('Unzipping: ' + file);
+        grunt.verbose.writeln('Unzipping: ' + file);
 
         _zipReader.forEach(function(entry) {
             var mode = entry.getMode(),
@@ -132,26 +105,25 @@ module.exports = function(grunt) {
 
         // I know that this is blocking, the defered is just for consistency :)
         // And when node unzip supports permissions
+
         unzipDone.resolve();
         return unzipDone.promise;
     };
 
-    exports.untarFile = function(file, dest) {
+    exports.untarFile = function(inputstream, plattform) {
         var untarDone = Q.defer();
 
-        fs.createReadStream(file)
-            .pipe(zlib.createGunzip())
+        inputstream.pipe(zlib.createGunzip())
             .pipe(tar.Extract({
-                path: dest,
+                path: plattform.dest,
                 strip: 1
-            }))
-            .on('error', function(error) {
+            })).on('error', function(error) {
                 grunt.log.error('There was an error untaring the file', error);
-            })
-            .on('end', untarDone.resolve)
-            .on("entry", function(entry) {
+            }).on('end', function()  {
+                untarDone.resolve(plattform);
+            }).on("entry", function(entry) {
                 var filename = entry.path.split('/').reverse()[0];
-                grunt.verbose.writeln('Unpacking ' + filename + ' --> ' + path.resolve(dest, filename));
+                grunt.verbose.writeln('Unpacking ' + filename + ' --> ' + path.resolve(plattform.dest, filename));
             });
 
         return untarDone.promise;

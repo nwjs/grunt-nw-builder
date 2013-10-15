@@ -39,7 +39,13 @@
     "grunt-contrib-clean": "*",
     "grunt-contrib-nodeunit": "*",
     "grunt": "~0.4.1",
-    "grunt-release": "~0.6.0"
+    "grunt-release": "~0.6.0",
+    "grunt-simple-mocha": "~0.4.0",
+    "mocha": "~1.13.0",
+    "glob": "~3.2.6",
+    "tmp": "0.0.21",
+    "sinon": "~1.7.3",
+    "grunt-contrib-watch": "~0.5.3"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"
@@ -53,9 +59,11 @@
     "unzip": "~0.1.8",
     "async": "~0.2.9",
     "tar": "~0.1.18",
-    "lazystream": "~0.1.0",
     "archiver": "~0.4.6",
+    "lazystream": "~0.1.0",
     "zip": "~1.1.1",
-    "plist": "~0.4.3"
+    "plist": "~0.4.3",
+    "request-progress": "~0.3.1",
+    "multimeter": "~0.1.1"
   }
 }

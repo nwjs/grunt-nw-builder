@@ -5,7 +5,7 @@ var plist = require('plist'),
 
 module.exports = function(grunt) {
 
-    exports.generatePlist = function(abspath, target_filename, options, appOptions) {
+    exports.generatePlist = function(abspath, target_filename, options) {
 
         // Handle the INfo.plist file
         var info = plist.parseFileSync(abspath);
@@ -18,8 +18,8 @@ module.exports = function(grunt) {
         info.CFBundleVersion = options.app_version; // TODO: if git, get commit hash!
         info.CFBundleShortVersionString = 'Version ' + options.app_version;
 
-        if(appOptions.copyright) {
-          info.NSHumanReadableCopyright = appOptions.copyright;
+        if(options.copyright) {
+          info.NSHumanReadableCopyright = options.copyright;
         }
 
         grunt.file.write(target_filename, plist.build(info));
