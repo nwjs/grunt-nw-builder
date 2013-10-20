@@ -30,11 +30,9 @@ module.exports = function(grunt) {
       options: {
         build_dir: './example/build',
         credits: './example/public/Credits.html',
-        force_download: false,
         mac: true,
         win: true,
-        keep_nw: true,
-        download_url: 'http://localhost:3333/',
+        keep_nw: true
       },
       src: './example/public/**/*'
     },

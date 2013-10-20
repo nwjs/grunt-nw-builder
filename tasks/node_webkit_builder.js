@@ -117,6 +117,7 @@ module.exports = function(grunt) {
     // Compress the project into the release path
     downloadDone.push(compress.generateZip(buildFiles, releaseFile));
     var multi = multimeter(process);
+    multi.write('\n');
 
     // Download and unzip / untar the needed files
     webkitFiles.forEach(function(plattform) {

@@ -35,7 +35,9 @@ module.exports = function(grunt) {
         // Files do not exists, so we download them
         var extention = (plattform.url.split('.')).slice(-1)[0],
             downloadPath = path.resolve(plattform.dest, (plattform.url.split('/')).slice(-1)[0]),
-            destStream = fs.createWriteStream(downloadPath),
+            destStream = new Writable(function() {
+                return fs.createWriteStream(downloadPath);
+            }),
             downloadRequest = progress(request(plattform.url));
 
 
@@ -48,7 +50,7 @@ module.exports = function(grunt) {
         // Pipe or wait
         switch(extention) {
             case 'zip':
-                destStream.on('en', function() {
+                destStream.on('finish', function() {
                     var removeFromPath = (plattform.type === 'win' ? plattform.filename.replace('.zip', '') : false);
                     exports.unzipFile(downloadPath, plattform.dest, removeFromPath).then(function() {
                         downloadAndUnpackDone.resolve(plattform);
