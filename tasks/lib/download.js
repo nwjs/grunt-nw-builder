@@ -74,7 +74,7 @@ module.exports = function(grunt) {
             extention = (url.split('.')).slice(-1)[0],
             downloadPath = path.resolve(dest, (url.split('/')).slice(-1)[0]),
             destStream = fs.createWriteStream(downloadPath),
-            var downloadRequest;
+            downloadRequest;
 
             if(process.env.http_proxy){
                 downloadRequest = request({url: url, proxy: process.env.http_proxy});
