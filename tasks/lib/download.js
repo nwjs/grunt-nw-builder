@@ -19,16 +19,16 @@ module.exports = function(grunt) {
 
         // We Check if the files exist
         plattform.files.every(function(file) {
-          exists = grunt.file.exists(plattform.dest, file);
-          return exists;
+            exists = grunt.file.exists(plattform.dest, file);
+            return exists;
         });
 
         // If it exists, we resolve and return
-        if(exists) {
-          downloadAndUnpackDone.resolve(plattform);
-          return downloadAndUnpackDone.promise;
+        if (exists) {
+            downloadAndUnpackDone.resolve(plattform);
+            return downloadAndUnpackDone.promise;
         }
-/*
+        /*
         // We should also check, if the zip archive already exists
         exists = grunt.file.exists(path.resolve(plattform.dest, plattform.filename));
 
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
             // was very easy to patch in the unzip module to support
             // file permission for mac
 
-            if(data.ext === 'zip') {
+            if (data.ext === 'zip') {
                 removeFromPath = (plattform.type === 'win' ? plattform.filename.replace('.zip', '') : false);
                 extractDone = exports.unzipFile(data.dest, plattform.dest, removeFromPath);
             } else {
@@ -73,19 +73,25 @@ module.exports = function(grunt) {
         var downloadDone = Q.defer(),
             extention = (url.split('.')).slice(-1)[0],
             downloadPath = path.resolve(dest, (url.split('/')).slice(-1)[0]),
-            destStream = fs.createWriteStream(downloadPath),
-            var downloadRequest;
+            destStream = fs.createWriteStream(downloadPath);
+        var downloadRequest;
 
-            if(process.env.http_proxy){
-                downloadRequest = request({url: url, proxy: process.env.http_proxy});
-            }else{
-                downloadRequest = request(url);
-            }
+        if (process.env.http_proxy) {
+            downloadRequest = request({
+                url: url,
+                proxy: process.env.http_proxy
+            });
+        } else {
+            downloadRequest = request(url);
+        }
 
         grunt.log.writeln('Downloading: ' + url);
 
         destStream.on('close', function() {
-            downloadDone.resolve({dest: downloadPath, ext: extention});
+            downloadDone.resolve({
+                dest: downloadPath,
+                ext: extention
+            });
         });
 
         destStream.on('error', function(error) {
@@ -113,7 +119,7 @@ module.exports = function(grunt) {
             var mode = entry.getMode(),
                 fileName = path.resolve(dest, entry.getName());
 
-            if(removeFromPath) {
+            if (removeFromPath) {
                 fileName = path.normalize(fileName.replace(removeFromPath, ''));
             }
 
