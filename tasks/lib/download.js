@@ -73,7 +73,7 @@ module.exports = function(grunt) {
         var downloadDone = Q.defer(),
             extention = (url.split('.')).slice(-1)[0],
             downloadPath = path.resolve(dest, (url.split('/')).slice(-1)[0]),
-            destStream = fs.createWriteStream(downloadPath),
+            destStream = fs.createWriteStream(downloadPath);
             var downloadRequest;
 
             if(process.env.http_proxy){
