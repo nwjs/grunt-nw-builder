@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                 extractDone = exports.untarFile(data.dest, plattform.dest);
             }
 
-            extractDone.done(downloadAndUnpackDone.resolve.bind(plattform));
+            extractDone.done(downloadAndUnpackDone.resolve.bind(downloadAndUnpackDone, plattform));
 
         });
 
