@@ -38,24 +38,24 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-nodeunit": "*",
-    "grunt": "~0.4.1",
+    "grunt": "~0.4.2",
     "grunt-release": "~0.6.0"
   },
   "peerDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.2"
   },
   "keywords": [
     "gruntplugin"
   ],
   "dependencies": {
-    "q": "~0.9.6",
-    "request": "~2.22.0",
-    "unzip": "~0.1.8",
+    "request": "~2.30.0",
+    "unzip": "~0.1.9",
     "async": "~0.2.9",
-    "tar": "~0.1.18",
+    "tar": "~0.1.19",
     "lazystream": "~0.1.0",
-    "archiver": "~0.4.6",
+    "archiver": "~0.4.10",
     "zip": "~1.1.1",
-    "plist": "~0.4.3"
+    "plist": "~0.4.3",
+    "q": "~1.0.0"
   }
 }
