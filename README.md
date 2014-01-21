@@ -108,6 +108,11 @@ Default value: `https://s3.amazonaws.com/node-webkit/`
 
 The URL where the prebuilt binaries are. Only change this if you know what you are doing
 
+#### options.zip
+Type: `Boolean`
+Default value: `false`
+
+MAC ONLY: Use a `app.nw` folder instead of `ZIP` file, this significantly improves the startup speed of applications on `mac`, since no decompressing is needed. Builds on other platforms will still use `ZIP` files.
 
 ### Usage Examples
 

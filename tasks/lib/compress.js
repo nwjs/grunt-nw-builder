@@ -48,6 +48,21 @@ module.exports = function(grunt) {
         return zipDone.promise;
     };
 
+    exports.generateFolder = function(files, dest, type) {
+        return Q.all(files.map(function(srcFile) {
+            return utils.copyFile(
+                srcFile.src,
+                path.join(
+                    dest,
+                    srcFile.dest
+                )
+            );
+        }))
+        .then(function() {
+            return type;
+        });
+    };
+
     exports.cleanUpRelease = function(nwPath) {
 
         if(grunt.file.exists(nwPath)) {
