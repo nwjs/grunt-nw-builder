@@ -24,7 +24,7 @@ grunt.loadNpmTasks('grunt-node-webkit-builder');
 
 #### options.version
 Type: `String`
-Default value: `'0.7.5'`
+Default value: `'0.8.4'`
 
 The version of node-webkit you want to use. [Here is a list](https://github.com/rogerwang/node-webkit/wiki/Downloads-of-old-versions) of all available releases
 
