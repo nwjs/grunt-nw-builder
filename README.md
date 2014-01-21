@@ -133,10 +133,7 @@ grunt.initConfig({
 
 
 ## To Do:
-- Test building on Windows and Linux machines
-
-## Known Issue
-This is the first relase so there might be bugs. One known issue is that the download sometimes fails. If this is the case just try to run the task again
+- Port the logic into a [separate npm module](https://github.com/mllrsohn/node-webkit-builder) and make a wrapper for grunt/gulp/what-ever-the-next-thing-is 
 
 
 ## Release History
