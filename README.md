@@ -137,7 +137,7 @@ grunt.initConfig({
 
 
 ## Release History
-- 2013-09-19    Removed config merging (but keept the lookup for version number and name), added keep_nw option, fixed various small bugs.
+- 2013-09-19    Removed config merging (but kept the lookup for version number and name), added keep_nw option, fixed various small bugs.
 - 2013-09-09    fixed accidential deletion of nw.exe on windows builds, adding several improvements, opt in for timestamped builds, using version and name from package.json to name the build product and build dir, renamed download directory to `cache`, added merge from package.json options for nodewebkit (no need to add configuration to Gruntfile, but stays optional)
 - 2013-08-20    fix for the unzip lib
 - 2013-08-13    initial release
