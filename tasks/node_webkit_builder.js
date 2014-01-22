@@ -40,6 +40,7 @@ module.exports = function(grunt) {
           linux32: false,
           linux64: false,
           mac_icns: false,
+          mac_ffmpegsumo: false,
           download_url: 'https://s3.amazonaws.com/node-webkit/',
           timestamped_builds: false,
           credits: false,
@@ -218,6 +219,13 @@ module.exports = function(grunt) {
               if (target_filename.match('nw.icns') && options.mac_icns) {
                 var icnsFile = (grunt.file.exists(options.mac_icns) ? options.mac_icns : abspath);
                 grunt.file.copy(icnsFile, path.join(releaseFolder, options.app_name+'.app', 'Contents', 'Resources', 'nw.icns'));
+                return;
+              }
+
+              // Handle ffmpegsumo
+              if (target_filename.match('ffmpegsumo.so') && options.mac_ffmpegsumo) {
+                var ffmpegsumoFile = (grunt.file.exists(options.mac_ffmpegsumo) ? options.mac_ffmpegsumo : abspath);
+                grunt.file.copy(ffmpegsumoFile, path.join(releaseFolder, options.app_name+'.app', 'Contents', 'Frameworks', 'node-webkit Framework.framework', 'Libraries', 'ffmpegsumo.so'));
                 return;
               }
 
