@@ -97,9 +97,10 @@ module.exports = function(grunt) {
 
     exports.copyFile = function(src, dest) {
         var d = Q.defer();
-
+        var stats = fs.lstatSync(src);
         try {
             grunt.file.copy(src, dest);
+            fs.chmodSync(dest, stats.mode);
             d.resolve();
         } catch(err) {
             d.reject(err);
