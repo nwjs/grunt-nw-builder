@@ -10,7 +10,8 @@
 var Q = require('q'),
   path = require('path'),
   fs = require('fs'),
-  async = require('async');
+  async = require('async'),
+  _ = require('lodash');
 
 module.exports = function(grunt) {
   // ***************************************************************************
@@ -26,7 +27,6 @@ module.exports = function(grunt) {
 
     var self = this,
       done = this.async(), // This is async so make sure we initalize done
-      _ = grunt.util._,
       package_path = false,
       downloadDone = [],
       options = this.options({
