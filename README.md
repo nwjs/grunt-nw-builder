@@ -96,6 +96,21 @@ Default value: `false`
 
 MAC ONLY: The path to your ICNS icon file. If your don't provide your own it will use the one provided by node-webkit
 
+#### options.mac_document_types
+Type: `Array`
+Default value: `[]`
+
+MAC ONLY: Accepts array of objects like this:
+
+```js
+{
+    name: 'Markdown Document', //  A user-visible description used to characterize documents of this type
+    extenstions: ['md', 'markdown', 'mkd'], // File extenstions array (without a dot)
+    role: 'Editor', // 'Editor' or 'Viewer'
+    isDefault: true, // Is this application default for open documents this type
+}
+```
+
 #### options.keep_nw
 Type: `Boolean`
 Default value: `false`

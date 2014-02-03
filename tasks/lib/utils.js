@@ -13,7 +13,14 @@ module.exports = function(grunt) {
         info.CFBundleDisplayName = options.app_name;
         info.CFBundleName = options.app_name;
 
-        info.CFBundleDocumentTypes = []; // zero out any document binding
+        info.CFBundleDocumentTypes = options.mac_document_types.map(function(type) {
+            return {
+                CFBundleTypeName: type.name,
+                CFBundleTypeExtensions: type.extenstions,
+                CFBundleTypeRole: type.role,
+                LSIsAppleDefaultForType: type.isDefault
+            };
+        });
         info.UTExportedTypeDeclarations = [];
 
         info.CFBundleVersion = options.app_version; // TODO: if git, get commit hash!
