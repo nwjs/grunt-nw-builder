@@ -90,6 +90,12 @@ Default value: `false`
 
 MAC ONLY: The path to your credits.html file. If your don't provide your own it will use the one provided by node-webkit
 
+#### options.mac_bundle_id
+Type: `String`
+Default value: same as node-webkit downloaded prebuilt binary
+
+MAC ONLY: CFBundleIdentifier key for Info.plist
+
 #### options.mac_icns
 Type: `String`
 Default value: `false`

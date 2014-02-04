@@ -39,6 +39,7 @@ module.exports = function(grunt) {
           mac: true,
           linux32: false,
           linux64: false,
+          mac_bundle_id: null,
           mac_icns: false,
           mac_document_types: [],
           download_url: 'https://s3.amazonaws.com/node-webkit/',

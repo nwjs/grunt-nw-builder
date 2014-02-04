@@ -12,6 +12,9 @@ module.exports = function(grunt) {
         var info = plist.parseFileSync(abspath);
         info.CFBundleDisplayName = options.app_name;
         info.CFBundleName = options.app_name;
+        if(options.mac_bundle_id) {
+            info.CFBundleIdentifier = options.mac_bundle_id
+        }
 
         info.CFBundleDocumentTypes = options.mac_document_types.map(function(type) {
             return {
