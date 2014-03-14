@@ -126,7 +126,7 @@ grunt.initConfig({
         linux32: false, // We don't need linux32
         linux64: false // We don't need linux64
     },
-    src: ['./example/public/**/*'] // Your node-wekit app
+    src: ['./example/public/**/*'] // Your node-webkit app
   },
 })
 ```
