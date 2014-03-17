@@ -73,6 +73,7 @@ module.exports = function(grunt) {
     };
 
     exports.generateRelease = function(relaseFile, zipPath, type, nwpath) {
+        console.log(relaseFile, zipPath, type, nwpath);
         var releaseDone = Q.defer(),
             ws = fs.createWriteStream(relaseFile),
             zipStream = fs.createReadStream(zipPath),

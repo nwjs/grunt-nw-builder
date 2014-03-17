@@ -32,6 +32,7 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     nodewebkit: {
       options: {
+        mac: true,
         build_dir: './example/build',
         credits: './example/public/Credits.html',
         mac_icns: './example/icon.icns'
