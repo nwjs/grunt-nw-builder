@@ -40,7 +40,7 @@ module.exports = function(grunt) {
           linux32: false,
           linux64: false,
           mac_icns: false,
-          download_url: 'https://s3.amazonaws.com/node-webkit/',
+          download_url: 'http://dl.node-webkit.org/',
           timestamped_builds: false,
           credits: false,
           keep_nw: false,
