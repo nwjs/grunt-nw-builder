@@ -145,6 +145,8 @@ module.exports = function(grunt) {
     exports.untarFile = function(file, dest) {
         var untarDone = Q.defer();
 
+        grunt.log.writeln('Unpacking: ' + file);
+      
         fs.createReadStream(file)
             .pipe(zlib.createGunzip())
             .pipe(tar.Extract({
