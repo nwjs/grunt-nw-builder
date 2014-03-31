@@ -129,6 +129,7 @@ module.exports = function(grunt) {
       downloadDone.push(compress.generateZip(buildFiles, releaseFile));
     }
 
+    var indicator = new download.ProgressIndicator(grunt);
 
     // Download and unzip / untar the needed files
     webkitFiles.forEach(function(plattform) {
@@ -149,7 +150,7 @@ module.exports = function(grunt) {
         }
 
         // Download files
-        downloadDone.push(download.downloadAndUnpack(plattform));
+        downloadDone.push(download.downloadAndUnpack(plattform, indicator));
       }
     });
 
