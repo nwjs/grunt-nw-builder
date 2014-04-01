@@ -4,13 +4,50 @@ var fs = require('fs'),
     zlib = require('zlib'),
     path = require('path'),
     request = require('request'),
+    progress = require('request-progress'),
     ZIP = require('zip');
 
+function ProgressIndicator(grunt) {
+    this.grunt = grunt;
+    this.entries = {};
+}
+
+ProgressIndicator.prototype.add = function(id) {
+    this.entries[id] = {total: Infinity, downloaded: 0};
+};
+
+ProgressIndicator.prototype.progress = function(id, totalByte, downloadedByte) {
+    var entry = this.entries[id];
+    entry.total = totalByte;
+    entry.downloaded = downloadedByte;
+    this.writeProgress();
+};
+
+ProgressIndicator.prototype.writeProgress = function () {
+    var total = 0;
+    var downloaded = 0;
+    var percent = 100;
+    for (var id in this.entries) {
+        if (this.entries.hasOwnProperty(id)) {
+            total += this.entries[id].total
+            downloaded += this.entries[id].downloaded
+        }
+    }
+    if (total !== 0) {
+        percent = Math.floor(100.0 * downloaded / total);
+    }
+    var bar = [];
+    for (var i = 0; i < 100; i += 2) {
+        bar.push((i < percent) ? '#' : '-');
+    }
+    this.grunt.log.write('    ' + bar.join('') + ' ' + percent + '%\r');
+};
 
 // Download and unzip/untar the node wekit files from aws
 module.exports = function(grunt) {
+    exports.ProgressIndicator = ProgressIndicator;
 
-    exports.downloadAndUnpack = function(plattform) {
+    exports.downloadAndUnpack = function(plattform, indicator) {
         var downloadAndUnpackDone = Q.defer(),
             exists = false;
 
@@ -48,7 +85,7 @@ module.exports = function(grunt) {
 
 */
         // Files do not exists, so we download them
-        var downloadDone = exports.download(plattform.url, plattform.dest);
+        var downloadDone = exports.download(plattform.url, plattform.dest, indicator);
         downloadDone.done(function(data) {
             var extractDone, removeFromPath = false;
             // @TODO: We are using the very slow zip module because it
@@ -69,7 +106,7 @@ module.exports = function(grunt) {
         return downloadAndUnpackDone.promise;
     };
 
-    exports.download = function(url, dest) {
+    exports.download = function(url, dest, indicator) {
         var downloadDone = Q.defer(),
             extention = (url.split('.')).slice(-1)[0],
             downloadPath = path.resolve(dest, (url.split('/')).slice(-1)[0]),
@@ -77,12 +114,12 @@ module.exports = function(grunt) {
             downloadRequest;
 
             if(process.env.http_proxy){
-                downloadRequest = request({url: url, proxy: process.env.http_proxy});
+                downloadRequest = progress(request({url: url, proxy: process.env.http_proxy}));
             }else{
-                downloadRequest = request(url);
+                downloadRequest = progress(request(url));
             }
-
         grunt.log.writeln('Downloading: ' + url);
+        indicator.add(url);
 
         destStream.on('close', function() {
             downloadDone.resolve({dest: downloadPath, ext: extention});
@@ -96,6 +133,10 @@ module.exports = function(grunt) {
         downloadRequest.on('error', function(error) {
             grunt.log.error(error);
             grunt.fail.warn('There was an error while downloading.');
+        });
+
+        downloadRequest.on('progress', function(state) {
+            indicator.progress(url, state.total, state.received);
         });
 
         downloadRequest.pipe(destStream);
