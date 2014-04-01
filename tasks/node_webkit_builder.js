@@ -112,7 +112,7 @@ module.exports = function(grunt) {
     var release_path = path.resolve(
       options.build_dir,
       'releases',
-      options.app_name + (options.timestamped_builds ?  ' - ' + Math.round(Date.now() / 1000).toString() : '')
+      options.app_name + (options.timestamped_builds ?  ' - ' + Math.round(Date.now() / 1000).toString() : ' - ' + options.app_version)
     );
 
     // Get the Path for the releaseFile
