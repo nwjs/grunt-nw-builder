@@ -223,6 +223,12 @@ module.exports = function(grunt) {
                 return;
               }
 
+              // Cleanup "crash_reporter.app" apps
+              if (target_filename.match('crash_report_sender.app/Contents/Info.plist$')) {
+                utils.cleanupCrashReporter(abspath, target_filename, options);
+                return;
+              }
+
               // Copy and chmod file
               grunt.file.copy(abspath, target_filename);
               fs.chmodSync(target_filename, stats.mode);

@@ -30,6 +30,16 @@ module.exports = function(grunt) {
         grunt.file.write(target_filename, plist.build(info));
     };
 
+    exports.cleanupCrashReporter = function(abspath, target_filename, options) {
+        // Handle the INfo.plist file
+        var info = plist.parseFileSync(abspath);
+
+        // Fix CFBundleIdentifier
+        info.CFBundleIdentifier = 'com.Breakpad.' + options.app_name;
+
+        grunt.file.write(target_filename, plist.build(info));
+    };
+
     exports.getFileList = function(files) {
         var package_path = null, destFiles = [], srcFiles = [], jsonfile = null;
 
