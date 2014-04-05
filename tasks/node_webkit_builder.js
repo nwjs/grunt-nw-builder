@@ -44,7 +44,8 @@ module.exports = function(grunt) {
           timestamped_builds: false,
           credits: false,
           keep_nw: false,
-          zip: false  // Do not zip app.nw on OS X
+          zip: false,  // Do not zip app.nw on OS X
+          plist_extras: {}, // Allow user to define custom PLIST entries [OS X only]
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",

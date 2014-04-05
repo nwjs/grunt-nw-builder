@@ -1,4 +1,5 @@
-var plist = require('plist'),
+var _ = require('lodash'),
+    plist = require('plist'),
     path = require('path'),
     fs = require('fs'),
     Q = require('q');
@@ -22,6 +23,9 @@ module.exports = function(grunt) {
         if(appOptions.copyright) {
           info.NSHumanReadableCopyright = appOptions.copyright;
         }
+
+        // Extend plist with user defined extras
+        _.extend(info, options.plist_extras);
 
         grunt.file.write(target_filename, plist.build(info));
     };
