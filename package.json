@@ -1,19 +1,12 @@
 {
   "name": "grunt-node-webkit-builder",
   "description": "Let's you build your node webkit apps with grunt",
-  "version": "0.1.19",
+  "version": "0.2.0",
   "homepage": "https://github.com/mllrsohn/grunt-node-webkit-builder",
   "author": {
     "name": "Steffen Müller",
     "email": "steffen@mllrsohn.com"
   },
-  "contributors": [
-    {
-      "name": "jens alexander ewald",
-      "email": "jens@lea.io",
-      "url": "http://lea.io"
-    }
-  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:mllrsohn/grunt-node-webkit-builder.git"
@@ -21,43 +14,23 @@
   "bugs": {
     "url": "https://github.com/mllrsohn/grunt-node-webkit-builder/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/mllrsohn/grunt-node-webkit-builder/blob/master/LICENSE-MIT"
-    }
-  ],
+  "licenses": "MIT",
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.10.0"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "devDependencies": {
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-clean": "*",
-    "grunt-contrib-nodeunit": "*",
-    "grunt": "~0.4.2",
-    "grunt-release": "~0.6.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.2"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "nodewebkit",
+    "node-webkit"
   ],
   "dependencies": {
-    "request": "~2.33.0",
-    "unzip": "~0.1.9",
-    "async": "~0.2.9",
-    "tar": "~0.1.19",
-    "lazystream": "~0.1.0",
-    "archiver": "~0.5.2",
-    "zip": "~1.1.1",
-    "plist": "~0.4.3",
-    "q": "~1.0.0",
-    "lodash": "~2.4.1",
-    "request-progress": "~0.3.1"
+    "node-webkit-builder": "0.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4"
   }
 }
