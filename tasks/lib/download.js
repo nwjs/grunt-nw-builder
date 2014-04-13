@@ -1,6 +1,6 @@
 var fs = require('fs'),
     Q = require('q'),
-    tar = require('tar'),
+    tar = require('tar-fs'),
     zlib = require('zlib'),
     path = require('path'),
     request = require('request'),
@@ -188,17 +188,19 @@ module.exports = function(grunt) {
 
         fs.createReadStream(file)
             .pipe(zlib.createGunzip())
-            .pipe(tar.Extract({
-                path: dest,
-                strip: 1
-            }))
+            .pipe(tar.extract(dest))
+            .on('finish', function() {
+                var basename = path.basename(file, '.tar.gz');
+                fs.readdir(path.join(dest, basename), function (err, files) {
+                    for (var i = 0; i < files.length; i++) {
+                        fs.renameSync(path.join(dest, basename, files[i]), path.join(dest, files[i]));
+                    }
+                    fs.rmdirSync(path.join(dest, basename));
+                    untarDone.resolve();
+                });
+            })
             .on('error', function(error) {
                 grunt.log.error('There was an error untaring the file', error);
-            })
-            .on('end', untarDone.resolve)
-            .on("entry", function(entry) {
-                var filename = entry.path.split('/').reverse()[0];
-                grunt.verbose.writeln('Unpacking ' + filename + ' --> ' + path.resolve(dest, filename));
             });
 
         return untarDone.promise;
