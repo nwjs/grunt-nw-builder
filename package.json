@@ -25,10 +25,12 @@
   "keywords": [
     "gruntplugin",
     "nodewebkit",
+    "build",
+    "builder",
     "node-webkit"
   ],
   "dependencies": {
-    "node-webkit-builder": "0.0.1"
+    "node-webkit-builder": "0.0.2"
   },
   "devDependencies": {
     "grunt": "^0.4.4"

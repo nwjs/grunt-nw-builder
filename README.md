@@ -1,6 +1,10 @@
 # grunt-node-webkit-builder
 
+[![NPM](https://nodei.co/npm/grunt-node-webkit-builder.png?downloads=true)](https://nodei.co/npm/grunt-node-webkit-builder/)
+
 > Let's you build your node-webkit apps for mac, win and linux with grunt. It will download the prebuilt binaries for a specify version, unpacks it, creates a release folder, create the app.nw file for a specified directory and copys the app.nw file where it belongs.
+
+*Issues with the output should be reported on the node-webkit-builder [issue tracker](https://github.com/mllrsohn/node-webkit-builder/issues).*
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -31,7 +35,7 @@ Exactly the same as https://github.com/mllrsohn/node-webkit-builder you only hav
 grunt.initConfig({
   nodewebkit: {
     options: {
-        plattforms: ['win','osx'],
+        platforms: ['win','osx'],
         buildDir: './webkitbuilds', // Where the build version of my node-webkit app is saved
     },
     src: ['./example/public/**/*'] // Your node-webkit app
@@ -41,7 +45,7 @@ grunt.initConfig({
 
 
 ## Release History
-- 2014-04-13    2.0 Moved logic into a separate Module, braking changes in config options.
+- 2014-04-13    2.0 Moved logic into a separate Module, breaking changes in some config options.
 - 2013-09-19    Removed config merging (but kept the lookup for version number and name), added keep_nw option, fixed various small bugs.
 - 2013-09-09    fixed accidential deletion of nw.exe on windows builds, adding several improvements, opt in for timestamped builds, using version and name from package.json to name the build product and build dir, renamed download directory to `cache`, added merge from package.json options for nodewebkit (no need to add configuration to Gruntfile, but stays optional)
 - 2013-08-20    fix for the unzip lib
