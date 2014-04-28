@@ -48,7 +48,7 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "archiver": "~0.5.2",
+    "archiver": "~0.9.0",
     "async": "~0.2.9",
     "lazystream": "~0.1.0",
     "lodash": "~2.4.1",
