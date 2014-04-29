@@ -96,6 +96,30 @@ Default value: `false`
 
 MAC ONLY: The path to your ICNS icon file. If your don't provide your own it will use the one provided by node-webkit
 
+#### options.mac_document_types
+Type: `String`
+Default value: `false`
+
+MAC ONLY: The configuration for MacOS file types. This is useful when you want your app to accept files/folders dropped from the desktop into your app dock.
+
+Example value:
+```javascript
+
+mac_document_types: [
+  {
+    CFBundleTypeExtensions: ["jpg", "png", "gif"]
+    CFBundleTypeName: "Image"
+    CFBundleTypeRole: "Viewer"
+  },
+  {
+    CFBundleTypeName: "Folder"
+    CFBundleTypeOSTypes: ["fold"]
+    CFBundleTypeRole: "Viewer"
+    LSTypeIsPackage: false
+  }
+]   
+```
+
 #### options.keep_nw
 Type: `Boolean`
 Default value: `false`
