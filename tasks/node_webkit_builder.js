@@ -34,6 +34,7 @@ module.exports = function(grunt) {
           app_name: null,
           app_version: null,
           build_dir: null, // Path where
+          cache_dir: null, // 
           force_download: false,
           win: true,
           mac: true,
@@ -85,6 +86,8 @@ module.exports = function(grunt) {
       grunt.log.warn("No platforms to build!");
       return done();
     }
+
+    var cacheDir = (options.cache_dir !== null) ? options.cache_dir : path.resolve(options.build_dir, 'cache');
 
     // Process the files array
     var filesInfo = utils.getFileList(this.files),
@@ -138,8 +141,7 @@ module.exports = function(grunt) {
         plattform.app = plattform.app.split('%APPNAME%').join(options.app_name);
         plattform.nwpath = plattform.nwpath.split('%APPNAME%').join(options.app_name);
         plattform.dest = path.resolve(
-          options.build_dir,
-          'cache',
+          cacheDir,
           plattform.type,
           options.version
         );

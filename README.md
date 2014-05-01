@@ -46,7 +46,13 @@ The version of your node-webkit app.
 Type: `String`
 Default value: `null`
 
-This is where the prebuilt binaries and the releases are saved.
+This is where the releases are saved.
+
+#### options.cache_dir
+Type: `String`
+Default value: `[options.build_dir]/cache`
+
+This is where the cached node-webkit downloads are saved.
 
 #### options.force_download
 Type: `Boolean`
