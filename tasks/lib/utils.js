@@ -54,7 +54,12 @@ module.exports = function(grunt) {
 
         // Make it easy for copy to understand the destination mapping
         srcFiles.forEach(function(file) {
-            destFiles.push({src:file, dest: file.replace(package_path, '')});
+            var _file = file,
+                firstDirOfFile = file.split('/')[0];
+            if( package_path == firstDirOfFile || package_path == '/'+firstDirOfFile || package_path == firstDirOfFile+'/' ) {
+                _file = file.replace(package_path, '');
+            }
+            destFiles.push({src:file, dest: _file});
         });
 
         // We return it as an array
