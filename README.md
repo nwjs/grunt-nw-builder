@@ -114,6 +114,12 @@ Default value: `false`
 
 MAC ONLY: Use a `app.nw` folder instead of `ZIP` file, this significantly improves the startup speed of applications on `mac`, since no decompressing is needed. Builds on other platforms will still use `ZIP` files.
 
+#### options.zipNoCompression
+Type: `Boolean`
+Default value: `true`
+
+Disable zip compression. Fasten app startup but increase binary size
+
 ### Usage Examples
 
 ```js
