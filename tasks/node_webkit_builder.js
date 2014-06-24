@@ -44,7 +44,8 @@ module.exports = function(grunt) {
           timestamped_builds: false,
           credits: false,
           keep_nw: false,
-          zip: false  // Do not zip app.nw on OS X
+          zip: false,  // Do not zip app.nw on OS X
+          zipNoCompression: true
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
@@ -126,7 +127,7 @@ module.exports = function(grunt) {
 
     // Compress the project into the release path
     if(needsZip) {
-      downloadDone.push(compress.generateZip(buildFiles, releaseFile));
+      downloadDone.push(compress.generateZip(buildFiles, releaseFile, options.zipNoCompression));
     }
 
     var indicator = new download.ProgressIndicator(grunt);
