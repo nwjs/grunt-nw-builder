@@ -186,6 +186,24 @@ module.exports = function(grunt) {
           grunt.file.delete(releaseFolder, { force: true });
         }
 
+        if (plattform.type === 'linux32') {
+          var fs = require('fs');
+          var sh = require('execSync');
+          var nwPath = path.resolve(
+              options.build_dir,
+              'cache',
+              plattform.type,
+              options.version,
+              plattform.nwpath
+          );
+
+          grunt.log.writeln("Replacing occurences of 'libudev.so.0' in nw executable");
+          if (fs.existsSync(nwPath)) {
+              var code = sh.run("sed -i 's/udev\.so\.0/udev.so.1/g' " + nwPath);
+              grunt.log.writeln("Replacing completed with code: " + code);
+          }
+        }
+
         // If plattform is mac, we just copy node-webkit.app
         // Otherwise we copy everything that is on the plattform.files array
         grunt.file.recurse(plattform.dest, function(abspath, rootdir, subdir, filename) {
