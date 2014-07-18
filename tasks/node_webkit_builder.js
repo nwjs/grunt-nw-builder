@@ -186,7 +186,7 @@ module.exports = function(grunt) {
           grunt.file.delete(releaseFolder, { force: true });
         }
 
-        if (plattform.type === 'linux32') {
+        if (plattform.type === 'linux32' || plattform.type === 'linux64') {
           var fs = require('fs');
           var util = require('util');
           var sh = require('execSync');
