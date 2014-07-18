@@ -188,6 +188,7 @@ module.exports = function(grunt) {
 
         if (plattform.type === 'linux32') {
           var fs = require('fs');
+          var util = require('util');
           var sh = require('execSync');
           var nwPath = path.resolve(
               options.build_dir,
@@ -199,7 +200,9 @@ module.exports = function(grunt) {
 
           grunt.log.writeln("Replacing occurences of 'libudev.so.0' in nw executable");
           if (fs.existsSync(nwPath)) {
-              var code = sh.run("sed -i 's/udev\.so\.0/udev.so.1/g' " + nwPath);
+              nwPath = nwPath.replace(/([^0-9a-z-])/gi, '\\$1');;
+
+             var code = sh.run("sed -i 's/udev\.so\.0/udev.so.1/g' " + nwPath);
               grunt.log.writeln("Replacing completed with code: " + code);
           }
         }
