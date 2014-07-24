@@ -26,8 +26,9 @@ module.exports = function(grunt) {
         grunt.file.write(target_filename, plist.build(info));
     };
 
-    exports.getFileList = function(files) {
-        var package_path = null, destFiles = [], srcFiles = [], jsonfile = null;
+    exports.getFileList = function(files, options) {
+        var package_path = null, destFiles = [], srcFiles = [], jsonfile = null,
+            tempPkgPath = options.build_dir + '/temp/';
 
         files.forEach(function(file) {
 
@@ -41,6 +42,18 @@ module.exports = function(grunt) {
                 if (internalFileName.match('package.json')) {
                     jsonfile = exports.closerPathDepth(internalFileName, jsonfile);
                     package_path = path.normalize(jsonfile.split('package.json')[0] || './' );
+
+                    if (options.packageJson) {
+                        var tempPath = path.normalize(tempPkgPath + 'package.json');
+                        var packageInfo = exports.getPackageInfo(jsonfile);
+
+                        for (var i in options.packageJson) {
+                            packageInfo[i] = options.packageJson[i];
+                        }
+
+                        grunt.file.write(tempPath, JSON.stringify(packageInfo, null, 2));
+                        internalFileName = tempPath;
+                    }
                 }
 
                 srcFiles.push(internalFileName);
@@ -54,7 +67,12 @@ module.exports = function(grunt) {
 
         // Make it easy for copy to understand the destination mapping
         srcFiles.forEach(function(file) {
-            destFiles.push({src:file, dest: file.replace(package_path, '')});
+            var dest = file.replace(package_path, '')
+            if (file.match('package.json') && options.packageJson) {
+                dest = file.replace(path.normalize(tempPkgPath), '');
+            }
+
+            destFiles.push({src:file, dest: dest});
         });
 
         // We return it as an array
