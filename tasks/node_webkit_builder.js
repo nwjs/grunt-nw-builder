@@ -158,7 +158,8 @@ module.exports = function(grunt) {
     // the files and stream the zip into the files/folders
     Q.all(downloadDone).done(function(plattforms) {
       var zipFile = releaseFile,
-        generateDone = [];
+        generateDone = [],
+        fixingPackage = [];
 
       plattforms.forEach(function(plattform) {
         var releaseDone = [],
@@ -188,107 +189,155 @@ module.exports = function(grunt) {
 
         if (plattform.type === 'linux32' || plattform.type === 'linux64') {
           var fs = require('fs');
-          var util = require('util');
-          var sh = require('execSync');
           var nwPath = path.resolve(
-              options.build_dir,
-              'cache',
-              plattform.type,
-              options.version,
-              plattform.nwpath
+            options.build_dir,
+            'cache',
+            plattform.type,
+            options.version,
+            plattform.nwpath
           );
 
-          grunt.log.writeln("Replacing occurences of 'libudev.so.0' in nw executable");
-          if (fs.existsSync(nwPath)) {
-              nwPath = nwPath.replace(/([^0-9a-z-])/gi, '\\$1');;
+          function fixNwPackage() {
+            var buf = "";
+            var rs = fs.createReadStream(nwPath);
+            var deferred = Q.defer();
 
-             var code = sh.run("sed -i 's/udev\.so\.0/udev.so.1/g' " + nwPath);
-              grunt.log.writeln("Replacing completed with code: " + code);
+            grunt.log.writeln("Replacing occurences of 'libudev.so.0' in nw executable in " + nwPath);
+
+            rs.on('data', function (chunk) {
+              buf += chunk.toString('binary').replace('udev.so.0', 'udev.so.1');
+            });
+
+            rs.on('error', function () {
+              grunt.log.error('Something went wrong!');
+            });
+
+            rs.on('end', function () {
+              grunt.log.ok('All occurences of "udev.so.0" have been replaced to "udev.so.1" in ' + nwPath);
+              fs.createWriteStream(nwPath).end(
+                new Buffer(buf, 'binary'),
+                function () {
+                  grunt.log.ok(nwPath + ' saved successfully');
+                  deferred.resolve(plattform);
+                }
+              );
+            });
+
+            return deferred.promise;
           }
+
+          fixingPackage.push(fixNwPackage());
+        } else {
+          var dummyFunction = function () {
+            var deferred = Q.defer();
+            deferred.resolve(plattform);
+            return deferred.promise;
+          };
+
+          fixingPackage.push(dummyFunction());
         }
+      });
 
-        // If plattform is mac, we just copy node-webkit.app
-        // Otherwise we copy everything that is on the plattform.files array
-        grunt.file.recurse(plattform.dest, function(abspath, rootdir, subdir, filename) {
-          if (plattform.exclude.indexOf(filename)>=0) {
-            return;
+      Q.all(fixingPackage).done(function (plattforms) {
+        plattforms.forEach(function (plattform) {
+          if (!plattform) {
+            return false;
           }
-          if (plattform.type === 'mac') {
-            if(filename !== plattform.filename) {
+          // Set the release folder (again, another loop)
+          var releaseFolder = path.resolve(
+            release_path,
+            plattform.type,
+            (plattform.type !== 'mac' ? options.app_name : '')
+          );
 
-              // Name the .app bundle on OS X correctly
-              subdir = (subdir ? subdir.replace(/^node-webkit/,options.app_name) : subdir);
-              subdir = (subdir ? subdir : '');
-              var stats = fs.lstatSync(abspath);
-              var target_filename = path.join(releaseFolder, subdir, filename);
+          var releasePathApp = path.resolve(
+            releaseFolder,
+            (plattform.type === 'mac' ? plattform.nwpath : ''),
+            plattform.app
+          );
 
-              // Handle plist
-              if (target_filename.match(options.app_name+'.app/Contents/Info.plist$')) {
-                // Generate Info.plist$
-                utils.generatePlist(abspath, target_filename, options, packageInfo);
-                return;
-              }
-
-              // Handle Credits
-              if (target_filename.match('credits.html')) {
-                var creditsFile = (options.credits && grunt.file.exists(options.credits) ? options.credits : abspath);
-                grunt.file.copy(creditsFile, path.join(releaseFolder, options.app_name+'.app', 'Contents', 'Resources', 'Credits.html'));
-                return;
-              }
-
-              // Handle ICNS
-              if (target_filename.match('nw.icns') && options.mac_icns) {
-                var icnsFile = (grunt.file.exists(options.mac_icns) ? options.mac_icns : abspath);
-                grunt.file.copy(icnsFile, path.join(releaseFolder, options.app_name+'.app', 'Contents', 'Resources', 'nw.icns'));
-                return;
-              }
-
-              // Copy and chmod file
-              grunt.file.copy(abspath, target_filename);
-              fs.chmodSync(target_filename, stats.mode);
+          // If plattform is mac, we just copy node-webkit.app
+          // Otherwise we copy everything that is on the plattform.files array
+          grunt.file.recurse(plattform.dest, function (abspath, rootdir, subdir, filename) {
+            if (plattform.exclude.indexOf(filename) >= 0) {
+              return;
             }
 
-          } else if (plattform.files.indexOf(filename) >= 0) {
-            // Omit the nw executable on other platforms
-            if(filename !== 'nw.exe' && filename !== 'nw') {
-              grunt.file.copy(abspath, path.join(releaseFolder, filename));
+            if (plattform.type === 'mac') {
+              if (filename !== plattform.filename) {
+
+                // Name the .app bundle on OS X correctly
+                subdir = (subdir ? subdir.replace(/^node-webkit/, options.app_name) : subdir);
+                subdir = (subdir ? subdir : '');
+                var stats = fs.lstatSync(abspath);
+                var target_filename = path.join(releaseFolder, subdir, filename);
+
+                // Handle plist
+                if (target_filename.match(options.app_name + '.app/Contents/Info.plist$')) {
+                  // Generate Info.plist$
+                  utils.generatePlist(abspath, target_filename, options, packageInfo);
+                  return;
+                }
+
+                // Handle Credits
+                if (target_filename.match('credits.html')) {
+                  var creditsFile = (options.credits && grunt.file.exists(options.credits) ? options.credits : abspath);
+                  grunt.file.copy(creditsFile, path.join(releaseFolder, options.app_name + '.app', 'Contents', 'Resources', 'Credits.html'));
+                  return;
+                }
+
+                // Handle ICNS
+                if (target_filename.match('nw.icns') && options.mac_icns) {
+                  var icnsFile = (grunt.file.exists(options.mac_icns) ? options.mac_icns : abspath);
+                  grunt.file.copy(icnsFile, path.join(releaseFolder, options.app_name + '.app', 'Contents', 'Resources', 'nw.icns'));
+                  return;
+                }
+
+                // Copy and chmod file
+                grunt.file.copy(abspath, target_filename);
+                fs.chmodSync(target_filename, stats.mode);
+              }
+
+            } else if (plattform.files.indexOf(filename) >= 0) {
+              // Omit the nw executable on other platforms
+              if (filename !== 'nw.exe' && filename !== 'nw') {
+                grunt.file.copy(abspath, path.join(releaseFolder, filename));
+              }
             }
+          });
+
+          // Let's create the release
+          if (plattform.type === 'mac' && options.zip === false) {
+            // Don't zip for OS X if specified
+            // Allows faster app booting
+            generateDone.push(
+              compress.generateFolder(
+                buildFiles,
+                releasePathApp,
+                plattform.type
+              ));
+          } else {
+            // Generate zip
+            generateDone.push(
+              compress.generateRelease(
+                releasePathApp,
+                zipFile,
+                plattform.type,
+                (plattform.type !== 'mac' ? path.resolve(plattform.dest, plattform.nwpath) : null)
+              )
+            );
           }
         });
 
-        // Let's create the release
-        if(plattform.type === 'mac' && options.zip === false) {
-          // Don't zip for OS X if specified
-          // Allows faster app booting
-          generateDone.push(
-          compress.generateFolder(
-            buildFiles,
-            releasePathApp,
-            plattform.type
-          ));
-        } else {
-          // Generate zip
-          generateDone.push(
-          compress.generateRelease(
-            releasePathApp,
-            zipFile,
-            plattform.type,
-            (plattform.type !== 'mac' ? path.resolve(plattform.dest, plattform.nwpath) : null)
-          )
-          );
-        }
-
+        Q.all(generateDone).done(function (plattforms) {
+          if (!options.keep_nw) {
+            compress.cleanUpRelease(zipFile);
+          }
+          grunt.log.oklns('Created a new release with node-webkit (' + options.version + ') for ' + plattforms.join(', '));
+          grunt.log.ok('@ ' + release_path);
+          done();
+        });
       });
-
-      Q.all(generateDone).done(function(plattforms) {
-        if(!options.keep_nw) {
-          compress.cleanUpRelease(zipFile);
-        }
-        grunt.log.oklns('Created a new release with node-webkit ('+options.version+') for '+plattforms.join(', '));
-        grunt.log.ok('@ ' + release_path);
-        done();
-      });
-
     });
   });
 };
