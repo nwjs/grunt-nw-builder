@@ -44,7 +44,8 @@ module.exports = function(grunt) {
           timestamped_builds: false,
           credits: false,
           keep_nw: false,
-          zip: false  // Do not zip app.nw on OS X
+          zip: false,  // Do not zip app.nw on OS X,
+          packageJson: null // Overrides to the package.json file.
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
@@ -87,7 +88,7 @@ module.exports = function(grunt) {
     }
 
     // Process the files array
-    var filesInfo = utils.getFileList(this.files),
+    var filesInfo = utils.getFileList(this.files, options),
         buildFiles = filesInfo[0];
 
     // Check if we need to get the AppName and AppVersion from the json or from the config
@@ -263,6 +264,13 @@ module.exports = function(grunt) {
         if(!options.keep_nw) {
           compress.cleanUpRelease(zipFile);
         }
+
+        if (options.packageJson) {
+          var dir = options.build_dir + '/temp';
+          fs.unlinkSync(dir + '/package.json');
+          fs.rmdirSync(options.build_dir + '/temp');
+        }
+
         grunt.log.oklns('Created a new release with node-webkit ('+options.version+') for '+plattforms.join(', '));
         grunt.log.ok('@ ' + release_path);
         done();
