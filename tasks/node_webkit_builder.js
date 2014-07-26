@@ -49,7 +49,7 @@ module.exports = function(grunt) {
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
         'type': 'win',
-        'files': ['ffmpegsumo.dll', 'icudt.dll', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
+        'files': ['ffmpegsumo.dll', 'icudtl.dat', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
         'nwpath': 'nw.exe',
         'app': '%APPNAME%.exe',
         'exclude': ['nwsnapshot.exe']
@@ -63,14 +63,14 @@ module.exports = function(grunt) {
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-linux-ia32.tar.gz",
         'type': 'linux32',
-        'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
+        'files': ['nw', 'nw.pak', 'libffmpegsumo.so', 'icudtl.dat'],
         'nwpath': 'nw',
         'app': '%APPNAME%',
         'exclude': ['nwsnapshot']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-linux-x64.tar.gz",
         'type': 'linux64',
-        'files': ['nw', 'nw.pak', 'libffmpegsumo.so'],
+        'files': ['nw', 'nw.pak', 'libffmpegsumo.so', 'icudtl.dat'],
         'nwpath': 'nw',
         'app': '%APPNAME%',
         'exclude': ['nwsnapshot']
