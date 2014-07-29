@@ -93,7 +93,7 @@ module.exports = function(grunt) {
             // file permission for mac
 
             if(data.ext === 'zip') {
-                removeFromPath = (plattform.type === 'win' ? plattform.filename.replace('.zip', '') : false);
+                removeFromPath = plattform.filename.replace('.zip', '');
                 extractDone = exports.unzipFile(data.dest, plattform.dest, removeFromPath);
             } else {
                 extractDone = exports.untarFile(data.dest, plattform.dest);
