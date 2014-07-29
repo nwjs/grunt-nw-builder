@@ -11,7 +11,8 @@ var Q = require('q'),
   path = require('path'),
   fs = require('fs'),
   async = require('async'),
-  _ = require('lodash');
+  _ = require('lodash'),
+  semver = require('semver');
 
 module.exports = function(grunt) {
   // ***************************************************************************
@@ -49,28 +50,39 @@ module.exports = function(grunt) {
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
         'type': 'win',
-        'files': ['ffmpegsumo.dll', 'icudtl.dat', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
+        'files': {
+			'<=0.9.2': ['ffmpegsumo.dll', 'icudt.dll', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak'],
+			'>0.9.2': ['ffmpegsumo.dll', 'icudtl.dat', 'libEGL.dll', 'libGLESv2.dll', 'nw.exe', 'nw.pak']
+		},
         'nwpath': 'nw.exe',
         'app': '%APPNAME%.exe',
         'exclude': ['nwsnapshot.exe']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-osx-ia32.zip",
         'type': 'mac',
-        'files': ['node-webkit.app'],
+        'files': {
+			'*': ['node-webkit.app']
+		},
         'nwpath': '%APPNAME%.app/Contents/Resources',
         'app': 'app.nw', // We have to keep the name as "app.nw" on OS X!
         'exclude': ['nwsnapshot']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-linux-ia32.tar.gz",
         'type': 'linux32',
-        'files': ['nw', 'nw.pak', 'libffmpegsumo.so', 'icudtl.dat'],
+        'files': {
+			'<=0.9.2': ['nw', 'nw.pak', 'libffmpegsumo.so'],
+			'>0.9.2': ['nw', 'nw.pak', 'libffmpegsumo.so', 'icudtl.dat']
+		},
         'nwpath': 'nw',
         'app': '%APPNAME%',
         'exclude': ['nwsnapshot']
       }, {
         'url': "v%VERSION%/node-webkit-v%VERSION%-linux-x64.tar.gz",
         'type': 'linux64',
-        'files': ['nw', 'nw.pak', 'libffmpegsumo.so', 'icudtl.dat'],
+        'files': {
+			'<=0.9.2': ['nw', 'nw.pak', 'libffmpegsumo.so'],
+			'>0.9.2': ['nw', 'nw.pak', 'libffmpegsumo.so', 'icudtl.dat']
+		},
         'nwpath': 'nw',
         'app': '%APPNAME%',
         'exclude': ['nwsnapshot']
@@ -148,6 +160,18 @@ module.exports = function(grunt) {
         if (grunt.file.isDir(plattform.dest) && options.force_download) {
           grunt.file.delete(plattform.dest, { force: true });
         }
+
+		// Get the correct list of files for the first matching version range
+		var satisfied = !Object.keys(plattform.files).every(function(range) {
+		  if (semver.satisfies(options.version, range)) {
+		    plattform.files = plattform.files[range];
+		    return false;
+		  }
+		  return true;
+		});
+		if (!satisfied) {
+		  grunt.fail.fatal("Unsupported node-webkit version '" + options.version + "' for platform '" + plattform.type + "'");
+		}
 
         // Download files
         downloadDone.push(download.downloadAndUnpack(plattform, indicator));
