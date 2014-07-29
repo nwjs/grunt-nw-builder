@@ -118,6 +118,12 @@ Default value: `false`
 
 MAC ONLY: Use a `app.nw` folder instead of `ZIP` file, this significantly improves the startup speed of applications on `mac`, since no decompressing is needed. Builds on other platforms will still use `ZIP` files.
 
+#### options.plist_extras
+Type: `Object`
+Default value: `{}`
+
+MAC ONLY: Define custom **Info.plist** entries, besides the standard ones generated automatically. Useful for defining `LSApplicationCategoryType` and other keys needed for publishing to the App Store.
+
 ### Usage Examples
 
 ```js

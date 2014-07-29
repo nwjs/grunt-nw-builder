@@ -44,7 +44,8 @@ module.exports = function(grunt) {
           timestamped_builds: false,
           credits: false,
           keep_nw: false,
-          zip: false  // Do not zip app.nw on OS X
+          zip: false,  // Do not zip app.nw on OS X
+          plist_extras: {}, // Allow user to define custom PLIST entries [OS X only]
       }),
       webkitFiles = [{
         'url': "v%VERSION%/node-webkit-v%VERSION%-win-ia32.zip",
@@ -219,6 +220,12 @@ module.exports = function(grunt) {
               if (target_filename.match('nw.icns') && options.mac_icns) {
                 var icnsFile = (grunt.file.exists(options.mac_icns) ? options.mac_icns : abspath);
                 grunt.file.copy(icnsFile, path.join(releaseFolder, options.app_name+'.app', 'Contents', 'Resources', 'nw.icns'));
+                return;
+              }
+
+              // Cleanup "crash_reporter.app" apps
+              if (target_filename.match('crash_report_sender.app/Contents/Info.plist$')) {
+                utils.cleanupCrashReporter(abspath, target_filename, options);
                 return;
               }
 

@@ -1,4 +1,5 @@
-var plist = require('plist'),
+var _ = require('lodash'),
+    plist = require('plist'),
     path = require('path'),
     fs = require('fs'),
     Q = require('q');
@@ -17,11 +18,24 @@ module.exports = function(grunt) {
         info.UTExportedTypeDeclarations = [];
 
         info.CFBundleVersion = options.app_version; // TODO: if git, get commit hash!
-        info.CFBundleShortVersionString = 'Version ' + options.app_version;
+        info.CFBundleShortVersionString = options.app_version;
 
         if(appOptions.copyright) {
           info.NSHumanReadableCopyright = appOptions.copyright;
         }
+
+        // Extend plist with user defined extras
+        _.extend(info, options.plist_extras);
+
+        grunt.file.write(target_filename, plist.build(info));
+    };
+
+    exports.cleanupCrashReporter = function(abspath, target_filename, options) {
+        // Handle the INfo.plist file
+        var info = plist.parseFileSync(abspath);
+
+        // Fix CFBundleIdentifier
+        info.CFBundleIdentifier = 'com.Breakpad.' + options.app_name;
 
         grunt.file.write(target_filename, plist.build(info));
     };
