@@ -15,10 +15,10 @@ module.exports = function(grunt) {
 
     // Generate a Zip file from a directory and a destination path
     // and returns back a read stream
-    exports.generateZip = function(files, dest) {
+    exports.generateZip = function(files, dest, noCompression) {
         var zipDone = Q.defer(),
             destFiles = [],
-            archive = archiver('zip'),
+            archive = archiver('zip', {store : noCompression}),
             destStream =  fs.createWriteStream(dest);
 
         // Resolve on close
