@@ -1,26 +1,69 @@
 var NwBuilder = require('node-webkit-builder');
+
+function toCamelcase(str) {
+  return str.replace(/\_+([a-z])/g, function (x, chr) { return chr.toUpperCase(); });
+}
+
+function addPlatform(opts, p){
+  var ps = opts['platforms'] = opts['platforms'] || [];
+  if( ps.indexOf(p) === -1 ) ps.push(p);
+}
+
 module.exports = function(grunt) {
 
   grunt.registerMultiTask('nodewebkit', 'Packaging the current app as a node-webkit application', function() {
-      var done = this.async(),
-          options = this.options();
+    var done = this.async(),
+        options = this.options(),
+        nwOptions = {};
 
-          options.files = this.filesSrc;
-          var nw = new NwBuilder(options);
+    // Build out options for node-webkit-builder
+    Object.keys(this.options()).forEach(function(opt) {
 
-          // Some Logging
-          nw.on('log',function (log) {
-             grunt.log.writeln(log);
-          });
+      // maintain backward compatibility by supporting old platform style
+      switch(opt){
+        case 'win':
+        case 'linux32':
+        case 'linux64':
+          addPlatform(nwOptions, opt);
+          break;
 
-          nw.build(function(err) {
-              if(err) {
-                grunt.log.warn('There was an Error:', err);
-              } else {
-                grunt.log.ok('nodewebkit app created.');
-              }
-              done();
-          });
+        case 'mac':
+          addPlatform(nwOptions, 'osx');
+          break;
+
+        case 'timestamped_builds':
+          nwOptions['buildType'] = 'timestamped';
+          break;
+
+        case 'credits':
+        case 'zip':
+          nwOptions[toCamelcase('mac_'+opt)] = options[opt];
+          break;
+
+        default:
+          // convert all other keys to camelcase style required by node-webkit-builder
+          nwOptions[toCamelcase(opt)] = options[opt];
+      }
+
+    });
+    nwOptions.files = this.filesSrc;
+    
+    // create and run nwbuilder
+    var nw = new NwBuilder(nwOptions);
+
+    nw.on('log',function (log) {
+      grunt.log.writeln(log);
+    });
+
+    nw.build(function(err) {
+      if(err) {
+        grunt.log.warn('There was an Error:', err);
+      } else {
+        grunt.log.ok('nodewebkit app created.');
+      }
+      done();
+    });
+
   });
 
 };
