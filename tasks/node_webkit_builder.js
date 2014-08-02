@@ -22,6 +22,7 @@ module.exports = function(grunt) {
       // maintain backward compatibility by supporting old platform style
       switch(opt){
         case 'win':
+        case 'osx':
         case 'linux32':
         case 'linux64':
           if(!!options[opt]) {
