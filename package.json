@@ -30,7 +30,7 @@
     "node-webkit"
   ],
   "dependencies": {
-    "node-webkit-builder": "0.0.4"
+    "node-webkit-builder": "0.1.0"
   },
   "devDependencies": {
     "grunt": "^0.4.4"
