@@ -17,18 +17,23 @@ module.exports = function(grunt) {
         nwOptions = {};
 
     // Build out options for node-webkit-builder
-    Object.keys(this.options()).forEach(function(opt) {
+    Object.keys(options).forEach(function(opt) {
 
       // maintain backward compatibility by supporting old platform style
       switch(opt){
         case 'win':
+        case 'osx':
         case 'linux32':
         case 'linux64':
-          addPlatform(nwOptions, opt);
+          if(!!options[opt]) {
+            addPlatform(nwOptions, opt);
+          }
           break;
 
         case 'mac':
-          addPlatform(nwOptions, 'osx');
+          if(!!options[opt]) {
+            addPlatform(nwOptions, 'osx');
+          }
           break;
 
         case 'timestamped_builds':
