@@ -1,7 +1,7 @@
 {
   "name": "grunt-node-webkit-builder",
   "description": "Let's you build your node webkit apps with grunt",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/mllrsohn/grunt-node-webkit-builder",
   "author": {
     "name": "Steffen Müller",
@@ -30,7 +30,7 @@
     "node-webkit"
   ],
   "dependencies": {
-    "node-webkit-builder": "0.1.0"
+    "node-webkit-builder": "^0.1.1"
   },
   "devDependencies": {
     "grunt": "^0.4.4"
