@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 
     nw.build(function(err) {
       if(err) {
-        grunt.log.warn('There was an Error:', err);
+        grunt.fail.fatal(err);
       } else {
         grunt.log.ok('nodewebkit app created.');
       }
