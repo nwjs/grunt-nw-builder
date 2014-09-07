@@ -4,3 +4,6 @@ tmp
 .DS_Store
 example/build
 example/cache
+
+.idea
+*.iml
