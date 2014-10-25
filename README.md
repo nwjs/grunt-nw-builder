@@ -2,9 +2,9 @@
 
 [![NPM](https://nodei.co/npm/grunt-node-webkit-builder.png?downloads=true)](https://nodei.co/npm/grunt-node-webkit-builder/)
 
-> Let's you build your node-webkit apps for osx, win, and linux with grunt. It will download the prebuilt binaries for a specify version, unpacks it, creates a release folder, create the app.nw file for a specified directory and copys the app.nw file where it belongs.
+> Let's you build your [node-webkit](http://github.com/rogerwang/node-webkit) apps for osx, win, and linux with grunt. It will download the prebuilt binaries for a specify version, unpacks it, creates a release folder, create the app.nw file for a specified directory and copys the app.nw file where it belongs.
 
-*Issues with the output should be reported on the node-webkit-builder [issue tracker](https://github.com/mllrsohn/node-webkit-builder/issues).*
+*Issues with the output should be reported on the node-webkit-builder [issue tracker](https://github.com/mllrsohn/node-webkit-builder/issues). [![Build Status][travis-image]][travis-url]* 
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -26,7 +26,7 @@ grunt.loadNpmTasks('grunt-node-webkit-builder');
 
 ### Options
 
-Exactly the same as https://github.com/mllrsohn/node-webkit-builder. You have the advantage to configure the files via grunt.
+Exactly the same as [node-webkit-buider](https://github.com/mllrsohn/node-webkit-buider). You have the advantage to configure the files via Grunt.
 
 
 ### Usage Examples
@@ -61,6 +61,9 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 
 [npm-url]: https://npmjs.org/package/grunt-node-webkit-builder
 [npm-image]: http://img.shields.io/npm/v/grunt-node-webkit-builder.svg?style=flat
+
+[travis-url]: http://travis-ci.org/mllrsohn/node-webkit-builder
+[travis-image]: http://img.shields.io/travis/mllrsohn/node-webkit-builder/master.svg?style=flat
 
 [depstat-url]: https://david-dm.org/mllrsohn/grunt-node-webkit-builder
 [depstat-image]: https://david-dm.org/mllrsohn/grunt-node-webkit-builder.svg?style=flat
