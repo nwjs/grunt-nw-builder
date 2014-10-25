@@ -1,4 +1,4 @@
-# grunt-node-webkit-builder
+# grunt-node-webkit-builder [![NPM version][npm-image]][npm-url] [![Dependency Status][depstat-image]][depstat-url]
 
 [![NPM](https://nodei.co/npm/grunt-node-webkit-builder.png?downloads=true)](https://nodei.co/npm/grunt-node-webkit-builder/)
 
@@ -58,3 +58,9 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 - 2013-09-09    fixed accidential deletion of nw.exe on windows builds, adding several improvements, opt in for timestamped builds, using version and name from package.json to name the build product and build dir, renamed download directory to `cache`, added merge from package.json options for nodewebkit (no need to add configuration to Gruntfile, but stays optional)
 - 2013-08-20    fix for the unzip lib
 - 2013-08-13    initial release
+
+[npm-url]: https://npmjs.org/package/grunt-node-webkit-builder
+[npm-image]: http://img.shields.io/npm/v/grunt-node-webkit-builder.svg?style=flat
+
+[depstat-url]: https://david-dm.org/mllrsohn/grunt-node-webkit-builder
+[depstat-image]: https://david-dm.org/mllrsohn/grunt-node-webkit-builder.svg?style=flat
