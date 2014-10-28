@@ -26,7 +26,7 @@ grunt.loadNpmTasks('grunt-node-webkit-builder');
 
 ### Options
 
-Exactly the same as [node-webkit-buider](https://github.com/mllrsohn/node-webkit-buider). You have the advantage to configure the files via Grunt.
+Exactly the same as [node-webkit-builder](https://github.com/mllrsohn/node-webkit-builder). You have the advantage to configure the files via Grunt.
 
 
 ### Usage Examples
