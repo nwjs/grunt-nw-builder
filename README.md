@@ -21,12 +21,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-node-webkit-builder');
 ```
 
-## The "nodewebkit" task
-
-
-### Options
-
-Exactly the same as [node-webkit-builder](https://github.com/mllrsohn/node-webkit-builder). You have the advantage to configure the files via Grunt.
+## The "nodewebkit" task  
 
 
 ### Usage Examples
@@ -42,6 +37,38 @@ grunt.initConfig({
   },
 })
 ```
+
+
+### Options
+
+Exactly the same as [node-webkit-builder](https://github.com/mllrsohn/node-webkit-builder). You have the advantage to configure the files via Grunt.
+
+## Manifest Options
+
+### platformOverrides
+
+Just like [node-webkit-builder](https://github.com/mllrsohn/node-webkit-builder#manifest-options) you can specify platform-specific manifest values.
+
+```json
+{
+    "name": "nw-demo",
+    "version": "0.1.0",
+    "main": "index.html",
+    "window": {
+        "frame": false,
+        "toolbar": false
+    },
+    "platformOverrides": {
+        "win": {
+            "window": {
+                "frame": true
+            }
+        }
+    }
+
+```
+
+For more information see node-webkit-builder's [Manifest Options](https://github.com/mllrsohn/node-webkit-builder#manifest-options). 
 
 ## Troubleshooting
 
