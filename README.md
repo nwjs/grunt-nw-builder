@@ -30,6 +30,7 @@ grunt.loadNpmTasks('grunt-node-webkit-builder');
 grunt.initConfig({
   nodewebkit: {
     options: {
+        quiet: true,    
         platforms: ['win','osx'],
         buildDir: './webkitbuilds', // Where the build version of my node-webkit app is saved
     },
