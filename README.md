@@ -80,6 +80,7 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 
 
 ## Release History
+- 2014-08-01    `0.3.0` macPlist option improvements (see [mllrsohn/node-webkit-builder#96](https://github.com/mllrsohn/node-webkit-builder/pull/96))
 - 2014-08-01    `0.2.0` Moved logic into a separate [module](https://github.com/mllrsohn/node-webkit-builder), config options will be backward compatible except `keep_nw` is no longer supported
 - 2013-09-19    Removed config merging (but kept the lookup for version number and name), added keep_nw option, fixed various small bugs.
 - 2013-09-09    fixed accidential deletion of nw.exe on windows builds, adding several improvements, opt in for timestamped builds, using version and name from package.json to name the build product and build dir, renamed download directory to `cache`, added merge from package.json options for nodewebkit (no need to add configuration to Gruntfile, but stays optional)
