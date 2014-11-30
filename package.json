@@ -7,6 +7,9 @@
     "name": "Steffen Müller",
     "email": "steffen@mllrsohn.com"
   },
+  "scripts" : {
+    "test": "echo 'Tests exist in node-webkit-builder project; http://github.com/mllrsohn/node-webkit-builder'"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:mllrsohn/grunt-node-webkit-builder.git"
