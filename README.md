@@ -80,6 +80,7 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 
 
 ## Release History
+- 2014-12-12    `1.0.0` 64-bit support, improved platform-overrides and no more EMFILE errors. Also, macPlist CFBundleIdentifier is generated from `package.json`.
 - 2014-08-01    `0.3.0` macPlist option improvements (see [mllrsohn/node-webkit-builder#96](https://github.com/mllrsohn/node-webkit-builder/pull/96))
 - 2014-08-01    `0.2.0` Moved logic into a separate [module](https://github.com/mllrsohn/node-webkit-builder), config options will be backward compatible except `keep_nw` is no longer supported
 - 2013-09-19    Removed config merging (but kept the lookup for version number and name), added keep_nw option, fixed various small bugs.
