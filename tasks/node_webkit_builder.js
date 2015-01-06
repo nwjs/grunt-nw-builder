@@ -66,7 +66,16 @@ module.exports = function(grunt) {
       }
 
     });
-    nwOptions.files = this.filesSrc;
+
+    if(grunt.option('run')) {
+      if(!options.files) {
+        grunt.fail.warn(new Error('Run mode requires "files" option'));
+      }
+
+      nwOptions.files = options.files;
+    } else {
+      nwOptions.files = this.filesSrc;
+    }
     
     // create and run nwbuilder
     var nw = new NwBuilder(nwOptions);
@@ -75,14 +84,18 @@ module.exports = function(grunt) {
       grunt.log.writeln(log);
     });
 
-    nw.build(function(err) {
-      if(err) {
-        grunt.fail.fatal(err);
-      } else {
+    var next = grunt.option('run')
+      ? nw.run()
+      : nw.build();
+
+    next
+      .then(function() {
         grunt.log.ok('nodewebkit app created.');
-      }
-      done();
-    });
+        done();
+      })
+      .catch(function(err) {
+        grunt.fail.fatal(err);
+      });
 
   });
 

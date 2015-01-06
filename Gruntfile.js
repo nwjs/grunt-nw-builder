@@ -15,6 +15,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     nodewebkit: {
       options: {
+        files: '<%= nodewebkit.src %>',
         buildDir: './example/build',
         macCredits: './example/public/Credits.html',
         macIcns: './example/icon.icns'
