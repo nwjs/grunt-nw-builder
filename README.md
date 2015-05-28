@@ -65,7 +65,7 @@ Just like [node-webkit-builder](https://github.com/mllrsohn/node-webkit-builder#
             }
         }
     }
-
+}
 ```
 
 For more information see node-webkit-builder's [Manifest Options](https://github.com/mllrsohn/node-webkit-builder#manifest-options). 
