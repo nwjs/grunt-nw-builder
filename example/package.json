@@ -1,8 +1,8 @@
 {
-  "name": "grunt-node-webkit-builder-example",
+  "name": "grunt-nw-builder-example",
   "description": "A sample app to demonstrate the use of grunt node webkit builder",
   "devDependencies": {
     "grunt": "latest",
-    "grunt-node-webkit-builder": "latest"
+    "grunt-nw-builder": "latest"
   }
 }
