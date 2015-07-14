@@ -1,21 +1,21 @@
 {
-  "name": "grunt-node-webkit-builder",
+  "name": "grunt-nw-builder",
   "description": "Let's you build your node webkit apps with grunt",
   "version": "1.0.2",
-  "homepage": "https://github.com/mllrsohn/grunt-node-webkit-builder",
+  "homepage": "https://github.com/mllrsohn/grunt-nw-builder",
   "author": {
     "name": "Steffen Müller",
     "email": "steffen@mllrsohn.com"
   },
   "scripts" : {
-    "test": "echo 'Tests exist in node-webkit-builder project; http://github.com/mllrsohn/node-webkit-builder'"
+    "test": "echo 'Tests exist in NW.js-builder project; http://github.com/mllrsohn/node-webkit-builder'"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mllrsohn/grunt-node-webkit-builder.git"
+    "url": "git@github.com:mllrsohn/grunt-nw-builder.git"
   },
   "bugs": {
-    "url": "https://github.com/mllrsohn/grunt-node-webkit-builder/issues"
+    "url": "https://github.com/mllrsohn/grunt-nw-builder/issues"
   },
   "licenses": "MIT",
   "main": "Gruntfile.js",
@@ -27,10 +27,13 @@
   },
   "keywords": [
     "gruntplugin",
-    "nodewebkit",
+    "NW.js",
+    "node-webkit",
+    "nw-builder",
     "build",
     "builder",
-    "node-webkit"
+    "desktop",
+    "application"
   ],
   "dependencies": {
     "node-webkit-builder": "^1.0.11"

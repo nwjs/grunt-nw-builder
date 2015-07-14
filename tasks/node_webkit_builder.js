@@ -11,7 +11,7 @@ function addPlatform(opts, p){
 
 module.exports = function(grunt) {
 
-  grunt.registerMultiTask('nodewebkit', 'Packaging the current app as a node-webkit application', function() {
+  grunt.registerMultiTask('nwjs', 'Packaging the current app as a node-webkit application', function() {
     var done = this.async(),
         options = this.options(),
         nwOptions = {};
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
       if(err) {
         grunt.fail.fatal(err);
       } else {
-        grunt.log.ok('nodewebkit app created.');
+        grunt.log.ok('NW.js app created.');
       }
       done();
     });
