@@ -1,4 +1,4 @@
-var NwBuilder = require('node-webkit-builder');
+var NwBuilder = require('nw-builder');
 
 function toCamelcase(str) {
   return str.replace(/\_+([a-z])/g, function (x, chr) { return chr.toUpperCase(); });
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         options = this.options(),
         nwOptions = {};
 
-    // Build out options for node-webkit-builder
+    // Build out options for nw-builder
     Object.keys(options).forEach(function(opt) {
 
       // maintain backward compatibility by supporting old platform style
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
           break;
 
         default:
-          // convert all other keys to camelcase style required by node-webkit-builder
+          // convert all other keys to camelcase style required by nw-builder
           nwOptions[toCamelcase(opt)] = options[opt];
       }
 
