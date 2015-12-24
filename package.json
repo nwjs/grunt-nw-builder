@@ -36,7 +36,7 @@
     "application"
   ],
   "dependencies": {
-    "nw-builder": "^2.0.0"
+    "nw-builder": "^2.2.0"
   },
   "devDependencies": {
     "grunt": "^0.4.4"
