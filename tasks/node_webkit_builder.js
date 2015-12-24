@@ -56,8 +56,11 @@ module.exports = function(grunt) {
           break;
 
         case 'credits':
+          nwOptions['macCredits'] = options[opt];
+          break;
+
         case 'zip':
-          nwOptions[toCamelcase('mac_'+opt)] = options[opt];
+          nwOptions['zip'] = options[opt];
           break;
 
         default:
