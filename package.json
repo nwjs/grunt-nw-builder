@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/mllrsohn/grunt-nw-builder/issues"
   },
-  "licenses": "MIT",
+  "license": "MIT",
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.10.0"
