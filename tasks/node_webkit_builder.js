@@ -56,7 +56,6 @@ module.exports = function(grunt) {
           break;
 
         case 'credits':
-        case 'zip':
           nwOptions[toCamelcase('mac_'+opt)] = options[opt];
           break;
 
@@ -67,7 +66,7 @@ module.exports = function(grunt) {
 
     });
     nwOptions.files = this.filesSrc;
-    
+
     // create and run nwbuilder
     var nw = new NwBuilder(nwOptions);
 
