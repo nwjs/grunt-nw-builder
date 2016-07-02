@@ -80,6 +80,7 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 
 
 ## Release History
+- 2016-07-02    `2.0.3` Fix for zip option plus some small nw-builder fixes.
 - 2016-07-02    `2.0.2` Updated Grunt peer dependency
 - 2016-07-02    `2.0.1` Supporting newer NW.js versions, alpha/beta builds, plus some other small fixes.
 - ...
