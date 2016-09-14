@@ -80,6 +80,7 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 
 
 ## Release History
+- 2016-09-14     `flavor` option; you can now select any flavor of NW.js, not just `sdk`.
 - 2016-08-28    bumping nw-builder dependency to 3.0.0.
 - 2016-07-02    `2.0.3` Fix for zip option plus some small nw-builder fixes.
 - 2016-07-02    `2.0.2` Updated Grunt peer dependency
