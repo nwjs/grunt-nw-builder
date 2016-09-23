@@ -1,0 +1,16 @@
+{
+  "name": "Rotateur",
+  "author": "Pascal Canadas",
+  "description": "Application en node Webkit pour retourner des images sans outil graphique",
+  "version": "0.6.0",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-nw-builder": "latest",
+    "nw-builder": "^3.1.0",
+    "nwjs-builder": "^1.13.1"
+  },
+  "dependencies": {
+    "nw-builder": "^3.1.0"
+  }
+}
