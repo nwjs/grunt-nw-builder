@@ -14,6 +14,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('nwjs', 'Packaging the current app as a node-webkit application', function() {
     var done = this.async(),
         options = this.options(),
+        quiet = false,
         nwOptions = {};
 
     // Build out options for nw-builder
@@ -58,6 +59,10 @@ module.exports = function(grunt) {
         case 'credits':
           nwOptions[toCamelcase('mac_'+opt)] = options[opt];
           break;
+        
+        case 'quiet':
+          quiet = true;
+          break;
 
         default:
           // convert all other keys to camelcase style required by nw-builder
@@ -70,9 +75,11 @@ module.exports = function(grunt) {
     // create and run nwbuilder
     var nw = new NwBuilder(nwOptions);
 
-    nw.on('log',function (log) {
-      grunt.log.writeln(log);
-    });
+    if( !quiet ){
+      nw.on('log',function (log) {
+        grunt.log.writeln(log);
+      });
+    }
 
     nw.build(function(err) {
       if(err) {
