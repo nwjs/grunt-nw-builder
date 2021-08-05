@@ -1,7 +1,7 @@
 {
   "name": "grunt-nw-builder",
   "description": "Let's you build your node webkit apps with grunt",
-  "version": "3.1.0",
+  "version": "3.5.7",
   "homepage": "https://github.com/mllrsohn/grunt-nw-builder",
   "author": {
     "name": "Steffen Müller",
@@ -20,10 +20,10 @@
   "license": "MIT",
   "main": "Gruntfile.js",
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 8.0.0"
   },
   "peerDependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "^1.4.1"
   },
   "keywords": [
     "gruntplugin",
@@ -36,9 +36,9 @@
     "application"
   ],
   "dependencies": {
-    "nw-builder": "~3.1.0"
+    "nw-builder": "^3.5.7"
   },
   "devDependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "^1.4.1"
   }
 }
