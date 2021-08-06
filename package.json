@@ -7,7 +7,7 @@
     "name": "Steffen Müller",
     "email": "steffen@mllrsohn.com"
   },
-  "scripts" : {
+  "scripts": {
     "test": "echo 'Tests exist in NW.js-builder project; http://github.com/mllrsohn/node-webkit-builder'"
   },
   "repository": {
@@ -36,7 +36,7 @@
     "application"
   ],
   "dependencies": {
-    "nw-builder": "^3.5.7"
+    "@kitsune7/nw-builder": "^3.5.8"
   },
   "devDependencies": {
     "grunt": "^1.4.1"

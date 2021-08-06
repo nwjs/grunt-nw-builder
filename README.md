@@ -4,7 +4,7 @@
 
 > Let's you build your [NW.js](https://github.com/nwjs/nw.js) apps for OSX, Windows, and Linux with Grunt. It will download the prebuilt binaries for the specified version, unpack it, create a release folder, create an `app.nw` file, and copy `app.nw` to where it belongs.
 
-*Issues with the output should be reported on the nw-builder [issue tracker](https://github.com/mllrsohn/nw-builder/issues). [![Build Status][travis-image]][travis-url]*
+*Issues with the output should be reported on the nw-builder [issue tracker](https://github.com/mllrsohn/nw-builder/issues).
 
 ## Getting Started
 This plugin requires Grunt `^1.4.1`
@@ -70,7 +70,7 @@ Just like [nw-builder](https://github.com/mllrsohn/nw-builder#manifest-options) 
 
 For more information see nw-builder's [Manifest Options](https://github.com/mllrsohn/nw-builder#manifest-options).
 
-## Troubleshooting
+## Troubleshooting
 
 ### OSX ulimit
 
@@ -97,9 +97,3 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 
 [npm-url]: https://npmjs.org/package/@happikitsune/grunt-nw-builder
 [npm-image]: http://img.shields.io/npm/v/@happikitsune/grunt-nw-builder.svg?style=flat
-
-[travis-url]: http://travis-ci.org/mllrsohn/nw-builder
-[travis-image]: http://img.shields.io/travis/mllrsohn/nw-builder/master.svg?style=flat
-
-[depstat-url]: https://david-dm.org/mllrsohn/grunt-nw-builder
-[depstat-image]: https://david-dm.org/mllrsohn/grunt-nw-builder.svg?style=flat
