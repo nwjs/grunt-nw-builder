@@ -2,20 +2,20 @@
   "name": "@happikitsune/grunt-nw-builder",
   "description": "Let's you build your node webkit apps with grunt",
   "version": "3.5.7",
-  "homepage": "https://github.com/mllrsohn/grunt-nw-builder",
+  "homepage": "https://github.com/kitsune7/grunt-nw-builder",
   "author": {
     "name": "Steffen Müller",
     "email": "steffen@mllrsohn.com"
   },
   "scripts" : {
-    "test": "echo 'Tests exist in NW.js-builder project; http://github.com/mllrsohn/node-webkit-builder'"
+    "test": "echo 'Tests exist in nw-builder project; https://github.com/nwjs-community/nw-builder'"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mllrsohn/grunt-nw-builder.git"
+    "url": "git@github.com:kitsune7/grunt-nw-builder.git"
   },
   "bugs": {
-    "url": "https://github.com/mllrsohn/grunt-nw-builder/issues"
+    "url": "https://github.com/kitsune7/grunt-nw-builder/issues"
   },
   "license": "MIT",
   "main": "Gruntfile.js",
