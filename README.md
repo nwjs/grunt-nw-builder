@@ -1,18 +1,18 @@
-# grunt-nw-builder [![NPM version][npm-image]][npm-url] [![Dependency Status][depstat-image]][depstat-url]
+# grunt-nw-builder [![NPM version][npm-image]][npm-url]
 
-[![NPM](https://nodei.co/npm/grunt-nw-builder.png?downloads=true)](https://nodei.co/npm/grunt-nw-builder/)
+[![NPM](https://nodei.co/npm/@happikitsune/grunt-nw-builder.png?downloads=true)](https://nodei.co/npm/@happikitsune/grunt-nw-builder/)
 
-> Let's you build your [NW.js](https://github.com/nwjs/nw.js) apps for osx, win, and linux with grunt. It will download the prebuilt binaries for a specify version, unpacks it, creates a release folder, create the app.nw file for a specified directory and copys the app.nw file where it belongs.
+> Let's you build your [NW.js](https://github.com/nwjs/nw.js) apps for OSX, Windows, and Linux with Grunt. It will download the prebuilt binaries for the specified version, unpack it, create a release folder, create an `app.nw` file, and copy `app.nw` to where it belongs.
 
 *Issues with the output should be reported on the nw-builder [issue tracker](https://github.com/mllrsohn/nw-builder/issues). [![Build Status][travis-image]][travis-url]*
 
 ## Getting Started
-This plugin requires Grunt `~0.4.1`
+This plugin requires Grunt `^1.4.1`
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you can install this plugin with the following command:
 
 ```shell
-npm install grunt-nw-builder --save-dev
+npm install @happikitsune/grunt-nw-builder --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
@@ -41,7 +41,7 @@ grunt.initConfig({
 
 ### Options
 
-Exactly the same as [nw-builder](https://github.com/mllrsohn/nw-builder). You have the advantage to configure the files via Grunt.
+Exactly the same as [nw-builder](https://github.com/mllrsohn/nw-builder). You have the advantage of configuring the files via Grunt.
 
 ## Manifest Options
 
@@ -74,13 +74,14 @@ For more information see nw-builder's [Manifest Options](https://github.com/mllr
 
 ### OSX ulimit
 
-Darwin (OS X kernel) has a low limit for file descriptors (256 per process) by default, so you might get an `EMFILE` error or an error mentioning "too many open files" if youtry to open more file descriptors than this.
+Darwin (OS X kernel) has a low limit for file descriptors (256 per process) by default, so you might get an `EMFILE` error or an error mentioning "too many open files" if you try to open more file descriptors than this.
 
 To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). For more information, see [henvic/osx-ulimit](https://github.com/henvic/osx-ulimit).
 
 
 ## Release History
-- 2016-09-14     `flavor` option; you can now select any flavor of NW.js, not just `sdk`.
+- 2021-08-05    `3.5.7` Changing the version to match the latest version of `nw-builder` to date
+- 2016-09-14    `flavor` option; you can now select any flavor of NW.js, not just `sdk`.
 - 2016-08-28    bumping nw-builder dependency to 3.0.0.
 - 2016-07-02    `2.0.3` Fix for zip option plus some small nw-builder fixes.
 - 2016-07-02    `2.0.2` Updated Grunt peer dependency
@@ -94,8 +95,8 @@ To get around it, run `ulimit -n 1024` (or add it to your `~/.bash_profile`). Fo
 - 2013-08-20    fix for the unzip lib
 - 2013-08-13    initial release
 
-[npm-url]: https://npmjs.org/package/grunt-nw-builder
-[npm-image]: http://img.shields.io/npm/v/grunt-nw-builder.svg?style=flat
+[npm-url]: https://npmjs.org/package/@happikitsune/grunt-nw-builder
+[npm-image]: http://img.shields.io/npm/v/@happikitsune/grunt-nw-builder.svg?style=flat
 
 [travis-url]: http://travis-ci.org/mllrsohn/nw-builder
 [travis-image]: http://img.shields.io/travis/mllrsohn/nw-builder/master.svg?style=flat
