@@ -1,26 +1,23 @@
-var NwBuilder = require('nw-builder');
+const NwBuilder = require('nw-builder');
 
 function toCamelcase(str) {
-  return str.replace(/\_+([a-z])/g, function (x, chr) { return chr.toUpperCase(); });
+  return str.replace(/\_+([a-z])/g, (x, chr) => chr.toUpperCase());
 }
 
-function addPlatform(opts, p){
-  var ps = opts['platforms'] = opts['platforms'] || [];
-  if( ps.indexOf(p) === -1 ) ps.push(p);
+function addPlatform(opts, p) {
+  const ps = opts.platforms = opts.platforms || [];
+  if (ps.indexOf(p) === -1) ps.push(p);
 }
 
 module.exports = function(grunt) {
-
   grunt.registerMultiTask('nwjs', 'Packaging the current app as a node-webkit application', function() {
-    var done = this.async(),
+    const done = this.async(),
         options = this.options(),
         nwOptions = {};
 
-    // Build out options for nw-builder
-    Object.keys(options).forEach(function(opt) {
-
-      // maintain backward compatibility by supporting old platform style
-      switch(opt){
+    Object.keys(options).forEach((opt) => {
+      // Maintain backward compatibility by supporting old platform style
+      switch(opt) {
         case 'win':
         case 'win32':
         case 'win64':
@@ -30,29 +27,31 @@ module.exports = function(grunt) {
         case 'linux':
         case 'linux32':
         case 'linux64':
-          if(!!options[opt]) {
+          if (!!options[opt]) {
             addPlatform(nwOptions, opt);
           }
           break;
 
         case 'mac':
-          if(!!options[opt]) {
+          if (!!options[opt]) {
             addPlatform(nwOptions, 'osx');
           }
           break;
+
         case 'mac32':
-          if(!!options[opt]) {
+          if (!!options[opt]) {
             addPlatform(nwOptions, 'osx32');
           }
           break;
+
         case 'mac64':
-          if(!!options[opt]) {
+          if (!!options[opt]) {
             addPlatform(nwOptions, 'osx64');
           }
           break;
 
         case 'timestamped_builds':
-          nwOptions['buildType'] = 'timestamped';
+          nwOptions.buildType = 'timestamped';
           break;
 
         case 'credits':
@@ -60,29 +59,25 @@ module.exports = function(grunt) {
           break;
 
         default:
-          // convert all other keys to camelcase style required by nw-builder
+          // Camelcase is required by nw-builder, so all other options are converted to it
           nwOptions[toCamelcase(opt)] = options[opt];
       }
-
     });
     nwOptions.files = this.filesSrc;
 
-    // create and run nwbuilder
-    var nw = new NwBuilder(nwOptions);
+    const nw = new NwBuilder(nwOptions);
 
     nw.on('log',function (log) {
       grunt.log.writeln(log);
     });
 
-    nw.build(function(err) {
-      if(err) {
+    nw.build((err) => {
+      if (err) {
         grunt.fail.fatal(err);
       } else {
         grunt.log.ok('NW.js app created.');
       }
       done();
     });
-
   });
-
 };
