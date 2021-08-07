@@ -1,7 +1,7 @@
 {
   "name": "@happikitsune/grunt-nw-builder",
   "description": "Let's you build your node webkit apps with grunt",
-  "version": "3.5.7",
+  "version": "3.5.8",
   "homepage": "https://github.com/kitsune7/grunt-nw-builder",
   "author": {
     "name": "Steffen Müller",
