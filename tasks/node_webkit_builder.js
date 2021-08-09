@@ -1,4 +1,4 @@
-const NwBuilder = require('nw-builder');
+const NwBuilder = require('@happikitsune/nw-builder');
 
 function toCamelcase(str) {
   return str.replace(/\_+([a-z])/g, (x, chr) => chr.toUpperCase());
@@ -6,7 +6,9 @@ function toCamelcase(str) {
 
 function addPlatform(opts, p) {
   const ps = opts.platforms = opts.platforms || [];
-  if (ps.indexOf(p) === -1) ps.push(p);
+  if (ps.indexOf(p) === -1) {
+    ps.push(p);
+  }
 }
 
 module.exports = function(grunt) {
