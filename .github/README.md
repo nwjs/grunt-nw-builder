@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/grunt-nw-builder.svg?style=flat)](https://www.npmjs.com/package/nw-builder)
 [![cd](https://github.com/nwjs/grunt-nw-builder/actions/workflows/cd.yml/badge.svg)](https://github.com/nwjs/grunt-nw-builder/actions/workflows/cd.yml)
+[![ci](https://github.com/nwjs/grunt-nw-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/nwjs/grunt-nw-builder/actions/workflows/ci.yml)
 [![Join the chat at https://gitter.im/nwjs/nw-builder](https://badges.gitter.im/nwjs/grunt-nw-builder.svg)](https://gitter.im/nwjs/nw-builder)
 
 ## Installation

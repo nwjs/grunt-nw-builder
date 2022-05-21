@@ -1,22 +1,18 @@
-Example app with grunt-nw-builder
-===========
+# Example app with grunt-nw-builder
 
 This example should give you everything you need to get started with a NW.js project using grunt-nw-builder‰.
 
-Building
-------
+## Building
 
 To build the app, run the following commands:
-
 
     npm install
     cd public/ && npm install && cd -
     grunt nwjs
 
-By default the app will build a Mac and Windows app, but not Linux 32 or 64 apps.  You can change this by modifying `Gruntfile.js`.
+By default the app will build a Mac and Windows app, but not Linux 32 or 64 apps. You can change this by modifying `Gruntfile.js`.
 
-Running (Mac)
-----
+## Running (Mac)
 
 On Mac, you can now open your app using:
 

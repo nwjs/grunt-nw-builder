@@ -1,19 +1,18 @@
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   grunt.initConfig({
     nwjs: {
       options: {
-        version: '0.14.6',
-        buildDir: './build', // Where the build version of my NW.js app is saved
-        credits: './public/Credits.html',
-        macIcns: './icon.icns', // Path to the Mac icon file
-        platforms: ['osx64'], // These are the platforms that we want to build
-        flavor: 'normal'
+        version: "0.14.6",
+        buildDir: "./build", // Where the build version of my NW.js app is saved
+        credits: "./public/Credits.html",
+        macIcns: "./icon.icns", // Path to the Mac icon file
+        platforms: ["osx64"], // These are the platforms that we want to build
+        flavor: "normal",
       },
-      src: './public/**/*' // Your NW.js app
+      src: "./public/**/*", // Your NW.js app
     },
   });
 
-  grunt.loadNpmTasks('grunt-nw-builder');
-  grunt.registerTask('default', ['nwjs']);
+  grunt.loadNpmTasks("grunt-nw-builder");
+  grunt.registerTask("default", ["nwjs"]);
 };

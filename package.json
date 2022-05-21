@@ -17,7 +17,7 @@
     "url": "https://github.com/nwjs/grunt-nw-builder.git"
   },
   "scripts": {
-    "format": "prettier --write ./tasks"
+    "format": "prettier --write ./**"
   },
   "peerDependencies": {
     "grunt": "^1.5.3"

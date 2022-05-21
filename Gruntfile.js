@@ -6,27 +6,25 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
+"use strict";
 
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: grunt.file.readJSON("package.json"),
     nwjs: {
       options: {
-        buildDir: './example/build',
-        macCredits: './example/public/Credits.html',
-        macIcns: './example/icon.icns'
+        buildDir: "./example/build",
+        macCredits: "./example/public/Credits.html",
+        macIcns: "./example/icon.icns",
       },
-      src: './example/public/**/*'
-    }
+      src: "./example/public/**/*",
+    },
   });
 
   // Actually load this plugin's task(s)1
-  grunt.loadTasks('tasks');
+  grunt.loadTasks("tasks");
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['nwjs']);
-
+  grunt.registerTask("default", ["nwjs"]);
 };
