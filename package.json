@@ -1,44 +1,48 @@
 {
   "name": "grunt-nw-builder",
-  "description": "Let's you build your node webkit apps with grunt",
   "version": "3.4.1",
-  "homepage": "https://github.com/mllrsohn/grunt-nw-builder",
-  "author": {
-    "name": "Steffen Müller",
-    "email": "steffen@mllrsohn.com"
-  },
-  "scripts" : {
-    "test": "echo 'Tests exist in NW.js-builder project; http://github.com/mllrsohn/node-webkit-builder'"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:mllrsohn/grunt-nw-builder.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mllrsohn/grunt-nw-builder/issues"
-  },
+  "description": "Build NW.js applications for Mac, Windows and Linux using Grunt.",
+  "keywords": [
+    "NW.js",
+    "Desktop",
+    "Application",
+    "Grunt"
+  ],
+  "author": "Steffen Müller <steffen@mllrsohn.com>",
   "license": "MIT",
   "main": "Gruntfile.js",
-  "engines": {
-    "node": ">= 8.0.0"
+  "homepage": "https://github.com/nwjs/grunt-nw-builder",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nwjs/grunt-nw-builder.git"
+  },
+  "scripts": {
+    "format": "prettier --write ./tasks"
   },
   "peerDependencies": {
     "grunt": "^1.5.3"
   },
-  "keywords": [
-    "gruntplugin",
-    "NW.js",
-    "node-webkit",
-    "nw-builder",
-    "build",
-    "builder",
-    "desktop",
-    "application"
-  ],
   "dependencies": {
     "nw-builder": "3.6.0"
   },
   "devDependencies": {
-    "grunt": "1.5.3"
+    "grunt": "1.5.3",
+    "prettier": "^2.6.2"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": false,
+    "quoteProps": "consistent",
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "bracketSameLine": false,
+    "arrowParens": "always",
+    "proseWrap": "preserve",
+    "htmlWhitespaceSensitivity": "strict",
+    "endOfLine": "lf",
+    "singleAttributePerLine": true
   }
 }
