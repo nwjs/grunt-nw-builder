@@ -20,10 +20,10 @@
   "license": "MIT",
   "main": "Gruntfile.js",
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 8.0.0"
   },
   "peerDependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "^1.5.3"
   },
   "keywords": [
     "gruntplugin",
@@ -39,6 +39,6 @@
     "nw-builder": "3.6.0"
   },
   "devDependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "1.5.3"
   }
 }
