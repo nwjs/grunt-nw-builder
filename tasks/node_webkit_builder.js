@@ -67,7 +67,6 @@ module.exports = function (grunt) {
             nwOptions[toCamelcase(opt)] = options[opt];
         }
       });
-      nwOptions.files = this.filesSrc;
 
       // create and run nwbuilder
       var nw = new NwBuilder(nwOptions);
@@ -76,7 +75,7 @@ module.exports = function (grunt) {
         grunt.log.writeln(log);
       });
 
-      if (grunt.option['mode'] && grunt.option['mode'] === 'run') {
+      if (options['mode'] && options['mode'] === 'run') {
         nw.run(function (err) {
           if (err) {
             grunt.fail.fatal(err);
