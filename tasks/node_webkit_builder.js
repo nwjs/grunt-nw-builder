@@ -76,14 +76,25 @@ module.exports = function (grunt) {
         grunt.log.writeln(log);
       });
 
-      nw.build(function (err) {
-        if (err) {
-          grunt.fail.fatal(err);
-        } else {
-          grunt.log.ok("NW.js app created.");
-        }
-        done();
-      });
+      if (grunt.option['mode'] && grunt.option['mode'] === 'run') {
+        nw.run(function (err) {
+          if (err) {
+            grunt.fail.fatal(err);
+          } else {
+            grunt.log.ok("NW.js is running.");
+          }
+          done();
+        });
+      } else {
+        nw.build(function (err) {
+          if (err) {
+            grunt.fail.fatal(err);
+          } else {
+            grunt.log.ok("NW.js app created.");
+          }
+          done();
+        });
+      }
     },
   );
 };
