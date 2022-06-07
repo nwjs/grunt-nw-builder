@@ -1,6 +1,6 @@
 {
   "name": "grunt-nw-builder",
-  "version": "3.7.3-beta.1",
+  "version": "3.7.4",
   "description": "Build NW.js applications for Mac, Windows and Linux using Grunt.",
   "keywords": [
     "NW.js",
@@ -23,7 +23,7 @@
     "grunt": "^1.5.3"
   },
   "dependencies": {
-    "nw-builder": "^3.7.3"
+    "nw-builder": "^3.7.4"
   },
   "devDependencies": {
     "grunt": "^1.5.3",
