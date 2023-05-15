@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         grunt.log.writeln(log);
       });
 
-      if (options['mode'] && options['mode'] === 'run') {
+      if (options["mode"] && options["mode"] === "run") {
         nw.run(function (err) {
           if (err) {
             grunt.fail.fatal(err);
@@ -94,6 +94,6 @@ module.exports = function (grunt) {
           done();
         });
       }
-    },
+    }
   );
 };

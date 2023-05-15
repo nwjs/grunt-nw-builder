@@ -7,12 +7,3 @@ node_modules
 # project files
 example/build
 example/cache
-
-yarn.lock
-package-lock.json
-pnpm-lock.yaml
-
-npm-debug.log
-.pnpm-debug.lo
-yarn-debug.log*
-yarn-error.log
