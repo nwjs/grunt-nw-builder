@@ -29,15 +29,13 @@ pnpm add grunt-nw-builder
 grunt.initConfig({
   nwjs: {
     options: {
-      // Refer to nw-builder's nwbuild function's options
+      ...
     }
   },
 });
 ```
 
-## API Reference
-
-Refer to the [nw-builder API](https://nwutils.io/nw-builder/).
+Refer to nw-builder's [docs](https://nwutils.io/nw-builder/) to learn what options to input.
 
 ## License
 
