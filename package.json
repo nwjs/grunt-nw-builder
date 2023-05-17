@@ -1,6 +1,6 @@
 {
   "name": "grunt-nw-builder",
-  "version": "3.8.2",
+  "version": "4.0.0-beta.0",
   "description": "Build NW.js applications for Mac, Windows and Linux using Grunt.",
   "keywords": [
     "NW.js",
@@ -8,7 +8,22 @@
     "Application",
     "Grunt"
   ],
-  "author": "Steffen Müller <steffen@mllrsohn.com>",
+  "author": {
+    "name": "Steffen Müller",
+    "url": "https://www.mllrsohn.com/"
+  },
+  "maintainers": [
+    {
+      "name": "Ayushman Chhabra",
+      "url": "https://ayushmanchhabra.com/"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "The grunt-nw-builder Authors",
+      "url": "https://github.com/nwjs/grunt-nw-builder/graphs/contributors"
+    }
+  ],
   "license": "MIT",
   "main": "Gruntfile.js",
   "homepage": "https://github.com/nwjs/grunt-nw-builder",
@@ -17,32 +32,18 @@
     "url": "https://github.com/nwjs/grunt-nw-builder.git"
   },
   "scripts": {
-    "format": "prettier --write ./**"
+    "fmt": "prettier --write ./**",
+    "bld": "grunt default",
+    "e2e": ""
   },
   "peerDependencies": {
-    "grunt": "^1.5.3"
+    "grunt": "^1.6.1"
   },
   "dependencies": {
-    "nw-builder": "^3.8.1"
+    "nw-builder": "^4.2.3"
   },
   "devDependencies": {
-    "grunt": "^1.5.3",
-    "prettier": "^2.6.2"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": true,
-    "singleQuote": false,
-    "quoteProps": "consistent",
-    "trailingComma": "all",
-    "bracketSpacing": true,
-    "bracketSameLine": false,
-    "arrowParens": "always",
-    "proseWrap": "preserve",
-    "htmlWhitespaceSensitivity": "strict",
-    "endOfLine": "lf",
-    "singleAttributePerLine": true
+    "grunt": "^1.6.1",
+    "prettier": "^2.8.8"
   }
 }
