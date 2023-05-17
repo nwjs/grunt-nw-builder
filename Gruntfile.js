@@ -11,20 +11,29 @@
 module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON("package.json"),
     nwjs: {
       options: {
-        buildDir: "./example/build",
-        macCredits: "./example/public/Credits.html",
-        macIcns: "./example/icon.icns",
+        srcDir: "./e2e/app",
+        version: "latest",
+        glob: false,
       },
-      src: "./example/public/**/*",
     },
   });
 
-  // Actually load this plugin's task(s)1
-  grunt.loadTasks("tasks");
+  grunt.registerTask("default", "nwjs", async function () {
+    const done = this.async();
+    const options = this.options();
 
-  // By default, lint and run all tests.
-  grunt.registerTask("default", ["nwjs"]);
+    let nwbuild = undefined;
+
+    try {
+      nwbuild = await import("nw-builder");
+      nwbuild = nwbuild.default;
+    } catch (e) {
+      console.log(e);
+    }
+
+    await nwbuild(options);
+    await done();
+  });
 };

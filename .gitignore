@@ -1,9 +1,9 @@
-# computer files
+# system files
 .DS_Store
 
 # runtime files
 node_modules
 
 # project files
-example/build
-example/cache
+cache
+out
