@@ -11,29 +11,12 @@
 module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
+    pkg: grunt.file.readJSON("package.json"),
     nwjs: {
-      options: {
-        srcDir: "./e2e/app",
-        version: "latest",
-        glob: false,
-      },
+      options: {},
     },
   });
 
-  grunt.registerTask("default", "nwjs", async function () {
-    const done = this.async();
-    const options = this.options();
-
-    let nwbuild = undefined;
-
-    try {
-      nwbuild = await import("nw-builder");
-      nwbuild = nwbuild.default;
-    } catch (e) {
-      console.log(e);
-    }
-
-    await nwbuild(options);
-    await done();
-  });
+  grunt.loadTasks("tasks");
+  grunt.registerTask("default", ["nwjs"]);
 };
