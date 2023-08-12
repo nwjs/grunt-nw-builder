@@ -1,8 +1,0 @@
-{
-    "name": "fixture",
-    "private": true,
-    "scripts": {
-        "link": "npm link .",
-        "test": "grunt run"
-    }
-}

@@ -1,18 +1,22 @@
-let nwbuild = undefined;
+module.exports = async function (grunt) {
+  grunt.registerMultiTask(
+    "nwjs",
+    "Package Node.js app as NW.js app",
+    async function () {
+      const done = this.async();
+      const options = this.options();
 
-try {
-    nwbuild = await import("nw-builder");
-    nwbuild = nwbuild.default;
-} catch (e) {
-    console.log(e);
-}
+      let nwbuild = undefined;
 
-module.exports = function (grunt) {
-    grunt.registerMultiTask("nwjs", "Package Node.js app as NW.js app", async function () {
-        const done = this.async();
-        const options = this.options();
+      try {
+        nwbuild = await import("nw-builder");
+        nwbuild = nwbuild.default;
+      } catch (e) {
+        console.log(e);
+      }
 
-        await nwbuild(options);
-        await done();
-    });
-}
+      await nwbuild(options);
+      await done();
+    },
+  );
+};
