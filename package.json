@@ -32,7 +32,7 @@
     "url": "https://github.com/nwjs/grunt-nw-builder.git"
   },
   "scripts": {
-    "fmt": "prettier --write ./**",
+    "fmt": "prettier --write .",
     "bld": "grunt default",
     "e2e": ""
   },
@@ -40,10 +40,10 @@
     "grunt": "^1.6.1"
   },
   "dependencies": {
-    "nw-builder": "^4.2.3"
+    "nw-builder": "^4.3.7"
   },
   "devDependencies": {
-    "grunt": "^1.6.1",
-    "prettier": "^2.8.8"
-  }
+    "prettier": "^3.0.1"
+  },
+  "packageManager": "npm@9.8.1"
 }
