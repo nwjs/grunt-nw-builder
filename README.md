@@ -1,6 +1,6 @@
 # grunt-nw-builder
 
-[![npm](https://img.shields.io/npm/v/grunt-nw-builder.svg?style=flat)](https://www.npmjs.com/package/nw-builder)
+[![npm](https://img.shields.io/npm/v/grunt-nw-builder.svg?style=flat)](https://www.npmjs.com/package/grunt-nw-builder)
 [![Join the chat at https://gitter.im/nwjs/nw-builder](https://badges.gitter.im/nwjs/grunt-nw-builder.svg)](https://gitter.im/nwjs/nw-builder)
 
 ## Installation
