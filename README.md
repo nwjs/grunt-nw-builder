@@ -21,13 +21,13 @@ Instead of using `options.srcDir`, we will use `nwjs.src` to parse NW.js project
 grunt.initConfig({
   nwjs: {
     options: {
-        mode: "run",
--       srcDir: "fixture/app",
-        version: "0.78.1",
+        mode: "get",
+-       srcDir: "test/app",
+        version: "0.79.1",
         flavor: "normal",
         glob: false,
       },
-+     src: "fixture/app",
++     src: "test/app",
   },
 });
 ```

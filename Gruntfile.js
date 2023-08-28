@@ -2,12 +2,12 @@ module.exports = function (grunt) {
   grunt.initConfig({
     nwjs: {
       options: {
-        mode: "run",
-        version: "0.78.1",
-        flavor: "normal",
+        mode: "get",
+        version: "0.79.1",
+        flavor: "sdk",
         glob: false,
       },
-      src: "fixture/app",
+      src: "test/app",
     },
   });
 

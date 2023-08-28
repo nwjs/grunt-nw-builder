@@ -37,17 +37,16 @@
   "scripts": {
     "fmt": "prettier --write .",
     "lnt": "eslint --fix --config=.github/eslint.config.js tasks",
-    "e2e": "grunt run"
+    "e2e": "grunt  && node --test test/test.js"
   },
   "peerDependencies": {
-    "grunt": "^1.6.1"
-  },
-  "dependencies": {
+    "grunt": "^1.6.1",
     "nw-builder": "^4.3.10"
   },
   "devDependencies": {
     "eslint": "^8.48.0",
-    "prettier": "^3.0.2"
+    "prettier": "^3.0.2",
+    "selenium-webdriver": "^4.11.1"
   },
   "packageManager": "npm@9.8.1"
 }
