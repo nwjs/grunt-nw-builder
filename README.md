@@ -24,7 +24,7 @@ grunt.initConfig({
         mode: "run",
 -       srcDir: "fixture/app",
         version: "0.78.1",
-        flavour: "normal",
+        flavor: "normal",
         glob: false,
       },
 +     src: "fixture/app",
