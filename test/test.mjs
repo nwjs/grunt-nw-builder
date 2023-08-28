@@ -7,7 +7,7 @@ import nwbuild from "nw-builder";
 import { By } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome.js";
 
-import { ARCH_KV, PLATFORM_KV } from "../node_modules/nw-builder/src/util.js"
+import { ARCH_KV, PLATFORM_KV } from "../node_modules/nw-builder/src/util.js";
 
 const { Driver, ServiceBuilder, Options } = chrome;
 
@@ -29,10 +29,7 @@ describe("test modes", async () => {
     await nwbuild({ ...nwOptions });
 
     const options = new Options();
-    const args = [
-      `--nwapp=${resolve("test", "app")}`,
-      "--headless=new",
-    ];
+    const args = [`--nwapp=${resolve("test", "app")}`, "--headless=new"];
     options.addArguments(args);
 
     const chromedriverPath = resolve(

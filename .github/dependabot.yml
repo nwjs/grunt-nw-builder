@@ -5,12 +5,16 @@ updates:
     schedule:
       interval: "weekly"
       day: "saturday"
+    groups:
+      batch-npm-deps:
+        patterns:
+          - "*"
   - package-ecosystem: "github-actions"
     directory: ".github/"
     schedule:
       interval: "weekly"
       day: "saturday"
-groups:
-  batch:
-    patterns:
-      - "*"
+    groups:
+      batch-gha-deps:
+        patterns:
+          - "*"
