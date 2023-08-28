@@ -1,6 +1,6 @@
 {
   "name": "grunt-nw-builder",
-  "version": "4.0.0-beta.2",
+  "version": "4.0.0",
   "description": "Build NW.js applications for Mac, Windows and Linux using Grunt.",
   "keywords": [
     "NW.js",
@@ -36,18 +36,17 @@
   },
   "scripts": {
     "fmt": "prettier --write .",
-    "lnt": "eslint --fix --config=eslint.config.cjs tasks",
-    "e2e": "grunt run"
+    "lnt": "eslint --fix --config=.github/eslint.config.js tasks",
+    "e2e": "grunt get && node --test test/test.mjs"
   },
   "peerDependencies": {
-    "grunt": "^1.6.1"
-  },
-  "dependencies": {
-    "nw-builder": "^4.3.7"
+    "grunt": "^1.6.1",
+    "nw-builder": "^4.3.10"
   },
   "devDependencies": {
-    "eslint": "^8.47.0",
-    "prettier": "^3.0.1"
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.2",
+    "selenium-webdriver": "^4.11.1"
   },
   "packageManager": "npm@9.8.1"
 }

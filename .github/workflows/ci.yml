@@ -4,16 +4,35 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        os: [macos-12, ubuntu-22.04, windows-2022]
+        node: [16, 18, 20]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3.3.0
-      - uses: actions/setup-node@v3.6.0
+      - name: Install packages
+        uses: ConorMacBride/install-package@v1.1.0
         with:
-          node-version: "20.5.0"
+          brew: unzip
+      - name: Checkout repository
+        uses: actions/checkout@v3.6.0
+      - name: Setup Node
+        uses: actions/setup-node@v3.8.1
+        with:
+          node-version: ${{ matrix.node }}
           cache: "npm"
-      - run: corepack enable
-      - run: npm ci
-      - run: npm link grunt-nw-builder
-      - run: npm run e2e
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: npm ci
+      - name: Link module
+        run: npm link grunt-nw-builder
+      - name: Run E2E tests
+        run: npm run e2e

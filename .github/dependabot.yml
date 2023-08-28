@@ -3,8 +3,14 @@ updates:
   - package-ecosystem: "npm"
     directory: "."
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "saturday"
   - package-ecosystem: "github-actions"
     directory: ".github/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "saturday"
+groups:
+  batch:
+    patterns:
+      - "*"

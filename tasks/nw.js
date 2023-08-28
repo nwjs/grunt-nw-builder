@@ -1,10 +1,12 @@
-module.exports = async function (grunt) {
+module.exports = function (grunt) {
   grunt.registerMultiTask(
     "nwjs",
     "Package Node.js app as NW.js app",
     async function () {
       const done = this.async();
       const options = this.options();
+      // Set options.srcDir via the Grunt task's src option:
+      options.srcDir = this.data;
 
       let nwbuild = undefined;
 
