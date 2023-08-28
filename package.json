@@ -37,7 +37,7 @@
   "scripts": {
     "fmt": "prettier --write .",
     "lnt": "eslint --fix --config=.github/eslint.config.js tasks",
-    "e2e": "grunt  && node --test test/test.js"
+    "e2e": "grunt get && node --test test/test.js"
   },
   "peerDependencies": {
     "grunt": "^1.6.1",
