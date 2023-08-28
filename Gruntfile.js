@@ -12,5 +12,5 @@ module.exports = function (grunt) {
   });
 
   grunt.loadTasks("tasks");
-  grunt.registerTask("run", ["nwjs"]);
+  grunt.registerTask("get", ["nwjs"]);
 };
