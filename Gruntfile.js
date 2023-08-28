@@ -5,10 +5,9 @@ module.exports = function (grunt) {
         mode: "run",
         version: "0.78.1",
         flavour: "normal",
-        srcDir: "fixture/app",
         glob: false,
       },
-      src: ["fixture/app/**/*"],
+      src: "fixture/app",
     },
   });
 

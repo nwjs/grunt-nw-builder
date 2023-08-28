@@ -36,18 +36,18 @@
   },
   "scripts": {
     "fmt": "prettier --write .",
-    "lnt": "eslint --fix --config=eslint.config.cjs tasks",
+    "lnt": "eslint --fix --config=.github/eslint.config.js tasks",
     "e2e": "grunt run"
   },
   "peerDependencies": {
     "grunt": "^1.6.1"
   },
   "dependencies": {
-    "nw-builder": "^4.3.7"
+    "nw-builder": "^4.3.10"
   },
   "devDependencies": {
-    "eslint": "^8.47.0",
-    "prettier": "^3.0.1"
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.2"
   },
   "packageManager": "npm@9.8.1"
 }
