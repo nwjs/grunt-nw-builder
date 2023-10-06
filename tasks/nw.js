@@ -6,7 +6,7 @@ module.exports = function (grunt) {
       const done = this.async();
       const options = this.options();
       // Set options.srcDir via the Grunt task's src option:
-      options.srcDir = this.data;
+      options.srcDir = this.data.src;
 
       let nwbuild = undefined;
 
