@@ -5,8 +5,9 @@ updates:
     schedule:
       interval: "weekly"
       day: "saturday"
+    versioning-strategy: increase
     groups:
-      batch-npm-deps:
+      npm:
         patterns:
           - "*"
   - package-ecosystem: "github-actions"
@@ -15,6 +16,6 @@ updates:
       interval: "weekly"
       day: "saturday"
     groups:
-      batch-gha-deps:
+      gha:
         patterns:
           - "*"
