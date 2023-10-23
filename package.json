@@ -41,7 +41,7 @@
   },
   "peerDependencies": {
     "grunt": "^1.6.1",
-    "nw-builder": "^4.3.10"
+    "nw-builder": "^4.4.2"
   },
   "devDependencies": {
     "eslint": "^8.48.0",
