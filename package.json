@@ -44,9 +44,9 @@
     "nw-builder": "^4.4.2"
   },
   "devDependencies": {
-    "eslint": "^8.48.0",
+    "eslint": "^8.53.0",
     "prettier": "^3.0.2",
-    "selenium-webdriver": "^4.11.1"
+    "selenium-webdriver": "^4.15.0"
   },
   "packageManager": "npm@9.9.0"
 }
