@@ -17,7 +17,7 @@ describe("test modes", async () => {
   let nwOptions = {
     srcDir: "test/app",
     mode: "get",
-    version: "0.78.1",
+    version: "0.82.0",
     flavor: "sdk",
     platform: PLATFORM_KV[PLATFORM],
     arch: ARCH_KV[ARCH],

@@ -48,5 +48,5 @@
     "prettier": "^3.0.2",
     "selenium-webdriver": "^4.15.0"
   },
-  "packageManager": "npm@9.9.0"
+  "packageManager": "npm@10.2.3"
 }
