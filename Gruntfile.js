@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     nwjs: {
       options: {
         mode: "get",
-        version: "0.79.1",
+        version: "0.85.0",
         flavor: "sdk",
         glob: false,
       },
