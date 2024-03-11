@@ -40,13 +40,15 @@
     "e2e": "grunt get && node --test test/test.mjs"
   },
   "peerDependencies": {
-    "grunt": "^1.6.1",
-    "nw-builder": "^4.4.2"
+    "grunt": "^1.6.1"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "selenium-webdriver": "^4.18.1"
   },
-  "packageManager": "npm@10.2.3"
+  "packageManager": "npm@10.2.3",
+  "dependencies": {
+    "nw-builder": "^4.6.4"
+  }
 }
