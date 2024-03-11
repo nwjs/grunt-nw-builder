@@ -18,8 +18,8 @@ describe("test modes", async () => {
     mode: "get",
     version: "0.85.0",
     flavor: "sdk",
-    platform: util.PLATFORM_KV[util.PLATFORM],
-    arch: util.ARCH_KV[util.ARCH],
+    platform: util.PLATFORM_KV[process.platform],
+    arch: util.ARCH_KV[process.arch],
     cacheDir: "cache",
     glob: false,
   };
