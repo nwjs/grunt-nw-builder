@@ -15,19 +15,35 @@ Refer to `nw-builder`'s [Installation Guide](https://nwutils.io/nw-builder/insta
 
 ## Usage
 
-Instead of using `options.srcDir`, we will use `nwjs.src` to parse NW.js project files:
+`nwjs.src` is passed into `options.srcDir` internally. Hence you don't need to specify `nwjs.srcDir`.
+
+When globbing is enabled:
+
+```patch
+grunt.initConfig({
+  nwjs: {
+    options: {
+        mode: "build",
+-       srcDir: "./package.json ./app/**/*",
+        version: "0.85.0",
+      },
++     src: [ "./package.json", "./app/**/*" ],
+  },
+});
+```
+
+When globbing is enabled:
 
 ```patch
 grunt.initConfig({
   nwjs: {
     options: {
         mode: "get",
--       srcDir: "test/app",
-        version: "0.79.1",
-        flavor: "normal",
+-       srcDir: "./app",
+        version: "0.85.0",
         glob: false,
       },
-+     src: "test/app",
++     src: "./app",
   },
 });
 ```

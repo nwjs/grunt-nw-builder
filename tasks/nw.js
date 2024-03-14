@@ -5,8 +5,15 @@ module.exports = function (grunt) {
     async function () {
       const done = this.async();
       const options = this.options();
-      // Set options.srcDir via the Grunt task's src option:
-      options.srcDir = this.data;
+      if (Array.isArray(this.data.src)) {
+        /* If globbing is enabled, then src should be an array. */
+        options.srcDir = this.data.src.join(" ");
+      } else if (typeof this.data.src === "string") {
+        /* If globbing is disabled, then src should be a string. */
+        options.srcDir = this.data.src;
+      } else {
+        throw new Error("Expected src to be a string or an array of strings. Got " + typeof this.data.src + " instead.");
+      }
 
       let nwbuild = undefined;
 
