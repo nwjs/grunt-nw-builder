@@ -22,12 +22,14 @@ When globbing is enabled:
 ```patch
 grunt.initConfig({
   nwjs: {
-    options: {
+    get: {
+      options: {
         mode: "build",
 -       srcDir: "./package.json ./app/**/*",
         version: "0.85.0",
       },
 +     src: [ "./package.json", "./app/**/*" ],
+    },
   },
 });
 ```
@@ -37,15 +39,17 @@ When globbing is enabled:
 ```patch
 grunt.initConfig({
   nwjs: {
-    options: {
+    get: {
+      options: {
         mode: "get",
 -       srcDir: "./app",
         version: "0.85.0",
         glob: false,
       },
 +     src: "./app",
+    },
   },
 });
 ```
 
-Refer to `nw-builder`'s [docs](https://nwutils.io/nw-builder/) to learn what options to input.
+Refer to `nw-builder`'s [docs](https://github.com/nwutils/nw-builder) to learn what options to input.
