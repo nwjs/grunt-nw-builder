@@ -39,7 +39,7 @@
     "test": "grunt get && node --test test/test.mjs"
   },
   "dependencies": {
-    "nw-builder": "^4.7.1"
+    "nw-builder": "^4.7.3"
   },
   "peerDependencies": {
     "grunt": "^1.6.1"
@@ -48,5 +48,5 @@
     "eslint": "^9.2.0",
     "selenium-webdriver": "^4.20.0"
   },
-  "packageManager": "npm@10.5.2"
+  "packageManager": "npm@10.7.0"
 }
