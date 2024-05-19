@@ -1,6 +1,6 @@
 {
   "name": "grunt-nw-builder",
-  "version": "4.7.3",
+  "version": "4.7.4",
   "description": "Build NW.js applications for Mac, Windows and Linux using Grunt.",
   "keywords": [
     "NW.js",
@@ -39,14 +39,14 @@
     "test": "grunt get && node --test test/test.mjs"
   },
   "dependencies": {
-    "nw-builder": "^4.7.3"
+    "nw-builder": "^4.7.4"
   },
   "peerDependencies": {
     "grunt": "^1.6.1"
   },
   "devDependencies": {
-    "eslint": "^9.2.0",
-    "selenium-webdriver": "^4.20.0"
+    "eslint": "^9.3.0",
+    "selenium-webdriver": "^4.21.0"
   },
-  "packageManager": "npm@10.7.0"
+  "packageManager": "npm@10.8.0"
 }
