@@ -45,7 +45,7 @@
     "grunt": "^1.6.1"
   },
   "devDependencies": {
-    "eslint": "^9.3.0",
+    "eslint": "^9.4.0",
     "selenium-webdriver": "^4.21.0"
   },
   "packageManager": "npm@10.8.0"
