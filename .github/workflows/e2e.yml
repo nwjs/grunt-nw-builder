@@ -1,4 +1,4 @@
-name: ci
+name: e2e
 on:
   pull_request:
     branches:
@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  tests:
     strategy:
       matrix:
         os:
@@ -34,7 +34,5 @@ jobs:
         run: npm ci
       - name: Link module
         run: npm link grunt-nw-builder
-      - name: Check for linting error
-        run: npm run lint
       - name: Run tests
         run: npm run test
