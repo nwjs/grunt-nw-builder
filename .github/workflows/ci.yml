@@ -1,4 +1,4 @@
-name: ci
+name: e2e
 on:
   pull_request:
     branches:
@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  tests:
     strategy:
       matrix:
         os:
