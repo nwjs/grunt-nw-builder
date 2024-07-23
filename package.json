@@ -45,7 +45,7 @@
     "grunt": "^1.6.1"
   },
   "devDependencies": {
-    "selenium-webdriver": "^4.22.0"
+    "selenium-webdriver": "^4.23.0"
   },
   "packageManager": "npm@10.8.0"
 }
