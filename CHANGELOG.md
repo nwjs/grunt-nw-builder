@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.8.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.8.0...v4.8.1) (2024-08-07)
+
+
+### Bug Fixes
+
+* **deps:** upgrade nw-builder to v4.8.1 ([754a2e9](https://github.com/nwjs/grunt-nw-builder/commit/754a2e9e8adb00ab85c704fa613cc2e860ca0045))
+
 ## [4.8.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.7.8...v4.8.0) (2024-07-27)
 
 
