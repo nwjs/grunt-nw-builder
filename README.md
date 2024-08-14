@@ -34,7 +34,7 @@ grunt.initConfig({
 });
 ```
 
-When globbing is enabled:
+When globbing is disabled:
 
 ```patch
 grunt.initConfig({
