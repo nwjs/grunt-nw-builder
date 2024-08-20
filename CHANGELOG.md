@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.9.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.8.1...v4.9.0) (2024-08-20)
+
+
+### Features
+
+* **deps:** bump nw-builder from 4.8.1 to 4.9.0 in the npm group ([#221](https://github.com/nwjs/grunt-nw-builder/issues/221)) ([43d3b2a](https://github.com/nwjs/grunt-nw-builder/commit/43d3b2ade1329ecdf73405476e5c14cf930a4fcb))
+
+
+### Chores
+
+* **deps:** bump axios from 1.7.3 to 1.7.4 in the npm_and_yarn group ([#219](https://github.com/nwjs/grunt-nw-builder/issues/219)) ([4bb8de6](https://github.com/nwjs/grunt-nw-builder/commit/4bb8de605da78e05190685a8baf065997a687894))
+
 ## [4.8.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.8.0...v4.8.1) (2024-08-14)
 
 
