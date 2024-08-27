@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.10.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.9.0...v4.10.0) (2024-08-27)
+
+
+### Features
+
+* **deps:** bump nw-builder from 4.9.0 to 4.10.0 in the npm group ([#222](https://github.com/nwjs/grunt-nw-builder/issues/222)) ([62324e2](https://github.com/nwjs/grunt-nw-builder/commit/62324e2e388b8a306cce4fa0a4f1434a13d9d44c))
+
+
+### Bug Fixes
+
+* **deps:** bump micromatch from 4.0.7 to 4.0.8 in the npm_and_yarn group ([#224](https://github.com/nwjs/grunt-nw-builder/issues/224)) ([6d58c65](https://github.com/nwjs/grunt-nw-builder/commit/6d58c656bc746cd0e7aef7fa96caf9ac1a823404))
+
 ## [4.9.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.8.1...v4.9.0) (2024-08-20)
 
 
