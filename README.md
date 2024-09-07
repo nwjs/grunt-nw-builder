@@ -26,7 +26,6 @@ grunt.initConfig({
       options: {
         mode: "build",
 -       srcDir: "./package.json ./app/**/*",
-        version: "0.85.0",
       },
 +     src: [ "./package.json", "./app/**/*" ],
     },
@@ -43,7 +42,6 @@ grunt.initConfig({
       options: {
         mode: "get",
 -       srcDir: "./app",
-        version: "0.85.0",
         glob: false,
       },
 +     src: "./app",
