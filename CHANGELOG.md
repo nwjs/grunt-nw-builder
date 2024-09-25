@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.11.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.10.0...v4.11.0) (2024-09-25)
+
+
+### Features
+
+* **deps:** bump the npm group with 2 updates ([#229](https://github.com/nwjs/grunt-nw-builder/issues/229)) ([9988bd1](https://github.com/nwjs/grunt-nw-builder/commit/9988bd172be0210052083cc1082fd8cd25b373b9))
+
+
+### Chores
+
+* **deps-dev:** bump selenium-webdriver from 4.24.0 to 4.24.1 in the npm group ([#227](https://github.com/nwjs/grunt-nw-builder/issues/227)) ([8fb57ee](https://github.com/nwjs/grunt-nw-builder/commit/8fb57ee263ecc0989eda1d09b2a626bae2fdf28c))
+* **deps:** bump actions/setup-node from 4.0.3 to 4.0.4 in /.github/workflows in the gha group ([#228](https://github.com/nwjs/grunt-nw-builder/issues/228)) ([a9153d2](https://github.com/nwjs/grunt-nw-builder/commit/a9153d2ad5e799cfa47d96e78041ea3f4547dd52))
+* **deps:** bump selenium-webdriver from 4.23.0 to 4.24.0 in the npm group ([#225](https://github.com/nwjs/grunt-nw-builder/issues/225)) ([112067a](https://github.com/nwjs/grunt-nw-builder/commit/112067a2921a2eee13f6ffc8ab8c21c1c46370b8))
+* **docs:** remove version from example ([02f49b4](https://github.com/nwjs/grunt-nw-builder/commit/02f49b4f46ac3b26ba50cd5e5b0e608010dd3238))
+
 ## [4.10.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.9.0...v4.10.0) (2024-08-27)
 
 
