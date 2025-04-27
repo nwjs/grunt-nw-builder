@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.13.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.12.0...v4.13.0) (2025-04-27)
+
+
+### Features
+
+* **deps:** bump @babel/runtime from 7.25.0 to 7.27.0 in the npm_and_yarn group ([#247](https://github.com/nwjs/grunt-nw-builder/issues/247)) ([d461032](https://github.com/nwjs/grunt-nw-builder/commit/d46103219b778c05026de08a792fb203e104da31))
+
 ## [4.12.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.11.0...v4.12.0) (2025-04-27)
 
 
