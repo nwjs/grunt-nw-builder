@@ -1,5 +1,25 @@
 # Changelog
 
+## [4.12.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.11.0...v4.12.0) (2025-04-27)
+
+
+### Features
+
+* **deps:** bump selenium-webdriver from 4.30.0 to 4.31.0 in the npm group ([#249](https://github.com/nwjs/grunt-nw-builder/issues/249)) ([d79a6ee](https://github.com/nwjs/grunt-nw-builder/commit/d79a6eeafe67590b7d167798b468cec6eef9b256))
+* **deps:** bump the npm group across 1 directory with 2 updates ([#243](https://github.com/nwjs/grunt-nw-builder/issues/243)) ([edd8b42](https://github.com/nwjs/grunt-nw-builder/commit/edd8b42fc9e82e5053d3c3b12b49bc41808dfff8))
+* **deps:** bump the npm group across 1 directory with 2 updates ([#246](https://github.com/nwjs/grunt-nw-builder/issues/246)) ([e032923](https://github.com/nwjs/grunt-nw-builder/commit/e0329231c7701492b14700ea6eb8968e50094f9b))
+
+
+### Bug Fixes
+
+* **deps:** bump nw-builder from 4.11.0 to 4.11.4 in the npm group across 1 directory ([#233](https://github.com/nwjs/grunt-nw-builder/issues/233)) ([6d37a93](https://github.com/nwjs/grunt-nw-builder/commit/6d37a9340d286ba685f103fc8f6980b1f70ab7e7))
+
+
+### Chores
+
+* **deps:** bump actions/checkout from 4.1.7 to 4.2.1 in /.github/workflows in the gha group across 1 directory ([#231](https://github.com/nwjs/grunt-nw-builder/issues/231)) ([3bb3fad](https://github.com/nwjs/grunt-nw-builder/commit/3bb3fad944cfe35173ee77c7475a656e6d66575a))
+* **deps:** bump cross-spawn from 7.0.3 to 7.0.6 in the npm_and_yarn group ([#237](https://github.com/nwjs/grunt-nw-builder/issues/237)) ([9623e5d](https://github.com/nwjs/grunt-nw-builder/commit/9623e5d22b3fd8f442a890c26abaac3803222ee0))
+
 ## [4.11.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.10.0...v4.11.0) (2024-09-25)
 
 
