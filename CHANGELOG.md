@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.13.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.13.0...v4.13.1) (2025-05-06)
+
+
+### Bug Fixes
+
+* **deps:** bump the npm group across 1 directory with 2 updates ([#254](https://github.com/nwjs/grunt-nw-builder/issues/254)) ([03aa2b9](https://github.com/nwjs/grunt-nw-builder/commit/03aa2b9578d286aef4298e9ccc089f1972855a3b))
+
+
+### Chores
+
+* **deps:** bump actions/setup-node from 4.3.0 to 4.4.0 in /.github/workflows in the gha group ([#251](https://github.com/nwjs/grunt-nw-builder/issues/251)) ([c6f7844](https://github.com/nwjs/grunt-nw-builder/commit/c6f78447bdaca26d6065c9ce22cff37c604f2caf))
+
 ## [4.13.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.12.0...v4.13.0) (2025-04-27)
 
 
