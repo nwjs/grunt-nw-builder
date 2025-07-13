@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.13.2](https://github.com/nwjs/grunt-nw-builder/compare/v4.13.1...v4.13.2) (2025-07-12)
+
+
+### Bug Fixes
+
+* **deps:** bump nw-builder from 4.13.12 to 4.13.13 in the npm group ([#255](https://github.com/nwjs/grunt-nw-builder/issues/255)) ([ee3268b](https://github.com/nwjs/grunt-nw-builder/commit/ee3268b83dae0ff81c1d7e3edb878c328cf1f5a1))
+* **deps:** bump the npm group across 1 directory with 2 updates ([#258](https://github.com/nwjs/grunt-nw-builder/issues/258)) ([e16d056](https://github.com/nwjs/grunt-nw-builder/commit/e16d0561df4dd39b943fa42ff03c148df2c444d9))
+
+
+### Chores
+
+* **ci:** update NW.js versions manifest link ([8466c4c](https://github.com/nwjs/grunt-nw-builder/commit/8466c4c2ec4e553cb9a461fe8c7a78d0cdf4d658))
+
 ## [4.13.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.13.0...v4.13.1) (2025-05-06)
 
 
