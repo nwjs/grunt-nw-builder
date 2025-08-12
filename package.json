@@ -39,7 +39,7 @@
     "test": "grunt get && node --test test/test.mjs"
   },
   "dependencies": {
-    "nw-builder": "^4.13.16"
+    "nw-builder": "^4.14.2"
   },
   "peerDependencies": {
     "grunt": "^1.6.1"
