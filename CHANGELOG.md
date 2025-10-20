@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.14.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.13.2...v4.14.0) (2025-10-20)
+
+
+### Features
+
+* **deps-dev:** bump tmp from 0.2.3 to 0.2.4 in the npm_and_yarn group ([#261](https://github.com/nwjs/grunt-nw-builder/issues/261)) ([bdf60ad](https://github.com/nwjs/grunt-nw-builder/commit/bdf60ade6b2295fb5009e47cb06e9fe017e122dc))
+
+
+### Bug Fixes
+
+* **deps:** security update for form-data ([#260](https://github.com/nwjs/grunt-nw-builder/issues/260)) ([d5613c1](https://github.com/nwjs/grunt-nw-builder/commit/d5613c113d9c985221bd9df9bf23e8e12091237c))
+
 ## [4.13.2](https://github.com/nwjs/grunt-nw-builder/compare/v4.13.1...v4.13.2) (2025-07-12)
 
 
