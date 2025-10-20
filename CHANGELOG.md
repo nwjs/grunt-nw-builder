@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.16.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.15.0...v4.16.0) (2025-10-20)
+
+
+### Features
+
+* **deps:** bump the npm_and_yarn group across 1 directory with 2 updates ([#270](https://github.com/nwjs/grunt-nw-builder/issues/270)) ([6409d62](https://github.com/nwjs/grunt-nw-builder/commit/6409d62bb0804f64ff7136490826bdd7302a1dab))
+
 ## [4.15.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.14.0...v4.15.0) (2025-10-20)
 
 
