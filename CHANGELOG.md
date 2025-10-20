@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.15.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.14.0...v4.15.0) (2025-10-20)
+
+
+### Features
+
+* **deps:** bump the gha group across 1 directory with 4 updates ([#267](https://github.com/nwjs/grunt-nw-builder/issues/267)) ([fc1e421](https://github.com/nwjs/grunt-nw-builder/commit/fc1e421b1d091834687939c186870a272a2e6c42))
+
 ## [4.14.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.13.2...v4.14.0) (2025-10-20)
 
 
