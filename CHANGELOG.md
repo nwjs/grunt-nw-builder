@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.16.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.16.0...v4.16.1) (2025-12-04)
+
+
+### Chores
+
+* **release-please:** move config.json file ([56370f5](https://github.com/nwjs/grunt-nw-builder/commit/56370f57a1e049eff97f5476243cd19ebdff5fb9))
+* **release-please:** move manifest.json ([ac283cb](https://github.com/nwjs/grunt-nw-builder/commit/ac283cba2f3f61dd8b926a0c32a4fec3ea187359))
+* **release-please:** move manifest.json ([a91308c](https://github.com/nwjs/grunt-nw-builder/commit/a91308c83f1428a35c4624be393279a416495455))
+
 ## [4.16.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.15.0...v4.16.0) (2025-12-03)
 
 
