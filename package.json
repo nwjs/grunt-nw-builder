@@ -1,6 +1,6 @@
 {
   "name": "grunt-nw-builder",
-  "version": "4.16.1",
+  "version": "4.16.2",
   "description": "Build NW.js applications for Mac, Windows and Linux using Grunt.",
   "keywords": [
     "NW.js",
