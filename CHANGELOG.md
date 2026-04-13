@@ -1,5 +1,24 @@
 # Changelog
 
+## [4.17.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.16.2...v4.17.0) (2026-04-13)
+
+
+### Features
+
+* **deps:** bump nw-builder ([#302](https://github.com/nwjs/grunt-nw-builder/issues/302)) ([d15dfe4](https://github.com/nwjs/grunt-nw-builder/commit/d15dfe4030bac8fb9216045395dde89b02bffd59))
+
+
+### Bug Fixes
+
+* **deps:** bump @xmldom/xmldom from 0.8.10 to 0.8.12 ([#303](https://github.com/nwjs/grunt-nw-builder/issues/303)) ([a794b38](https://github.com/nwjs/grunt-nw-builder/commit/a794b38884a01d522cdf4d99a7de9913394ed8e3))
+* **deps:** bump brace-expansion ([#304](https://github.com/nwjs/grunt-nw-builder/issues/304)) ([685d279](https://github.com/nwjs/grunt-nw-builder/commit/685d279c12714a8db3b4cae8849fd022ea231a24))
+* **deps:** bump lodash from 4.17.21 to 4.17.23 ([#288](https://github.com/nwjs/grunt-nw-builder/issues/288)) ([0b6573c](https://github.com/nwjs/grunt-nw-builder/commit/0b6573c4b906ba6aaf12a35dad30ae31ea53ac87))
+
+
+### Chores
+
+* **deps:** bump the gha group across 1 directory with 2 updates ([#289](https://github.com/nwjs/grunt-nw-builder/issues/289)) ([e955aee](https://github.com/nwjs/grunt-nw-builder/commit/e955aee268c502203ddfcc56d009b0153caabd0f))
+
 ## [4.16.2](https://github.com/nwjs/grunt-nw-builder/compare/v4.16.1...v4.16.2) (2025-12-28)
 
 
