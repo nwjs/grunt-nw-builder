@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.17.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.17.0...v4.17.1) (2026-05-02)
+
+
+### Bug Fixes
+
+* **deps:** bump nw-builder from 4.17.6 to 4.17.10 in the npm group across 1 directory ([#306](https://github.com/nwjs/grunt-nw-builder/issues/306)) ([40e3b0d](https://github.com/nwjs/grunt-nw-builder/commit/40e3b0dbbc83ab2065f9f18a47373be24d78468a))
+* **deps:** bump the gha group across 1 directory with 2 updates ([#307](https://github.com/nwjs/grunt-nw-builder/issues/307)) ([a9e4595](https://github.com/nwjs/grunt-nw-builder/commit/a9e4595e69921b1148e897928affaf6734fb0794))
+
 ## [4.17.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.16.2...v4.17.0) (2026-04-13)
 
 
