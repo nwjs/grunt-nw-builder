@@ -47,5 +47,16 @@
   "devDependencies": {
     "selenium-webdriver": "^4.48.0"
   },
-  "packageManager": "npm@10.8.2"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.7.0",
+      "onFail": "warn"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": "11.13.0",
+      "onFail": "warn"
+    }
+  }
 }
