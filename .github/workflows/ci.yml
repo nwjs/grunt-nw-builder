@@ -1,11 +1,16 @@
 name: ci
+
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
 
+permissions:
+  contents: read
+
 concurrency:
-  group: ${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -13,26 +18,76 @@ jobs:
     strategy:
       matrix:
         os:
-        - macos-15
-        - ubuntu-24.04
-        - windows-2025
+          - macos-26
+          - macos-26-intel
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - windows-2025
+          - windows-11-arm
+        include:
+          - os: macos-26
+            display: MacOS 26 ARM
+          - os: macos-26-intel
+            display: MacOS 26 Intel
+          - os: ubuntu-24.04
+            display: Ubuntu 24.04 Intel
+          - os: ubuntu-24.04-arm
+            display: Ubuntu 24.04 ARM
+          - os: windows-2025
+            display: Windows 11 Intel
+          - os: windows-11-arm
+            display: Windows 11 (ARM)
       fail-fast: false
     runs-on: ${{ matrix.os }}
+    name: ${{ matrix.display }}
+    if: github.repository_owner == 'nwjs'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
-      - name: Get Node version from Node manifest
-        run: echo "NODE_VER=$(curl -s https://nwjs.io/versions.json | jq -r ".versions[0].components.node")" >> $GITHUB_ENV
+
+      - name: Check git status is clean after checkout
+        shell: bash
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is dirty immediately after checkout. This usually means a line-ending or .gitattributes normalization mismatch on this runner."
+            git status
+            git diff
+            exit 1
+          fi
+
+      - name: Read Node.js and npm versions from devEngines
+        id: devengines
+        shell: bash
+        run: |
+          echo "NODE_VERSION=$(jq -r '.devEngines.runtime.version' package.json)" >> "$GITHUB_ENV"
+          echo "NPM_VERSION=$(jq -r '.devEngines.packageManager.version' package.json)" >> "$GITHUB_ENV"
+
       - name: Setup Node
         uses: actions/setup-node@v7.0.0
         with:
-          node-version: ${{ env.NODE_VER }}
-          cache: "npm"
-      - name: Enable corepack
-        run: corepack enable
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: Install dependencies
         run: npm ci
+
       - name: Link module
         run: npm link grunt-nw-builder
+
+      - name: Check for formatting errors
+        run: npm run format
+
+      - name: Check for linting errors
+        run: npm run lint
+
       - name: Run tests
         run: npm run test
+
+      - name: Check git status is clean
+        shell: bash
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is dirty after install/test. A generated file was likely committed that should be gitignored, or a script mutated tracked files. Run 'git status' locally after these steps to see what changed."
+            git status
+            git diff
+            exit 1
+          fi

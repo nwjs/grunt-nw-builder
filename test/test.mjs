@@ -16,7 +16,7 @@ describe("test modes", async () => {
   let nwOptions = {
     srcDir: "test/app",
     mode: "get",
-    version: "0.85.0",
+    version: "0.115.0",
     flavor: "sdk",
     platform: util.PLATFORM_KV[process.platform],
     arch: util.ARCH_KV[process.arch],
@@ -25,7 +25,6 @@ describe("test modes", async () => {
   };
 
   it("should run", async () => {
-
     const options = new Options();
     const args = [`--nwapp=${resolve("test", "app")}`, "--headless=new"];
     options.addArguments(args);

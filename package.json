@@ -35,17 +35,39 @@
     "url": "https://github.com/nwjs/grunt-nw-builder.git"
   },
   "scripts": {
-    "lint": "eslint --fix tasks",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "eslint ./**/*.js",
+    "lint:fix": "eslint --fix ./**/*.js",
     "test": "grunt get && node --test test/test.mjs"
   },
   "dependencies": {
-    "nw-builder": "^4.18.0"
+    "nw-builder": "^4.19.0"
   },
   "peerDependencies": {
     "grunt": "^1.6.1"
   },
   "devDependencies": {
-    "selenium-webdriver": "^4.46.0"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.6",
+    "selenium-webdriver": "^4.48.0"
   },
-  "packageManager": "npm@10.8.2"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.7.0",
+      "onFail": "warn"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": "11.13.0",
+      "onFail": "warn"
+    }
+  },
+  "prettier": {
+    "endOfLine": "lf"
+  }
 }
