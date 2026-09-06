@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.19.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.19.0...v4.19.1) (2026-09-06)
+
+
+### Bug Fixes
+
+* **deps:** resolve vulnerable dependencies ([10b6ac7](https://github.com/nwjs/grunt-nw-builder/commit/10b6ac723dac04996fa3d0714920c6fc1f60e43f))
+
 ## [4.19.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.18.0...v4.19.0) (2026-09-06)
 
 
