@@ -35,6 +35,8 @@
     "url": "https://github.com/nwjs/grunt-nw-builder.git"
   },
   "scripts": {
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "lint": "eslint --fix tasks",
     "test": "grunt get && node --test test/test.mjs"
   },
@@ -45,6 +47,7 @@
     "grunt": "^1.6.1"
   },
   "devDependencies": {
+    "prettier": "^3.9.6",
     "selenium-webdriver": "^4.48.0"
   },
   "devEngines": {
@@ -58,5 +61,8 @@
       "version": "11.13.0",
       "onFail": "warn"
     }
+  },
+  "prettier": {
+    "endOfLine": "lf"
   }
 }

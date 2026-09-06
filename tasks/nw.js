@@ -12,7 +12,11 @@ module.exports = function (grunt) {
         /* If globbing is disabled, then src should be a string. */
         options.srcDir = this.data.src;
       } else {
-        throw new Error("Expected src to be a string or an array of strings. Got " + typeof this.data.src + " instead.");
+        throw new Error(
+          "Expected src to be a string or an array of strings. Got " +
+            typeof this.data.src +
+            " instead.",
+        );
       }
 
       let nwbuild = undefined;

@@ -25,7 +25,6 @@ describe("test modes", async () => {
   };
 
   it("should run", async () => {
-
     const options = new Options();
     const args = [`--nwapp=${resolve("test", "app")}`, "--headless=new"];
     options.addArguments(args);

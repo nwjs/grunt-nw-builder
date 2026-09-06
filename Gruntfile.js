@@ -4,11 +4,11 @@ module.exports = function (grunt) {
       get: {
         options: {
           mode: "get",
-          version: "0.85.0",
-          flavor: "sdk"
+          version: "0.115.0",
+          flavor: "sdk",
         },
         src: "test/app",
-      }
+      },
     },
   });
 
