@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.18.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.17.1...v4.18.0) (2026-09-06)
+
+
+### Features
+
+* **deps:** bump brace-expansion ([#320](https://github.com/nwjs/grunt-nw-builder/issues/320)) ([2ff043e](https://github.com/nwjs/grunt-nw-builder/commit/2ff043ee16a0682bc52ba1b929f210c9e3ac5802))
+
+
+### Bug Fixes
+
+* **deps:** bump the gha group across 1 directory with 2 updates ([#316](https://github.com/nwjs/grunt-nw-builder/issues/316)) ([07d1584](https://github.com/nwjs/grunt-nw-builder/commit/07d1584855ae17c238e0397f3c841db7d84af051))
+* **deps:** bump the npm group across 1 directory with 2 updates ([#312](https://github.com/nwjs/grunt-nw-builder/issues/312)) ([5bf8570](https://github.com/nwjs/grunt-nw-builder/commit/5bf8570624a28142c56f9d9372a1ff9eaa8f525a))
+
 ## [4.17.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.17.0...v4.17.1) (2026-05-02)
 
 
