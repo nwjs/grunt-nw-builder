@@ -42,18 +42,18 @@
     "test": "grunt get && node --test test/test.mjs"
   },
   "dependencies": {
-    "nw-builder": "^4.19.0"
+    "nw-builder": "^4.20.0"
   },
   "peerDependencies": {
     "grunt": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.10.0",
+    "eslint": "^10.11.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "globals": "^17.12.0",
-    "prettier": "^3.9.6",
-    "selenium-webdriver": "^4.48.0"
+    "prettier": "^3.9.9",
+    "selenium-webdriver": "^4.49.0"
   },
   "devEngines": {
     "runtime": {
