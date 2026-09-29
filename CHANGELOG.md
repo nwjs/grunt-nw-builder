@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.20.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.19.1...v4.20.0) (2026-09-29)
+
+
+### Features
+
+* **deps:** bump the npm group across 1 directory with 4 updates ([#328](https://github.com/nwjs/grunt-nw-builder/issues/328)) ([a3eca09](https://github.com/nwjs/grunt-nw-builder/commit/a3eca091c7c3b68e53769fb5f661893be9589acb))
+
+
+### Chores
+
+* **ci:** prettier ignore CHANGELOG ([36e04da](https://github.com/nwjs/grunt-nw-builder/commit/36e04dabfce3122e46fd0102f8f45747e8a8d774))
+
 ## [4.19.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.19.0...v4.19.1) (2026-09-06)
 
 
