@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.21.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.20.0...v4.21.0) (2026-10-14)
+
+
+### Features
+
+* **deps:** bump actions/setup-node from 7.0.0 to 7.1.0 in /.github/workflows in the gha group ([#332](https://github.com/nwjs/grunt-nw-builder/issues/332)) ([7c7169a](https://github.com/nwjs/grunt-nw-builder/commit/7c7169a038ecf51ffe1b119603ab233cbd653ad7))
+* **deps:** bump the npm group across 1 directory with 5 updates ([#331](https://github.com/nwjs/grunt-nw-builder/issues/331)) ([011cb62](https://github.com/nwjs/grunt-nw-builder/commit/011cb6229859efd3c20dee962b1c6cf8804596fe))
+
+
+### Bug Fixes
+
+* **deps-dev:** bump brace-expansion from 1.1.18 to 1.1.21 ([#334](https://github.com/nwjs/grunt-nw-builder/issues/334)) ([f5edd19](https://github.com/nwjs/grunt-nw-builder/commit/f5edd194e11387243ff9731eb022bc3b0e86ede0))
+
 ## [4.20.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.19.1...v4.20.0) (2026-09-29)
 
 
