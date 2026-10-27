@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.22.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.21.0...v4.22.0) (2026-10-27)
+
+
+### Features
+
+* **deps:** bump nw-builder from 4.21.4 to 4.24.0 in the npm group ([#337](https://github.com/nwjs/grunt-nw-builder/issues/337)) ([4275675](https://github.com/nwjs/grunt-nw-builder/commit/4275675ca3583c25f566d304378afb63232129b6))
+
+
+### Bug Fixes
+
+* **deps-dev:** bump eslint from 10.12.0 to 10.13.0 in the npm group ([#335](https://github.com/nwjs/grunt-nw-builder/issues/335)) ([12adbe8](https://github.com/nwjs/grunt-nw-builder/commit/12adbe80a92ccaf56e91793896bb7bb3b9312356))
+
 ## [4.21.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.20.0...v4.21.0) (2026-10-14)
 
 
