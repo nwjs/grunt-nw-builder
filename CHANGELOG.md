@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.22.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.22.0...v4.22.1) (2026-11-03)
+
+
+### Chores
+
+* **deps:** bump the npm group with 2 updates ([#338](https://github.com/nwjs/grunt-nw-builder/issues/338)) ([fb97d3d](https://github.com/nwjs/grunt-nw-builder/commit/fb97d3d17377154c45c0c3264fa3bf74a76911e1))
+
 ## [4.22.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.21.0...v4.22.0) (2026-10-27)
 
 
