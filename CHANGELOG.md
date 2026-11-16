@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.23.1](https://github.com/nwjs/grunt-nw-builder/compare/v4.23.0...v4.23.1) (2026-11-16)
+
+
+### Chores
+
+* **deps:** bump minimatch and eslint ([#342](https://github.com/nwjs/grunt-nw-builder/issues/342)) ([e84ab0f](https://github.com/nwjs/grunt-nw-builder/commit/e84ab0f09c8fe3c35df81214a805803a913f33d9))
+
 ## [4.23.0](https://github.com/nwjs/grunt-nw-builder/compare/v4.22.0...v4.23.0) (2026-11-15)
 
 
